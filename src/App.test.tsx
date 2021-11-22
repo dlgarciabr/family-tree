@@ -29,7 +29,7 @@ test("Change language to Spanish", async () => {
 
   //act
   const spanishLanguageButton = screen.getByRole("button", {
-    name: 'Es',
+    name: 'Essda',
   });
 
   userEvent.click(spanishLanguageButton);
