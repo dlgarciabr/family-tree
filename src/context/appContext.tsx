@@ -1,20 +1,7 @@
 import React, { useState } from 'react';
-import { MessageFormatElement } from 'intl-messageformat-parser';
 
 import { getUserLanguage, loadLocaleMessages } from '../utils/i18n';
-import { Props } from '../types/global';
-
-interface AppSettings {
-  loadInitialData: boolean,
-  name: string;
-  locale: string;
-  messages: Record<string, MessageFormatElement[]>
-}
-
-interface AppContextInterface {
-  appSettings: AppSettings,
-  setAppSettings: React.Dispatch<React.SetStateAction<AppSettings>>
-}
+import { Props, AppContextInterface } from '../global';
 
 const userLanguage = getUserLanguage();
 

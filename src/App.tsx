@@ -4,7 +4,7 @@ import { FormattedMessage, IntlProvider } from 'react-intl';
 
 import { AppContext } from './context/appContext';
 import { loadLocaleMessages } from './utils/i18n';
-import { Props } from './types/global';
+import { Props } from './global';
 import logo from './logo.svg';
 import './App.css';
 import Dummy from './dummy/dummyComp';
