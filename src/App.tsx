@@ -9,8 +9,6 @@ import logo from './logo.svg';
 import './App.css';
 import Dummy from './dummy/dummyComp';
 
-const MemoDummy = React.memo(Dummy);
-
 const App: React.FC<Props> = () => {
   const appContext = React.useContext(AppContext);
 
@@ -46,7 +44,7 @@ const App: React.FC<Props> = () => {
           <button type="button" onClick={() => changeLocale('es')}>Es</button>
           <button type="button" onClick={() => changeLocale('pt-br')}>Pt-Br</button>
           <button type="button" onClick={() => changeLocale('pt')}>Pt</button>
-          <MemoDummy></MemoDummy>
+          <Dummy></Dummy>
         </header>
       </div>
     </IntlProvider>

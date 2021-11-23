@@ -7,4 +7,4 @@ const Dummy: React.FC<Props> = () => {
     return <p>dummy comp</p>
 }
 
-export default Dummy;
+export default React.memo(Dummy);
