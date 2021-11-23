@@ -11,12 +11,13 @@ import './App.css';
 const App: React.FC<Props> = () => {
   const appContext = React.useContext(AppContext);
 
-  const { appSettings: { messages, locale, name }, appSettings, updateAppContext } = appContext;
+  const { appSettings: { messages, locale, name }, appSettings, setAppSettings } = appContext;
 
   const changeLocale = async (newLocale: string) => {
     const newMessages = await loadLocaleMessages(newLocale);
-    updateAppContext({
+    setAppSettings({
       ...appSettings,
+      locale: newLocale,
       messages: newMessages
     });
   };
@@ -29,7 +30,14 @@ const App: React.FC<Props> = () => {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>{name}</p>
+          <p>
+            App:
+            {name}
+          </p>
+          <p>
+            Selected locale:
+            {locale}
+          </p>
           <p><FormattedMessage id="app-title" /></p>
           <button type="button" onClick={() => changeLocale('en')}>En</button>
           <button type="button" onClick={() => changeLocale('es')}>Es</button>

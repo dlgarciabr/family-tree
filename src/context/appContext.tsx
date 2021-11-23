@@ -11,13 +11,9 @@ interface AppSettings {
   messages: Record<string, MessageFormatElement[]>
 }
 
-interface UpdateAppContext {
-  (newSettings: AppSettings): void;
-}
-
 interface AppContextInterface {
   appSettings: AppSettings,
-  updateAppContext: UpdateAppContext
+  setAppSettings: React.Dispatch<React.SetStateAction<AppSettings>>
 }
 
 const userLanguage = getUserLanguage();
@@ -29,7 +25,7 @@ const appContext: AppContextInterface = {
     locale: userLanguage,
     messages: loadLocaleMessages(userLanguage)
   },
-  updateAppContext: ({ }) => {
+  setAppSettings: ({ }) => {
   }
 };
 
@@ -38,12 +34,8 @@ export const AppContext = React.createContext<AppContextInterface>(appContext);
 const AppProvider: React.FC<Props> = ({ children }) => {
   const [appSettings, setAppSettings] = useState({ ...appContext.appSettings });
 
-  const updateAppContext = (newSettings: AppSettings) => {
-    setAppSettings({ ...appSettings, ...newSettings });
-  };
-
   return (
-    <AppContext.Provider value={{ appSettings, updateAppContext }}>
+    <AppContext.Provider value={{ appSettings, setAppSettings }}>
       {children}
     </AppContext.Provider>
   );
