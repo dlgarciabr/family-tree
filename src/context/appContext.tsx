@@ -33,7 +33,7 @@ const appContext: AppContextInterface = {
   }
 };
 
-export const AppContext = React.createContext<AppContextInterface | null>(appContext);
+export const AppContext = React.createContext<AppContextInterface>(appContext);
 
 const AppProvider: React.FC<Props> = ({ children }) => {
   const [appSettings, setAppSettings] = useState({ ...appContext.appSettings });

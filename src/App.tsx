@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, IntlProvider } from 'react-intl';
+// import ReactDOM from 'react-dom';
 
 import { AppContext } from './context/appContext';
 import { loadLocaleMessages } from './utils/i18n';
@@ -9,9 +10,6 @@ import './App.css';
 
 const App: React.FC<Props> = () => {
   const appContext = React.useContext(AppContext);
-  if (!appContext) {
-    return null;
-  }
 
   const { appSettings: { messages, locale, name }, appSettings, updateAppContext } = appContext;
 
