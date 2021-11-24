@@ -1,6 +1,6 @@
 import { render as originalRender } from "@testing-library/react";
 import AppProvider from '../context/App';
-import App from "../components/App";
+import App from "../views/App";
 import { Props } from "../global"
 
 export const APP_COMPONENT_KEY = "App";

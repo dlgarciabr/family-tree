@@ -25,7 +25,7 @@
     "test-verbose": "react-scripts test --watchAll --verbose true",
     "test-unmocked": "TEST_TYPE=unmocked react-scripts test --watchAll --silent --env=jest-environment-jsdom-sixteen --verbose true",
     "test-unmocked-verbose": "TEST_TYPE=unmocked react-scripts test --watchAll --env=jest-environment-jsdom-sixteen --verbose true",
-    "test-coverage": "react-scripts test  --watchAll --collectCoverage --silent --env=jest-environment-jsdom-sixteen",
+    "test-coverage": "react-scripts test  --watchAll --collectCoverage --silent",
     "eject": "react-scripts eject",
     "compile-i18n": "npm run compile-i18n-en && npm run compile-i18n-es && npm run compile-i18n-pt && npm run compile-i18n-pt-br",
     "compile-i18n-en": "formatjs compile lang/en.json --ast --out-file src/compiled-lang/en.json",
@@ -62,6 +62,12 @@
   "jest": {
     "testMatch": [
       "<rootDir>/src/**/**/test.{ts,tsx}"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.{ts,tsx}",
+      "<rootDir>/src/**/**/*.{ts,tsx}",
+      "!src/index.tsx",
+      "!src/*.d.ts"
     ]
   }
 }
