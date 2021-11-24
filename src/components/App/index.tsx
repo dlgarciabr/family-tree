@@ -2,12 +2,12 @@ import React from 'react';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 // import ReactDOM from 'react-dom';
 
-import { AppContext } from './context/appContext';
-import { loadLocaleMessages } from './utils/i18n';
-import { Props } from './global';
-import logo from './logo.svg';
-import './App.css';
-import Dummy from './dummy/dummyComp';
+import { AppContext } from '../../context/App';
+import { loadLocaleMessages } from '../../utils/i18n';
+import { Props } from '../../global';
+import logo from '../../logo.svg';
+import './style.css';
+import Dummy from '../Dummy';
 
 const App: React.FC<Props> = () => {
   const appContext = React.useContext(AppContext);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { getUserLanguage, loadLocaleMessages } from '../utils/i18n';
-import { Props, AppContextInterface } from '../global';
+import { getUserLanguage, loadLocaleMessages } from '../../utils/i18n';
+import { Props, AppContextInterface } from '../../global';
 
 const userLanguage = getUserLanguage();
 

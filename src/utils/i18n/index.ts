@@ -1,9 +1,9 @@
 import { MessageFormatElement } from 'intl-messageformat-parser';
 
-import English from '../compiled-lang/en.json';
-import Spanish from '../compiled-lang/es.json';
-import BrazillianPortuguese from '../compiled-lang/pt-br.json';
-import Portuguese from '../compiled-lang/pt.json';
+import English from '../../compiled-lang/en.json';
+import Spanish from '../../compiled-lang/es.json';
+import BrazillianPortuguese from '../../compiled-lang/pt-br.json';
+import Portuguese from '../../compiled-lang/pt.json';
 
 export const getUserLanguage = (): string => {
   const userLang: string = window.navigator.language;

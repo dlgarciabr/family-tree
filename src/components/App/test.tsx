@@ -1,10 +1,10 @@
 import userEvent from "@testing-library/user-event";
-import { render, screen } from './utils/test-utils';
-import App from './App';
+import { render, screen } from '../../utils/test-utils';
+import App from '.';
 
 test('render default app name', async () => {
   //arrange
-  const enMessages = await import("./compiled-lang/en.json");
+  const enMessages = await import("../../compiled-lang/en.json");
   const initialHeaderTitle = enMessages["app-title"][0].value;
 
   //act
@@ -17,8 +17,8 @@ test('render default app name', async () => {
 
 test("Change language to Spanish", async () => {
   //arrange
-  const enMessages = await import("./compiled-lang/en.json");
-  const esMessages = await import("./compiled-lang/es.json");
+  const enMessages = await import("../../compiled-lang/en.json");
+  const esMessages = await import("../../compiled-lang/es.json");
 
   const initialHeaderTitle = enMessages["app-title"][0].value;
   const expectedHeaderTitle = esMessages["app-title"][0].value;
@@ -40,8 +40,8 @@ test("Change language to Spanish", async () => {
 
 test("Change language to Portuguese", async () => {
   //arrange
-  const enMessages = await import("./compiled-lang/en.json");
-  const ptMessages = await import("./compiled-lang/pt.json");
+  const enMessages = await import("../../compiled-lang/en.json");
+  const ptMessages = await import("../../compiled-lang/pt.json");
 
   const initialHeaderTitle = enMessages["app-title"][0].value;
   const expectedHeaderTitle = ptMessages["app-title"][0].value;
