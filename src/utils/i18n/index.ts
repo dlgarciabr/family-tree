@@ -10,7 +10,7 @@ export const locales = {
   ES: 'es',
   PT: 'pt',
   PT_BR: 'pt-br',
-}
+};
 
 export const getUserLanguage = (): string => {
   const userLang: string = window.navigator.language;

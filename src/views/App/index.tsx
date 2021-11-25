@@ -12,7 +12,7 @@ import Dummy from '../Dummy';
 const App: React.FC<Props> = () => {
   const appContext = React.useContext(AppContext);
 
-  const { appSettings: { messages, locale }, dispatch } = appContext;
+  const { appSettings: { messages, locale, name }, dispatch } = appContext;
 
   const changeLanguage = async (newLocale: string) => {
     const newMessages = await loadLocaleMessages(newLocale);
@@ -21,7 +21,7 @@ const App: React.FC<Props> = () => {
       messages: newMessages,
       locale: newLocale
     });
-  }
+  };
 
   return (
     <IntlProvider
@@ -33,9 +33,7 @@ const App: React.FC<Props> = () => {
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             App:
-            <AppContext.Consumer>
-              {value => value.appSettings.name}
-            </AppContext.Consumer>
+            {name}
           </p>
           <p>
             Selected locale:
@@ -46,7 +44,7 @@ const App: React.FC<Props> = () => {
           <button type="button" onClick={() => changeLanguage(locales.ES)}>Es</button>
           <button type="button" onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
           <button type="button" onClick={() => changeLanguage(locales.PT)}>Pt</button>
-          <Dummy></Dummy>
+          <Dummy />
         </header>
       </div>
     </IntlProvider>
