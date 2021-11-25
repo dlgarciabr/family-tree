@@ -13,5 +13,5 @@ export interface AppSettings {
 
 export interface AppContextInterface {
     appSettings: AppSettings,
-    setAppSettings: React.Dispatch<React.SetStateAction<AppSettings>>
+    dispatch: React.Dispatch<any>
 }

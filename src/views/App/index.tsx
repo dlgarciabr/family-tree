@@ -2,8 +2,8 @@ import React from 'react';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 // import ReactDOM from 'react-dom';
 
-import { AppContext } from '../../context/App';
-import { loadLocaleMessages } from '../../utils/i18n';
+import { AppContext, actions } from '../../context/App';
+import { loadLocaleMessages, locales } from '../../utils/i18n';
 import { Props } from '../../global';
 import logo from '../../logo.svg';
 import './style.css';
@@ -12,16 +12,16 @@ import Dummy from '../Dummy';
 const App: React.FC<Props> = () => {
   const appContext = React.useContext(AppContext);
 
-  const { appSettings: { messages, locale, name }, appSettings, setAppSettings } = appContext;
+  const { appSettings: { messages, locale }, dispatch } = appContext;
 
-  const changeLocale = async (newLocale: string) => {
+  const changeLanguage = async (newLocale: string) => {
     const newMessages = await loadLocaleMessages(newLocale);
-    setAppSettings({
-      ...appSettings,
-      locale: newLocale,
-      messages: newMessages
+    dispatch({
+      type: actions.LOCALE_CHANGED,
+      messages: newMessages,
+      locale: newLocale
     });
-  };
+  }
 
   return (
     <IntlProvider
@@ -33,17 +33,19 @@ const App: React.FC<Props> = () => {
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             App:
-            {name}
+            <AppContext.Consumer>
+              {value => value.appSettings.name}
+            </AppContext.Consumer>
           </p>
           <p>
             Selected locale:
             {locale}
           </p>
           <p><FormattedMessage id="app-title" /></p>
-          <button type="button" onClick={() => changeLocale('en')}>En</button>
-          <button type="button" onClick={() => changeLocale('es')}>Es</button>
-          <button type="button" onClick={() => changeLocale('pt-br')}>Pt-Br</button>
-          <button type="button" onClick={() => changeLocale('pt')}>Pt</button>
+          <button type="button" onClick={() => changeLanguage(locales.EN)}>En</button>
+          <button type="button" onClick={() => changeLanguage(locales.ES)}>Es</button>
+          <button type="button" onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
+          <button type="button" onClick={() => changeLanguage(locales.PT)}>Pt</button>
           <Dummy></Dummy>
         </header>
       </div>

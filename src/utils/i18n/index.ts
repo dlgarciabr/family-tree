@@ -5,6 +5,13 @@ import Spanish from '../../compiled-lang/es.json';
 import BrazillianPortuguese from '../../compiled-lang/pt-br.json';
 import Portuguese from '../../compiled-lang/pt.json';
 
+export const locales = {
+  EN: 'en',
+  ES: 'es',
+  PT: 'pt',
+  PT_BR: 'pt-br',
+}
+
 export const getUserLanguage = (): string => {
   const userLang: string = window.navigator.language;
   return userLang.split('-')[0];
@@ -12,11 +19,11 @@ export const getUserLanguage = (): string => {
 
 export const loadLocaleMessages = (locale: string): Record<string, MessageFormatElement[]> => {
   switch (locale) {
-    case 'pt-br':
+    case locales.PT_BR:
       return BrazillianPortuguese;
-    case 'es':
+    case locales.ES:
       return Spanish;
-    case 'pt':
+    case locales.PT:
       return Portuguese;
     default:
       return English;
