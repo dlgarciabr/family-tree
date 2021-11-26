@@ -5,7 +5,7 @@ import { SnackbarProvider } from 'notistack';
 import AppProvider from '../context/App';
 import App from '../views/App';
 import { Props } from '../global';
-import { store } from '../views/App/store';
+import { store } from './reduxStore';
 
 export const APP_COMPONENT_KEY = "App";
 

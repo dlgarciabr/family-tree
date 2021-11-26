@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import notificationReducer from './notificationSlice';
+import notificationReducer from '../views/App/notificationSlice';
 
 export const store = configureStore({
   reducer: {

@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OptionsObject, SnackbarMessage } from 'notistack';
 
-export const types = {
-  ENQUEUE_SNACKBAR: 'views/app/ENQUEUE_SNACKBAR',
-  // CLOSE_SNACKBAR: "views/app/CLOSE_SNACKBAR",
-  // REMOVE_SNACKBAR: "views/app/REMOVE_SNACKBAR",
-};
-
 export interface StackedNotification {
   key: number,
   message: SnackbarMessage,
@@ -14,11 +8,12 @@ export interface StackedNotification {
   options?: OptionsObject
 }
 
-export interface MessageState {
+export interface NotificationState {
   notifications: StackedNotification[]
 }
 
-const initialState: MessageState = {
+// initial state
+const initialState: NotificationState = {
   notifications: [],
 };
 
@@ -26,7 +21,7 @@ export const notificationSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    enqueueNotification: (state: MessageState, action: PayloadAction<StackedNotification>) => {
+    enqueueNotification: (state: NotificationState, action: PayloadAction<StackedNotification>) => {
       state.notifications = [action.payload];
     }
   },
