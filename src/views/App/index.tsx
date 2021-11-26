@@ -1,26 +1,38 @@
 import React from 'react';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 // import ReactDOM from 'react-dom';
+// import { useSelector, useDispatch } from 'react-redux';
 
 import { AppContext, actions } from '../../context/App';
 import { loadLocaleMessages, locales } from '../../utils/i18n';
+import { useShowSuccessMessage, useShowErrorMessage, useShowInfoMessage } from "../../hooks/messageHandler";
 import { Props } from '../../global';
 import logo from '../../logo.svg';
 import './style.css';
 import Dummy from '../Dummy';
+import useNotifier from 'utils/useNotifier';
 
 const App: React.FC<Props> = () => {
+  useNotifier();
   const appContext = React.useContext(AppContext);
+  // const reduxDispatch = useDispatch();
 
-  const { appSettings: { messages, locale, name }, dispatch } = appContext;
+  const showSuccessMessage = useShowSuccessMessage();
+  const showErrorMessage = useShowErrorMessage();
+  const showInfoMessage = useShowInfoMessage();
+
+  const { appSettings: { messages, locale, name }, dispatch: contextDispatch } = appContext;
 
   const changeLanguage = async (newLocale: string) => {
     const newMessages = await loadLocaleMessages(newLocale);
-    dispatch({
+    contextDispatch({
       type: actions.LOCALE_CHANGED,
       messages: newMessages,
       locale: newLocale
     });
+    showSuccessMessage("asdasdasdasdasd");
+    showErrorMessage("asdasd");
+    // showInfoMessage("info");
   };
 
   return (
@@ -48,6 +60,7 @@ const App: React.FC<Props> = () => {
         </header>
       </div>
     </IntlProvider>
+
   );
 };
 

@@ -1,15 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { SnackbarProvider, useSnackbar } from 'notistack';
+import { Provider } from 'react-redux'
+
 import AppProvider from './context/App';
 import './index.css';
 import App from './views/App';
+import { store } from './views/App/store';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <Provider store={store}>
+      <SnackbarProvider maxSnack={3}>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </SnackbarProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
