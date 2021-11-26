@@ -1,37 +1,45 @@
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
-import { enqueueSnackbar } from '../views/App/notificationSlice';
+import { enqueueNotification } from '../views/App/notificationSlice';
 
+// TODO recover messages from i18n
 export const messages = {
-  OPERATION_SUCCESSFULL: "Operation sucessfull",
-  OPERATION_ERROR: "An error has occurred!"
+  OPERATION_SUCCESSFULL: 'Operation sucessfull',
+  OPERATION_ERROR: 'An error has occurred!'
 };
-
-//TODO recover messages from i18n
 
 export const useShowInfoMessage = () => {
   const dispatch = useDispatch();
-  return (message = "info message is empty") => {
-    dispatch(enqueueSnackbar({
-      key: new Date().getTime(), message, options: { variant: 'info' }
-    }))
+  return (message = 'info message is empty') => {
+    dispatch(enqueueNotification({
+      key: new Date().getTime(),
+      message,
+      dismissed: false,
+      options: { variant: 'info' }
+    }));
   };
 };
 
 export const useShowSuccessMessage = () => {
   const dispatch = useDispatch();
   return (message = messages.OPERATION_SUCCESSFULL) => {
-    dispatch(enqueueSnackbar({
-      key: new Date().getTime(), message, options: { variant: 'success' }
-    }))
+    dispatch(enqueueNotification({
+      key: new Date().getTime(),
+      message,
+      dismissed: false,
+      options: { variant: 'success' }
+    }));
   };
 };
 
 export const useShowErrorMessage = () => {
   const dispatch = useDispatch();
   return (message = messages.OPERATION_ERROR) => {
-    dispatch(enqueueSnackbar({
-      key: new Date().getTime(), message, options: { variant: 'error' }
-    }))
+    dispatch(enqueueNotification({
+      key: new Date().getTime(),
+      message,
+      dismissed: false,
+      options: { variant: 'error' }
+    }));
   };
 };

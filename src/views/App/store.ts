@@ -1,12 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
 
-import messageReducer from './notificationSlice';
+import notificationReducer from './notificationSlice';
 
 export const store = configureStore({
   reducer: {
-    message: messageReducer
-  },
-})
+    notification: notificationReducer
+  }
+});
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

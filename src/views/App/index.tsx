@@ -5,12 +5,12 @@ import { FormattedMessage, IntlProvider } from 'react-intl';
 
 import { AppContext, actions } from '../../context/App';
 import { loadLocaleMessages, locales } from '../../utils/i18n';
-import { useShowSuccessMessage, useShowErrorMessage, useShowInfoMessage } from "../../hooks/messageHandler";
+import { useShowSuccessMessage, useShowErrorMessage } from '../../hooks/messageHandler';
 import { Props } from '../../global';
 import logo from '../../logo.svg';
 import './style.css';
 import Dummy from '../Dummy';
-import useNotifier from 'utils/useNotifier';
+import useNotifier from '../../utils/useNotifier';
 
 const App: React.FC<Props> = () => {
   useNotifier();
@@ -19,7 +19,7 @@ const App: React.FC<Props> = () => {
 
   const showSuccessMessage = useShowSuccessMessage();
   const showErrorMessage = useShowErrorMessage();
-  const showInfoMessage = useShowInfoMessage();
+  // const showInfoMessage = useShowInfoMessage();
 
   const { appSettings: { messages, locale, name }, dispatch: contextDispatch } = appContext;
 
@@ -30,8 +30,8 @@ const App: React.FC<Props> = () => {
       messages: newMessages,
       locale: newLocale
     });
-    showSuccessMessage("asdasdasdasdasd");
-    showErrorMessage("asdasd");
+    showSuccessMessage('asdasdasdasdasd');
+    showErrorMessage('asdasd');
     // showInfoMessage("info");
   };
 

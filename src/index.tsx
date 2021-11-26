@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { SnackbarProvider, useSnackbar } from 'notistack';
-import { Provider } from 'react-redux'
+import { SnackbarProvider } from 'notistack';
+import { Provider } from 'react-redux';
 
 import AppProvider from './context/App';
 import './index.css';
