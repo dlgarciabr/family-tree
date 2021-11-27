@@ -2,5 +2,11 @@
   "app-title": {
     "defaultMessage": "Portal de Voluntários",
     "description": "O nome da aplicação"
+  },
+  "message.success": {
+    "defaultMessage": "Operação realizada com sucesso"
+  },
+  "message.error": {
+    "defaultMessage": "Ocorreu um erro ao tentar executar a operação!"
   }
 }

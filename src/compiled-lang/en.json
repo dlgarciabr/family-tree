@@ -4,5 +4,17 @@
       "type": 0,
       "value": "Volunteer Portal"
     }
+  ],
+  "message.error": [
+    {
+      "type": 0,
+      "value": "An error has occurred!"
+    }
+  ],
+  "message.success": [
+    {
+      "type": 0,
+      "value": "Operation sucessfull"
+    }
   ]
 }

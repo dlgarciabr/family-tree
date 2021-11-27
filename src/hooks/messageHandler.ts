@@ -1,45 +1,36 @@
+import { VariantType } from 'notistack';
+import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { AppContext } from '../context/App';
 import { enqueueNotification } from '../views/App/notificationSlice';
 
-// TODO recover messages from i18n
-export const messages = {
-  OPERATION_SUCCESSFULL: 'Operation sucessfull',
-  OPERATION_ERROR: 'An error has occurred!'
-};
-
-export const useShowInfoMessage = () => {
+const useMessage = () => {
   const dispatch = useDispatch();
-  return (message = 'info message is empty') => {
+  const { appSettings: { messages } } = useContext(AppContext);
+
+  const dispatchNotification = (message: string, variant: VariantType) => {
     dispatch(enqueueNotification({
       key: new Date().getTime(),
       message,
       dismissed: false,
-      options: { variant: 'info' }
+      options: { variant }
     }));
-  };
+  }
+
+  return {
+    showInfoMessage: (message = 'info message is empty') => {
+      dispatchNotification(message, 'info');
+    },
+    showSuccessMessage: (message = undefined) => {
+      const defaultMessage = messages['message.success'].map((t: any) => t['value'])[0];
+      dispatchNotification(message || defaultMessage, 'success');
+    },
+    showErrorMessage: (message = undefined) => {
+      const defaultMessage = messages['message.error'].map((t: any) => t['value'])[0];
+      dispatchNotification(message || defaultMessage, 'error');
+    }
+  }
 };
 
-export const useShowSuccessMessage = () => {
-  const dispatch = useDispatch();
-  return (message = messages.OPERATION_SUCCESSFULL) => {
-    dispatch(enqueueNotification({
-      key: new Date().getTime(),
-      message,
-      dismissed: false,
-      options: { variant: 'success' }
-    }));
-  };
-};
-
-export const useShowErrorMessage = () => {
-  const dispatch = useDispatch();
-  return (message = messages.OPERATION_ERROR) => {
-    dispatch(enqueueNotification({
-      key: new Date().getTime(),
-      message,
-      dismissed: false,
-      options: { variant: 'error' }
-    }));
-  };
-};
+export default useMessage;

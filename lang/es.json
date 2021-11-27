@@ -2,5 +2,11 @@
   "app-title": {
     "defaultMessage": "Portal del Voluntarios",
     "description": "El nombre de la aplicacion"
+  },
+  "message.success": {
+    "defaultMessage": "Operacion OK"
+  },
+  "message.error": {
+    "defaultMessage": "Un problema en la operacion!"
   }
 }

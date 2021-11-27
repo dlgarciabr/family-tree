@@ -4,5 +4,17 @@
       "type": 0,
       "value": "Portal de Voluntários"
     }
+  ],
+  "message.error": [
+    {
+      "type": 0,
+      "value": "Ocorreu um erro ao tentar executar a operação!"
+    }
+  ],
+  "message.success": [
+    {
+      "type": 0,
+      "value": "Operação realizada com sucesso"
+    }
   ]
 }

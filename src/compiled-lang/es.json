@@ -4,5 +4,17 @@
       "type": 0,
       "value": "Portal del Voluntarios"
     }
+  ],
+  "message.error": [
+    {
+      "type": 0,
+      "value": "Un problema en la operacion!"
+    }
+  ],
+  "message.success": [
+    {
+      "type": 0,
+      "value": "Operacion OK"
+    }
   ]
 }

@@ -4,5 +4,17 @@
       "type": 0,
       "value": "Sítio de Voluntários"
     }
+  ],
+  "message.error": [
+    {
+      "type": 0,
+      "value": "Erro na tua operação!"
+    }
+  ],
+  "message.success": [
+    {
+      "type": 0,
+      "value": "Operação OK"
+    }
   ]
 }

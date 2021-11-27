@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SnackbarKey, useSnackbar } from 'notistack';
 import { RootState } from 'utils/reduxStore';
@@ -14,7 +14,7 @@ const useNotifier = () => {
     (state: RootState) => state.notification
   );
 
-  const storeDisplayed = (id: SnackbarKey) => {
+  const storeAlreadyDisplayed = (id: SnackbarKey) => {
     displayed = [...displayed, id];
   };
 
@@ -22,7 +22,7 @@ const useNotifier = () => {
     displayed = [...displayed.filter((key) => id !== key)];
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     notifications.forEach(({
       key, message, options = {}, dismissed = false
     }) => {
@@ -31,10 +31,11 @@ const useNotifier = () => {
         return;
       }
 
-      // do nothing if snackbar is already displayed
-      if (displayed.includes(key)) return;
+      const messageIsAlreadyDisplayed = displayed.includes(key);
+      if (messageIsAlreadyDisplayed) {
+        return;
+      }
 
-      // display snackbar using notistack
       enqueueSnackbar(message, {
         key,
         ...options,
@@ -45,13 +46,13 @@ const useNotifier = () => {
         },
         onExited: (event, myKey) => {
           // remove this snackbar from redux store
+          // TODO
           // dispatch(removeSnackbar(myKey));
           removeDisplayed(myKey);
         },
       });
 
-      // keep track of snackbars that we've displayed
-      storeDisplayed(key);
+      storeAlreadyDisplayed(key);
     });
   }, [notifications, closeSnackbar, enqueueSnackbar, dispatch]);
 };

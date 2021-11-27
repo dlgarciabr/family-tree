@@ -1,27 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 // import ReactDOM from 'react-dom';
 // import { useSelector, useDispatch } from 'react-redux';
 
 import { AppContext, actions } from '../../context/App';
 import { loadLocaleMessages, locales } from '../../utils/i18n';
-import { useShowSuccessMessage, useShowErrorMessage } from '../../hooks/messageHandler';
+import useMessage from '../../hooks/messageHandler';
 import { Props } from '../../global';
 import logo from '../../logo.svg';
 import './style.css';
 import Dummy from '../Dummy';
-import useNotifier from '../../utils/useNotifier';
+import notifierEffect from './notifierEffect';
 
 const App: React.FC<Props> = () => {
-  useNotifier();
-  const appContext = React.useContext(AppContext);
   // const reduxDispatch = useDispatch();
 
-  const showSuccessMessage = useShowSuccessMessage();
-  const showErrorMessage = useShowErrorMessage();
-  // const showInfoMessage = useShowInfoMessage();
-
-  const { appSettings: { messages, locale, name }, dispatch: contextDispatch } = appContext;
+  const { showSuccessMessage, showInfoMessage, showErrorMessage } = useMessage();
+  const { appSettings: { messages, locale, name }, dispatch: contextDispatch } = React.useContext(AppContext);
 
   const changeLanguage = async (newLocale: string) => {
     const newMessages = await loadLocaleMessages(newLocale);
@@ -30,10 +25,13 @@ const App: React.FC<Props> = () => {
       messages: newMessages,
       locale: newLocale
     });
-    showSuccessMessage('asdasdasdasdasd');
-    showErrorMessage('asdasd');
-    // showInfoMessage("info");
   };
+
+  notifierEffect();
+
+  useEffect(() => {
+    showInfoMessage("locale changed");
+  }, [locale]);
 
   return (
     <IntlProvider

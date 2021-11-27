@@ -2,5 +2,11 @@
   "app-title": {
     "defaultMessage": "Sítio de Voluntários",
     "description": "O nome da aplicação"
+  },
+  "message.success": {
+    "defaultMessage": "Operação OK"
+  },
+  "message.error": {
+    "defaultMessage": "Erro na tua operação!"
   }
 }
