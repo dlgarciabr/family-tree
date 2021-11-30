@@ -1,10 +1,11 @@
 import React, { createContext, useReducer } from 'react';
 
 import { getUserLanguage, loadLocaleMessages } from '../../utils/i18n';
-import { Props, AppContextInterface, AppSettings } from '../../global';
+import { Props, AppContextInterface, AppSettings } from '../../types';
 
 export const actions = {
-  LOCALE_CHANGED: 'LOCALE_CHANGED'
+  LOCALE_CHANGED: 'LOCALE_CHANGED',
+  INITIAL_DATA_LOADED: 'INITIAL_DATA_LOADED'
 };
 
 const userLanguage = getUserLanguage();
@@ -28,6 +29,11 @@ const AppProvider: React.FC<Props> = ({ children }) => {
           ...state,
           messages: action.messages,
           locale: action.locale
+        };
+      case actions.INITIAL_DATA_LOADED:
+        return {
+          ...state,
+          loadInitialData: false
         };
       default:
         throw new Error();

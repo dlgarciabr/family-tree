@@ -11,13 +11,13 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <SnackbarProvider maxSnack={3}>
+    <SnackbarProvider maxSnack={3}>
+      <Provider store={store}>
         <AppProvider>
           <App />
         </AppProvider>
-      </SnackbarProvider>
-    </Provider>
+      </Provider>
+    </SnackbarProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

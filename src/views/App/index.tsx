@@ -5,18 +5,30 @@ import { FormattedMessage, IntlProvider } from 'react-intl';
 
 import { AppContext, actions } from '../../context/App';
 import { loadLocaleMessages, locales } from '../../utils/i18n';
-import useMessage from '../../hooks/messageHandler';
-import { Props } from '../../global';
+import useNotification from '../../hooks/notificationHandler';
+import { Props } from '../../types';
 import logo from '../../logo.svg';
 import './style.css';
 import Dummy from '../Dummy';
 import notifierEffect from './notifierEffect';
+import { SnackbarKey, useSnackbar } from 'notistack';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../utils/reduxStore';
+
+// import { useGetUserByNameQuery } from '../../services/user';
+import { useGetRelativeNodeByNameQuery } from '../../services/relativeNode';
 
 const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { showSuccessMessage, showInfoMessage, showErrorMessage } = useNotification();
+  const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
+  const { data, error, isLoading, } = useGetRelativeNodeByNameQuery("sdasd");
 
-  const { showSuccessMessage, showInfoMessage, showErrorMessage } = useMessage();
-  const { appSettings: { messages, locale, name }, dispatch: contextDispatch } = React.useContext(AppContext);
+
+  const { notifications } = useSelector(
+    (state: RootState) => state.notification
+  );
 
   const changeLanguage = async (newLocale: string) => {
     const newMessages = await loadLocaleMessages(newLocale);
@@ -27,10 +39,40 @@ const App: React.FC<Props> = () => {
     });
   };
 
+
+  if (isLoading) {
+    console.log("isLoading ", isLoading)
+  } else {
+    // console.log("data ", data)
+    // showErrorMessage();
+  }
+
   notifierEffect();
 
+  // useEffect(() => {
+  //   notifications.forEach(({
+  //     key, message, options = {}, dismissed = false
+  //   }) => {
+
+
+  //     enqueueSnackbar(message, {
+  //       key,
+  //       ...options
+  //     });
+
+  //   });
+  // }, [notifications]);
+
   useEffect(() => {
-    showInfoMessage("locale changed");
+    contextDispatch({
+      type: actions.INITIAL_DATA_LOADED
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!loadInitialData) {
+      showInfoMessage("locale changed");
+    }
   }, [locale]);
 
   return (

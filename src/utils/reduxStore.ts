@@ -1,11 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import notificationReducer from '../views/App/notificationSlice';
+import { userApi } from '../services/user';
+import { relativeNodeApi } from '../services/relativeNode';
+import { rtkQueryErrorLogger } from './errorMiddleware';
 
 export const store = configureStore({
   reducer: {
-    notification: notificationReducer
-  }
+    notification: notificationReducer,
+    [userApi.reducerPath]: userApi.reducer,
+    [relativeNodeApi.reducerPath]: relativeNodeApi.reducer
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(rtkQueryErrorLogger),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
