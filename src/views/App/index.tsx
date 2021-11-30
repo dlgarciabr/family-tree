@@ -6,7 +6,7 @@ import { FormattedMessage, IntlProvider } from 'react-intl';
 import { AppContext, actions } from '../../context/App';
 import { loadLocaleMessages, locales } from '../../utils/i18n';
 import useNotification from '../../hooks/notificationHandler';
-import { Props } from '../../types';
+import { Props, RelativeNode } from '../../types';
 import logo from '../../logo.svg';
 import './style.css';
 import Dummy from '../Dummy';
@@ -16,19 +16,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../utils/reduxStore';
 
 // import { useGetUserByNameQuery } from '../../services/user';
-import { useGetRelativeNodeByNameQuery } from '../../services/relativeNode';
+import { useGetRelativeNodeByNameQuery, useUpdateRelativeNodeMutation } from '../../services/relativeNode';
 
 const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { showSuccessMessage, showInfoMessage, showErrorMessage } = useNotification();
   const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
-  const { data, error, isLoading, } = useGetRelativeNodeByNameQuery("sdasd");
-
-
-  const { notifications } = useSelector(
-    (state: RootState) => state.notification
-  );
+  const { data, error, isLoading } = useGetRelativeNodeByNameQuery('sdasd');
+  // const { updateRelativeNode } = useUpdateRelativeNodeMutation();
 
   const changeLanguage = async (newLocale: string) => {
     const newMessages = await loadLocaleMessages(newLocale);
@@ -39,13 +35,19 @@ const App: React.FC<Props> = () => {
     });
   };
 
+  const createRelative = async () => {
+    const newRelativeNode = {
+      'username': 'string',
+      'firstName': 'string',
+      'lastName': 'string',
+      'email': 'string',
+      'password': 'string',
+      'phone': 'string',
+      'userStatus': 0
+    } as RelativeNode;
 
-  if (isLoading) {
-    console.log("isLoading ", isLoading)
-  } else {
-    // console.log("data ", data)
-    // showErrorMessage();
-  }
+
+  };
 
   notifierEffect();
 
@@ -71,7 +73,7 @@ const App: React.FC<Props> = () => {
 
   useEffect(() => {
     if (!loadInitialData) {
-      showInfoMessage("locale changed");
+      showInfoMessage('locale changed');
     }
   }, [locale]);
 
@@ -80,9 +82,9 @@ const App: React.FC<Props> = () => {
       locale={locale}
       messages={messages}
     >
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+      <div className='App'>
+        <header className='App-header'>
+          <img src={logo} className='App-logo' alt='logo' />
           <p>
             App:
             {name}
@@ -91,11 +93,12 @@ const App: React.FC<Props> = () => {
             Selected locale:
             {locale}
           </p>
-          <p><FormattedMessage id="app-title" /></p>
-          <button type="button" onClick={() => changeLanguage(locales.EN)}>En</button>
-          <button type="button" onClick={() => changeLanguage(locales.ES)}>Es</button>
-          <button type="button" onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
-          <button type="button" onClick={() => changeLanguage(locales.PT)}>Pt</button>
+          <p><FormattedMessage id='app-title' /></p>
+          <button type='button' onClick={() => changeLanguage(locales.EN)}>En</button>
+          <button type='button' onClick={() => changeLanguage(locales.ES)}>Es</button>
+          <button type='button' onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
+          <button type='button' onClick={() => changeLanguage(locales.PT)}>Pt</button>
+          <button type='button' onClick={() => createRelative()}>Pt</button>
           <Dummy />
         </header>
       </div>
