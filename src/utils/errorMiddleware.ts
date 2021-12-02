@@ -9,6 +9,7 @@ import { AnyAction, Dispatch } from 'redux';
 import { dispatchErrorNotification } from '../hooks/notificationHandler';
 
 const handler = (action: AnyAction, dispatch: Dispatch) => {
+  // console.log(action.payload)
   if (isRejectedWithValue(action)) {
     if ((action.payload as any).status === 401) {
       // dispatch(resetStateAction());

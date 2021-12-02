@@ -16,14 +16,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../utils/reduxStore';
 
 // import { useGetUserByNameQuery } from '../../services/user';
-import { useGetRelativeNodeByNameQuery, useUpdateRelativeNodeMutation } from '../../services/relativeNode';
+import { useGetRelativeByNameQuery, useSaveNodeMutation, GetRelativeByNameApiArg, User } from '../../services/relativeNodeApi';
 
 const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { showSuccessMessage, showInfoMessage, showErrorMessage } = useNotification();
   const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
-  const { data, error, isLoading } = useGetRelativeNodeByNameQuery('sdasd');
+  const { data, error, isLoading } = useGetRelativeByNameQuery({ name: "qwew" });
+  const { 0: saveNode } = useSaveNodeMutation();
   // const { updateRelativeNode } = useUpdateRelativeNodeMutation();
 
   const changeLanguage = async (newLocale: string) => {
@@ -37,6 +38,7 @@ const App: React.FC<Props> = () => {
 
   const createRelative = async () => {
     const newRelativeNode = {
+      'id': 0,
       'username': 'string',
       'firstName': 'string',
       'lastName': 'string',
@@ -44,10 +46,17 @@ const App: React.FC<Props> = () => {
       'password': 'string',
       'phone': 'string',
       'userStatus': 0
-    } as RelativeNode;
+    } as User;
 
-
+    // saveNodeMutation({ user: newRelativeNode });
+    saveNode({ user: newRelativeNode });
   };
+
+  if (isLoading) {
+    console.log("loading")
+  } else {
+    console.log(data);
+  }
 
   notifierEffect();
 
@@ -98,7 +107,7 @@ const App: React.FC<Props> = () => {
           <button type='button' onClick={() => changeLanguage(locales.ES)}>Es</button>
           <button type='button' onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
           <button type='button' onClick={() => changeLanguage(locales.PT)}>Pt</button>
-          <button type='button' onClick={() => createRelative()}>Pt</button>
+          <button type='button' onClick={() => createRelative()}>Create node</button>
           <Dummy />
         </header>
       </div>
