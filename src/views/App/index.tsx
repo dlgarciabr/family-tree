@@ -24,7 +24,6 @@ const App: React.FC<Props> = () => {
   const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
   const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
   const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
-  // const { 0: createTreeNode } = useCreateTreeNodeMutation();
   const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
 
   const changeLanguage = async (newLocale: string) => {
