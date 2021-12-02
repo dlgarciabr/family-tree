@@ -1,8 +1,8 @@
 {
-  "schemaFile": "./dlgarciabr-volunteerhub-api-1.0.0-resolved.json",
+  "schemaFile": "./dlgarciabr-family-tree-api-1.0.0-resolved.json",
   "apiFile": "./src/services/base.ts",
   "apiImport": "baseApi",
-  "outputFile": "./src/services/relativeNodeApi.ts",
-  "exportName": "relativeNodeApi",
+  "outputFile": "./src/services/familyTreeApi.ts",
+  "exportName": "familyTreeApi",
   "hooks": true
 }

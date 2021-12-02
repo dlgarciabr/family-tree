@@ -16,15 +16,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../utils/reduxStore';
 
 // import { useGetUserByNameQuery } from '../../services/user';
-import { useGetRelativeByNameQuery, useSaveNodeMutation, GetRelativeByNameApiArg, User } from '../../services/relativeNodeApi';
+import { useGetTreeNodeByIdQuery, useCreateTreeNodeMutation, GetTreeNodeByIdApiArg, TreeNode } from '../../services/familyTreeApi';
 
 const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { showSuccessMessage, showInfoMessage, showErrorMessage } = useNotification();
   const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
-  const { data, error, isLoading } = useGetRelativeByNameQuery({ name: "qwew" });
-  const { 0: saveNode } = useSaveNodeMutation();
+  const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
+  const { 0: createTreeNode } = useCreateTreeNodeMutation();
   // const { updateRelativeNode } = useUpdateRelativeNodeMutation();
 
   const changeLanguage = async (newLocale: string) => {
@@ -37,19 +37,13 @@ const App: React.FC<Props> = () => {
   };
 
   const createRelative = async () => {
-    const newRelativeNode = {
-      'id': 0,
-      'username': 'string',
-      'firstName': 'string',
-      'lastName': 'string',
-      'email': 'string',
-      'password': 'string',
-      'phone': 'string',
-      'userStatus': 0
-    } as User;
+    const treeNode = {
+      id: 0,
+      name: 'string'
+    } as TreeNode;
 
     // saveNodeMutation({ user: newRelativeNode });
-    saveNode({ user: newRelativeNode });
+    createTreeNode({ treeNode });
   };
 
   if (isLoading) {
