@@ -75,7 +75,7 @@ const injectedRtkApi = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
-    saveNodnamee: build.mutation<SaveNodeApiResponse, SaveNodeApiArg>({
+    saveNode: build.mutation<SaveNodeApiResponse, SaveNodeApiArg>({
       query: (queryArg) => ({
         url: `/relativeNode`,
         method: "POST",
