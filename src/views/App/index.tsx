@@ -21,11 +21,11 @@ import { useGetTreeNodeByIdQuery, useCreateTreeNodeMutation, GetTreeNodeByIdApiA
 const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { showSuccessMessage, showInfoMessage, showErrorMessage } = useNotification();
+  const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
   const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
   const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
-  const { 0: createTreeNode } = useCreateTreeNodeMutation();
-  // const { updateRelativeNode } = useUpdateRelativeNodeMutation();
+  // const { 0: createTreeNode } = useCreateTreeNodeMutation();
+  const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
 
   const changeLanguage = async (newLocale: string) => {
     const newMessages = await loadLocaleMessages(newLocale);
@@ -42,7 +42,6 @@ const App: React.FC<Props> = () => {
       name: 'string'
     } as TreeNode;
 
-    // saveNodeMutation({ user: newRelativeNode });
     createTreeNode({ treeNode });
   };
 
@@ -54,20 +53,6 @@ const App: React.FC<Props> = () => {
 
   notifierEffect();
 
-  // useEffect(() => {
-  //   notifications.forEach(({
-  //     key, message, options = {}, dismissed = false
-  //   }) => {
-
-
-  //     enqueueSnackbar(message, {
-  //       key,
-  //       ...options
-  //     });
-
-  //   });
-  // }, [notifications]);
-
   useEffect(() => {
     contextDispatch({
       type: actions.INITIAL_DATA_LOADED
@@ -76,7 +61,7 @@ const App: React.FC<Props> = () => {
 
   useEffect(() => {
     if (!loadInitialData) {
-      showInfoMessage('locale changed');
+      showInfoNotification('locale changed to ' + locale);
     }
   }, [locale]);
 

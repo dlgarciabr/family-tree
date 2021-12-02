@@ -41,14 +41,14 @@ const useNotification = () => {
   const { appSettings: { messages } } = useContext(AppContext);
 
   return {
-    showInfoMessage: (message = 'info message is empty') => {
+    showInfoNotification: (message = 'info message is empty') => {
       dispatchInfoNotification(dispatch, message);
     },
-    showSuccessMessage: (message = undefined) => {
+    showSuccessNotification: (message = undefined) => {
       const defaultMessage = messages['message.success'].map((t: any) => t.value)[0];
       dispatchSuccessNotification(dispatch, message || defaultMessage);
     },
-    showErrorMessage: (message = undefined) => {
+    showErrorNotification: (message = undefined) => {
       const defaultMessage = messages['message.error'].map((t: any) => t.value)[0];
       dispatchErrorNotification(dispatch, message || defaultMessage);
     }
