@@ -9,21 +9,18 @@ import { AnyAction, Dispatch } from 'redux';
 import { dispatchErrorNotification } from '../hooks/notificationHandler';
 
 const handler = (action: AnyAction, dispatch: Dispatch) => {
-  // console.log(action.payload)
-  if (isRejectedWithValue(action)) {
-    if ((action.payload as any).status === 401) {
-      // dispatch(resetStateAction());
-      console.log("unauthenticated");
-      dispatchErrorNotification(dispatch, 'unauthenticated');
-      return;
+  if (isRejectedWithValue(action) || isRejected(action)) {
+    const httpStatusCode = action.payload ? (action.payload as any).status : undefined;
+    switch (httpStatusCode) {
+      case 401:
+        dispatchErrorNotification(dispatch, 'unauthenticated');
+        break;
+      case 404:
+        dispatchErrorNotification(dispatch, 'try again later');
+        break;
+      default:
+        dispatchErrorNotification(dispatch, `error not handled http code: ${httpStatusCode}`);
     }
-  }
-  if (isRejected(action)) {
-    if ((action.payload as any).status === 404) {
-      dispatchErrorNotification(dispatch, 'try again later');
-      return;
-    }
-    dispatchErrorNotification(dispatch, 'error not handled');
   }
 };
 
