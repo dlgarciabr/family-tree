@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
-import { FormattedMessage, IntlProvider } from 'react-intl';
-// import ReactDOM from 'react-dom';
+import { IntlProvider } from 'react-intl';
 // import { useSelector, useDispatch } from 'react-redux';
 
 import { AppContext, actions } from '../../context/App';
+import MainArea from 'views/MainArea';
 import { loadLocaleMessages, locales } from '../../utils/i18n';
 import useNotification from '../../hooks/notificationHandler';
-import { Props, RelativeNode } from '../../types';
+import { Props } from '../../types';
 import logo from '../../logo.svg';
 import './style.css';
 import Dummy from '../Dummy';
 import notifierEffect from './notifierEffect';
-import { SnackbarKey, useSnackbar } from 'notistack';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../utils/reduxStore';
+import { useSnackbar } from 'notistack';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { RootState } from '../../utils/reduxStore';
 
 // import { useGetUserByNameQuery } from '../../services/user';
-import { useGetTreeNodeByIdQuery, useCreateTreeNodeMutation, GetTreeNodeByIdApiArg, TreeNode } from '../../services/familyTreeApi';
+import { useGetTreeNodeByIdQuery, useCreateTreeNodeMutation, TreeNode } from '../../services/familyTreeApi';
 
 const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
   const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
   const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
@@ -45,9 +45,9 @@ const App: React.FC<Props> = () => {
   };
 
   if (isLoading) {
-    console.log("loading")
+    // console.log("loading")
   } else {
-    console.log(data);
+    // console.log(data);
   }
 
   notifierEffect();
@@ -70,7 +70,8 @@ const App: React.FC<Props> = () => {
       messages={messages}
     >
       <div className='App'>
-        <header className='App-header'>
+        <MainArea />
+        {/* <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <p>
             App:
@@ -80,14 +81,9 @@ const App: React.FC<Props> = () => {
             Selected locale:
             {locale}
           </p>
-          <p><FormattedMessage id='app-title' /></p>
-          <button type='button' onClick={() => changeLanguage(locales.EN)}>En</button>
-          <button type='button' onClick={() => changeLanguage(locales.ES)}>Es</button>
-          <button type='button' onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
-          <button type='button' onClick={() => changeLanguage(locales.PT)}>Pt</button>
           <button type='button' onClick={() => createRelative()}>Create node</button>
           <Dummy />
-        </header>
+        </header> */}
       </div>
     </IntlProvider>
 
