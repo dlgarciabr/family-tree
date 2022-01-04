@@ -29,6 +29,7 @@
         "@typescript-eslint/no-use-before-define": [
             "error"
         ],
+        "react/jsx-props-no-spreading": "off",
         "react/jsx-filename-extension": [
             "warn",
             {
@@ -38,6 +39,20 @@
             }
         ]
     },
+    "overrides": [
+        {
+            "files": [
+                "src/**/*.{ts,tsx, js, jsx}",
+                "src/**/**/*.{ts,tsx, js, jsx}"
+            ],
+            "rules": {
+                "operator-linebreak": [
+                    "error",
+                    "after"
+                ]
+            }
+        }
+    ],
     "settings": {
         "import/resolver": {
             "typescript": {},

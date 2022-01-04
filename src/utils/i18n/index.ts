@@ -5,7 +5,8 @@ import Spanish from '../../compiled-lang/es.json';
 import BrazillianPortuguese from '../../compiled-lang/pt-br.json';
 import Portuguese from '../../compiled-lang/pt.json';
 
-export const locales = {
+//TODO: add locale name
+export const locales: { [key: string]: string } = {
   EN: 'en',
   ES: 'es',
   PT: 'pt',
