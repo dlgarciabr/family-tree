@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 // import { useSelector, useDispatch } from 'react-redux';
 
+import MainArea from '../MainArea';
 import { AppContext, actions } from '../../context/App';
-import MainArea from 'views/MainArea';
 import { loadLocaleMessages, locales } from '../../utils/i18n';
 import useNotification from '../../hooks/notificationHandler';
 import { Props } from '../../types';
@@ -27,7 +27,7 @@ const App: React.FC<Props> = () => {
   const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
 
   const changeLanguage = async (newLocale: string) => {
-    const newMessages = await loadLocaleMessages(newLocale);
+    const newMessages = loadLocaleMessages(newLocale);
     contextDispatch({
       type: actions.LOCALE_CHANGED,
       messages: newMessages,

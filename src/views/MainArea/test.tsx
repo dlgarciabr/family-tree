@@ -1,24 +1,27 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from '../../utils/test-utils';
+import { locales, getLocatedMessage } from '../../utils/i18n';
 import App from '../App';
 
-test('render main user area', async () => {
+test('render main area top bar', async () => {
   //arrange
+  const initialHeaderTitle = await getLocatedMessage(locales.EN.value, 'app-title');
 
   //act
   render(<App />);
-  const content = await screen.findByText("user area");
+  const content = await screen.findByText(initialHeaderTitle);
 
   //asset
   expect(content).toBeInTheDocument();
 });
 
-test('render main area top bar', async () => {
+test('render user tree', async () => {
   //arrange
+  // const initialHeaderTitle = await getLocatedMessage(locales.EN.value, 'app-title');
 
   //act
   render(<App />);
-  const content = await screen.findByText("top bar");
+  const userRootNode = await screen.findByText("usuario");
 
   //asset
   // expect(content).toBeInTheDocument();

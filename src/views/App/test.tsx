@@ -1,34 +1,25 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from '../../utils/test-utils';
+import { locales, getLocatedMessage } from '../../utils/i18n';
 import App from '.';
-
-test('render default app name', async () => {
-  //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const initialHeaderTitle = enMessages["app-title"][0].value;
-
-  //act
-  render(<App />);
-  const content = await screen.findByText(initialHeaderTitle);
-
-  //asset
-  expect(content).toBeInTheDocument();
-});
 
 test("Change language to Spanish", async () => {
   //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const esMessages = await import("../../compiled-lang/es.json");
-
-  const initialHeaderTitle = enMessages["app-title"][0].value;
-  const expectedHeaderTitle = esMessages["app-title"][0].value;
+  const initialHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
+  const expectedHeaderTitle = getLocatedMessage(locales.ES.value, 'app-title');
 
   render(<App />);
 
   expect(screen.getByText(initialHeaderTitle)).toBeInTheDocument();
 
   //act
-  const spanishLanguageButton = screen.getByRole("button", {
+  const languageButton = screen.getByRole("button", {
+    name: 'language-button'
+  });
+
+  userEvent.click(languageButton);
+
+  const spanishLanguageButton = screen.getByRole("menuitem", {
     name: 'Es',
   });
 
@@ -40,18 +31,21 @@ test("Change language to Spanish", async () => {
 
 test("Change language to Portuguese", async () => {
   //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const ptMessages = await import("../../compiled-lang/pt.json");
-
-  const initialHeaderTitle = enMessages["app-title"][0].value;
-  const expectedHeaderTitle = ptMessages["app-title"][0].value;
+  const initialHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
+  const expectedHeaderTitle = getLocatedMessage(locales.PT.value, 'app-title');
 
   render(<App />);
 
   expect(screen.getByText(initialHeaderTitle)).toBeInTheDocument();
 
   //act
-  const ptLanguageButton = screen.getByRole("button", {
+  const languageButton = screen.getByRole("button", {
+    name: 'language-button'
+  });
+
+  userEvent.click(languageButton);
+
+  const ptLanguageButton = screen.getByRole("menuitem", {
     name: 'Pt',
   });
 
@@ -63,18 +57,21 @@ test("Change language to Portuguese", async () => {
 
 test("Change language to Brazilian Portuguese", async () => {
   //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const ptbrMessages = await import("../../compiled-lang/pt-br.json");
-
-  const initialHeaderTitle = enMessages["app-title"][0].value;
-  const expectedHeaderTitle = ptbrMessages["app-title"][0].value;
+  const initialHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
+  const expectedHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
 
   render(<App />);
 
   expect(screen.getByText(initialHeaderTitle)).toBeInTheDocument();
 
   //act
-  const ptLanguageButton = screen.getByRole("button", {
+  const languageButton = screen.getByRole("button", {
+    name: 'language-button'
+  });
+
+  userEvent.click(languageButton);
+
+  const ptLanguageButton = screen.getByRole("menuitem", {
     name: 'Pt-Br',
   });
 
@@ -86,26 +83,31 @@ test("Change language to Brazilian Portuguese", async () => {
 
 test("Change language to Portuguese and then to English", async () => {
   //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const ptbrMessages = await import("../../compiled-lang/pt-br.json");
-
-  const enHeaderTitle = enMessages["app-title"][0].value;
-  const ptbrHeaderTitle = ptbrMessages["app-title"][0].value;
+  const enHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
+  const ptbrHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
 
   render(<App />);
 
   expect(screen.getByText(enHeaderTitle)).toBeInTheDocument();
 
-  const ptLanguageButton = screen.getByRole("button", {
+  const languageButton = screen.getByRole("button", {
+    name: 'language-button'
+  });
+
+  userEvent.click(languageButton);
+
+  const ptLanguageButton = screen.getByRole("menuitem", {
     name: 'Pt-Br',
   });
 
   userEvent.click(ptLanguageButton);
 
   expect(await screen.findByText(ptbrHeaderTitle)).toBeInTheDocument();
-  //act
 
-  const enLanguageButton = screen.getByRole("button", {
+  //act
+  userEvent.click(languageButton);
+
+  const enLanguageButton = screen.getByRole("menuitem", {
     name: 'En',
   });
 
