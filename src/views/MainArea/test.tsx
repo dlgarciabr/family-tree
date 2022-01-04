@@ -16,7 +16,7 @@ import App from '../App';
 
 test('render main area top bar', async () => {
   //arrange
-  const initialHeaderTitle = await getLocatedMessage(locales.EN, 'app-title');
+  const initialHeaderTitle = await getLocatedMessage(locales.EN.value, 'app-title');
 
   //act
   render(<App />);

@@ -71,12 +71,13 @@ const TopBar: React.FC<Props> = () => {
         <button type="button" onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
         <button type="button" onClick={() => changeLanguage(locales.PT)}>Pt</button> */}
         <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
-          <Button>{options.find((option) => option === selectedLocale)}</Button>
+          <Button>{options.find((option) => option.value === selectedLocale)?.label}</Button>
           <Button
+            type="button"
             size="small"
             aria-controls={openLanguageOptions ? 'split-button-menu' : undefined}
             aria-expanded={openLanguageOptions ? 'true' : undefined}
-            aria-label="select merge strategy"
+            aria-label="language-button"
             aria-haspopup="menu"
             onClick={handleToggle}
           >
@@ -104,12 +105,12 @@ const TopBar: React.FC<Props> = () => {
                   <MenuList id="split-button-menu">
                     {options.map((option) => (
                       <MenuItem
-                        key={option}
-                        disabled={option === selectedLocale}
-                        selected={option === selectedLocale}
-                        onClick={(event) => handleMenuItemClick(event, option)}
+                        key={option.value}
+                        disabled={option.value === selectedLocale}
+                        selected={option.value === selectedLocale}
+                        onClick={(event) => handleMenuItemClick(event, option.value)}
                       >
-                        {option}
+                        {option.label}
                       </MenuItem>
                     ))}
                   </MenuList>

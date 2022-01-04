@@ -1,9 +1,9 @@
 import { getUserLanguage, loadLocaleMessages } from './index';
-import { locales, getLocatedMessage } from '../../utils/i18n';
+import { locales } from '../../utils/i18n';
 
 test("Recover user language from browser", () => {
     //arrange
-    const expectedLanguage = locales.EN;
+    const expectedLanguage = locales.EN.value;
 
     //act
     const userLanguage = getUserLanguage();
@@ -14,7 +14,7 @@ test("Recover user language from browser", () => {
 
 test("Recover Language message for Brazilian Portuguese", async () => {
     //arrange
-    const locale = locales.PT_BR;
+    const locale = locales.PT_BR.value;
     const ptbrFileMessages = await import("../../compiled-lang/pt-br.json");
 
     //act

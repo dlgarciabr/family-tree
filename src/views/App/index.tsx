@@ -27,7 +27,7 @@ const App: React.FC<Props> = () => {
   const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
 
   const changeLanguage = async (newLocale: string) => {
-    const newMessages = await loadLocaleMessages(newLocale);
+    const newMessages = loadLocaleMessages(newLocale);
     contextDispatch({
       type: actions.LOCALE_CHANGED,
       messages: newMessages,
