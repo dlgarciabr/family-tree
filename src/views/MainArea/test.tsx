@@ -14,15 +14,3 @@ test('render main area top bar', async () => {
   //asset
   expect(content).toBeInTheDocument();
 });
-
-test('render user tree', async () => {
-  //arrange
-  // const initialHeaderTitle = await getLocatedMessage(locales.EN.value, 'app-title');
-
-  //act
-  render(<App />);
-  const userRootNode = await screen.findByText("usuario");
-
-  //asset
-  // expect(content).toBeInTheDocument();
-});
