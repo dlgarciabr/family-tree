@@ -11,7 +11,8 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     // [relativeNodeApi.reducerPath]: relativeNodeApi.reducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(rtkQueryErrorLogger, baseApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(rtkQueryErrorLogger, baseApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
