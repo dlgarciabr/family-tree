@@ -1,8 +1,9 @@
 import { getUserLanguage, loadLocaleMessages } from './index';
+import { locales } from '../../utils/i18n';
 
 test("Recover user language from browser", () => {
     //arrange
-    const expectedLanguage = "en";
+    const expectedLanguage = locales.EN.value;
 
     //act
     const userLanguage = getUserLanguage();
@@ -13,12 +14,12 @@ test("Recover user language from browser", () => {
 
 test("Recover Language message for Brazilian Portuguese", async () => {
     //arrange
-    const locale = "pt-br";
+    const locale = locales.PT_BR.value;
     const ptbrFileMessages = await import("../../compiled-lang/pt-br.json");
 
     //act
     const messages = loadLocaleMessages(locale);
 
     //assert
-    expect(messages["app-title"][0].value).toBe(ptbrFileMessages["app-title"][0].value);
+    expect((messages["app-title"][0] as any).value).toBe(ptbrFileMessages["app-title"][0].value);
 });

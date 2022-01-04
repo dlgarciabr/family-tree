@@ -1,32 +1,18 @@
 import React from 'react';
 
+import Box from '@mui/material/Box';
+
 import { Props } from '../../types';
-import { FormattedMessage } from 'react-intl';
-import { AppContext, actions } from '../../context/App';
-import { loadLocaleMessages, locales } from '../../utils/i18n';
+import TopBar from './TopBar';
 
 const MainArea: React.FC<Props> = () => {
-  const { dispatch: contextDispatch } = React.useContext(AppContext);
-
-  const changeLanguage = async (newLocale: string) => {
-    const newMessages = await loadLocaleMessages(newLocale);
-    contextDispatch({
-      type: actions.LOCALE_CHANGED,
-      messages: newMessages,
-      locale: newLocale
-    });
-  };
-
+  console.log("MainArea")
   return (
     <div>
-      <FormattedMessage id='app-title' />
-      <div>user area</div>
-      <button type='button' onClick={() => changeLanguage(locales.EN)}>En</button>
-      <button type='button' onClick={() => changeLanguage(locales.ES)}>Es</button>
-      <button type='button' onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
-      <button type='button' onClick={() => changeLanguage(locales.PT)}>Pt</button>
+      <Box sx={{ flexGrow: 1 }}>
+        <TopBar />
+      </Box>
     </div>
   );
 };
-
-export default MainArea;
+export default React.memo(MainArea);
