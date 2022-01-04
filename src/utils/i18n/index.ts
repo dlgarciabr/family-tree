@@ -29,3 +29,8 @@ export const loadLocaleMessages = (locale: string): Record<string, MessageFormat
       return English;
   }
 };
+
+export const getLocatedMessage = (locale: string, key: string) => {
+  const messages = loadLocaleMessages(locale);
+  return (messages[key][0] as any).value;
+};

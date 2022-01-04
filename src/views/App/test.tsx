@@ -1,27 +1,12 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from '../../utils/test-utils';
+import { locales, getLocatedMessage } from '../../utils/i18n';
 import App from '.';
-
-test('render default app name', async () => {
-  //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const initialHeaderTitle = enMessages["app-title"][0].value;
-
-  //act
-  render(<App />);
-  const content = await screen.findByText(initialHeaderTitle);
-
-  //asset
-  expect(content).toBeInTheDocument();
-});
 
 test("Change language to Spanish", async () => {
   //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const esMessages = await import("../../compiled-lang/es.json");
-
-  const initialHeaderTitle = enMessages["app-title"][0].value;
-  const expectedHeaderTitle = esMessages["app-title"][0].value;
+  const initialHeaderTitle = getLocatedMessage(locales.EN, 'app-title');
+  const expectedHeaderTitle = getLocatedMessage(locales.ES, 'app-title');
 
   render(<App />);
 
@@ -40,11 +25,8 @@ test("Change language to Spanish", async () => {
 
 test("Change language to Portuguese", async () => {
   //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const ptMessages = await import("../../compiled-lang/pt.json");
-
-  const initialHeaderTitle = enMessages["app-title"][0].value;
-  const expectedHeaderTitle = ptMessages["app-title"][0].value;
+  const initialHeaderTitle = getLocatedMessage(locales.EN, 'app-title');
+  const expectedHeaderTitle = getLocatedMessage(locales.PT, 'app-title');
 
   render(<App />);
 
@@ -63,11 +45,8 @@ test("Change language to Portuguese", async () => {
 
 test("Change language to Brazilian Portuguese", async () => {
   //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const ptbrMessages = await import("../../compiled-lang/pt-br.json");
-
-  const initialHeaderTitle = enMessages["app-title"][0].value;
-  const expectedHeaderTitle = ptbrMessages["app-title"][0].value;
+  const initialHeaderTitle = getLocatedMessage(locales.EN, 'app-title');
+  const expectedHeaderTitle = getLocatedMessage(locales.PT_BR, 'app-title');
 
   render(<App />);
 
@@ -86,11 +65,8 @@ test("Change language to Brazilian Portuguese", async () => {
 
 test("Change language to Portuguese and then to English", async () => {
   //arrange
-  const enMessages = await import("../../compiled-lang/en.json");
-  const ptbrMessages = await import("../../compiled-lang/pt-br.json");
-
-  const enHeaderTitle = enMessages["app-title"][0].value;
-  const ptbrHeaderTitle = ptbrMessages["app-title"][0].value;
+  const enHeaderTitle = getLocatedMessage(locales.EN, 'app-title');
+  const ptbrHeaderTitle = getLocatedMessage(locales.PT_BR, 'app-title');
 
   render(<App />);
 
