@@ -6,6 +6,7 @@ import { Props } from '../../types';
 import TopBar from './TopBar';
 
 const MainArea: React.FC<Props> = () => {
+  console.log("MainArea")
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -14,5 +15,4 @@ const MainArea: React.FC<Props> = () => {
     </div>
   );
 };
-
-export default MainArea;
+export default React.memo(MainArea);

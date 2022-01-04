@@ -66,10 +66,6 @@ const TopBar: React.FC<Props> = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <FormattedMessage id="app-title" />
         </Typography>
-        {/* <button type="button" onClick={() => changeLanguage(locales.EN)}>En</button>
-        <button type="button" onClick={() => changeLanguage(locales.ES)}>Es</button>
-        <button type="button" onClick={() => changeLanguage(locales.PT_BR)}>Pt-Br</button>
-        <button type="button" onClick={() => changeLanguage(locales.PT)}>Pt</button> */}
         <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
           <Button>{options.find((option) => option.value === selectedLocale)?.label}</Button>
           <Button
@@ -123,5 +119,4 @@ const TopBar: React.FC<Props> = () => {
     </AppBar>
   );
 };
-
-export default TopBar;
+export default React.memo(TopBar);
