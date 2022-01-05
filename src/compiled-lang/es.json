@@ -2,7 +2,13 @@
   "app-title": [
     {
       "type": 0,
-      "value": "Portal del Voluntarios"
+      "value": "Portal de la Arbor Familiar"
+    }
+  ],
+  "login.title": [
+    {
+      "type": 0,
+      "value": "Aceder"
     }
   ],
   "message.error": [

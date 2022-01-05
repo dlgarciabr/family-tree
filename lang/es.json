@@ -8,5 +8,17 @@
   },
   "message.error": {
     "defaultMessage": "Un problema en la operacion!"
+  },
+  "login.title": {
+    "defaultMessage": "Aceder la aplicacion"
+  },
+  "login.email.label": {
+    "defaultMessage": "Email"
+  },
+  "login.password.label": {
+    "defaultMessage": "Contrasenã"
+  },
+  "login.button.label": {
+    "defaultMessage": "Aceder"
   }
 }

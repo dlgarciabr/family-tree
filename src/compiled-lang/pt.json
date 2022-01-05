@@ -2,7 +2,13 @@
   "app-title": [
     {
       "type": 0,
-      "value": "Sítio de Voluntários"
+      "value": "Sítio da Árvore Familiar"
+    }
+  ],
+  "login.title": [
+    {
+      "type": 0,
+      "value": "Aceda"
     }
   ],
   "message.error": [

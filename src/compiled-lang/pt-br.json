@@ -2,7 +2,13 @@
   "app-title": [
     {
       "type": 0,
-      "value": "Portal de Voluntários"
+      "value": "Portal da Árvore Familiar"
+    }
+  ],
+  "login.title": [
+    {
+      "type": 0,
+      "value": "Acesso"
     }
   ],
   "message.error": [

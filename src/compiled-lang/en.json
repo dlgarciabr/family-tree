@@ -2,7 +2,31 @@
   "app-title": [
     {
       "type": 0,
-      "value": "Volunteer Portal"
+      "value": "Family Tree Portal"
+    }
+  ],
+  "login.button.label": [
+    {
+      "type": 0,
+      "value": "Sign In"
+    }
+  ],
+  "login.email.label": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "login.password.label": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "login.title": [
+    {
+      "type": 0,
+      "value": "Login"
     }
   ],
   "message.error": [

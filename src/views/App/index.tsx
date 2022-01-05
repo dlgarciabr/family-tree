@@ -18,31 +18,33 @@ import { useSnackbar } from 'notistack';
 // import { useGetUserByNameQuery } from '../../services/user';
 import { useGetTreeNodeByIdQuery, useCreateTreeNodeMutation, TreeNode } from '../../services/familyTreeApi';
 
+import Login from '../Login'
+
 const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
   // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
-  const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
+  const { appSettings: { messages, locale, user, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
   const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
   const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
 
-  const changeLanguage = async (newLocale: string) => {
-    const newMessages = loadLocaleMessages(newLocale);
-    contextDispatch({
-      type: actions.LOCALE_CHANGED,
-      messages: newMessages,
-      locale: newLocale
-    });
-  };
+  // const changeLanguage = async (newLocale: string) => {
+  //   const newMessages = loadLocaleMessages(newLocale);
+  //   contextDispatch({
+  //     type: actions.LOCALE_CHANGED,
+  //     messages: newMessages,
+  //     locale: newLocale
+  //   });
+  // };
 
-  const createRelative = async () => {
-    const treeNode = {
-      id: 0,
-      name: 'string'
-    } as TreeNode;
+  // const createRelative = async () => {
+  //   const treeNode = {
+  //     id: 0,
+  //     name: 'string'
+  //   } as TreeNode;
 
-    createTreeNode({ treeNode });
-  };
+  //   createTreeNode({ treeNode });
+  // };
 
   if (isLoading) {
     // console.log("loading")
@@ -51,6 +53,10 @@ const App: React.FC<Props> = () => {
   }
 
   notifierEffect();
+
+  if (!user) {
+    console.log("user null")
+  }
 
   useEffect(() => {
     contextDispatch({
@@ -70,7 +76,7 @@ const App: React.FC<Props> = () => {
       messages={messages}
     >
       <div className='App'>
-        <MainArea />
+        {user ? <MainArea /> : <Login />}
         {/* <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <p>

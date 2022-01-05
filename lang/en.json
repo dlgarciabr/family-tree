@@ -8,5 +8,17 @@
   },
   "message.error": {
     "defaultMessage": "An error has occurred!"
+  },
+  "login.title": {
+    "defaultMessage": "Login"
+  },
+  "login.email.label": {
+    "defaultMessage": "Email"
+  },
+  "login.password.label": {
+    "defaultMessage": "Password"
+  },
+  "login.button.label": {
+    "defaultMessage": "Sign In"
   }
 }

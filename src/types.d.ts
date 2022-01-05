@@ -6,9 +6,10 @@ export interface Props {
 
 export interface AppSettings {
   loadInitialData: boolean,
-  name: string;
-  locale: string;
-  messages: Record<string, MessageFormatElement[]>
+  name: string,
+  locale: string,
+  messages: Record<string, MessageFormatElement[]>,
+  user: User | null
 }
 
 export interface AppContextInterface {
