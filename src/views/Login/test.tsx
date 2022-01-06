@@ -1,5 +1,5 @@
 
-import userEvent from "@testing-library/user-event";
+import userEvent, { TargetElement } from "@testing-library/user-event";
 import { render, screen, waitFor } from "../../utils/test-utils";
 import { locales, getLocatedMessage } from '../../utils/i18n';
 // import mockAxios from "axios";
@@ -11,7 +11,7 @@ import App from "../App";
 // });
 
 describe("Login process", () => {
-  test("Open login form hidding secured features", async () => {
+  test("Open login form hidding secured features", () => {
     //arrange
     const loginTitle = getLocatedMessage(locales.EN.value, 'login.title');
     const emailLabel = "Email";
@@ -23,6 +23,8 @@ describe("Login process", () => {
     // await new Promise((r) => setTimeout(r, 1000));
 
     //assert
+    expect(screen.queryByText("Main area")).not.toBeInTheDocument();
+
     expect(
       screen.getByRole("heading", { name: loginTitle })
     ).toBeInTheDocument();
@@ -32,65 +34,66 @@ describe("Login process", () => {
     expect(screen.queryByTestId(passwordId)).toBeInTheDocument();
 
     expect(screen.queryByRole("button", { name: buttonLabel })).toBeInTheDocument();
-
-    //TODO validate if main area is not shown
-    expect(false).toBeTruthy();
   });
 
-  test.todo("Fail on doing login with wrong credentials");
-  // test("Fail on doing login with wrong credentials", async () => {
-  //arrange
-  // const email = "admin@mail.com";
-  // const password = "123456";
-  // const enMessages = await import("../../../compiled-lang/en.json");
+  test("Fail on doing login with wrong credentials", async () => {
+    //arrange
+    const loginTitle = getLocatedMessage(locales.EN.value, 'login.title');
+    const emailLabel = "Email";
+    const passwordId = "password";
+    const buttonLabel = "Sign In";
+    const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'login.wrong-credentials');
+    const email = "admin@mail.com";
+    const password = "123456";
+    // const enMessages = await import("../../../compiled-lang/en.json");
 
-  // mockAxios.get.mockImplementationOnce(() =>
-  //   Promise.resolve({
-  //     data: {},
-  //   })
-  // );
+    // mockAxios.get.mockImplementationOnce(() =>
+    //   Promise.resolve({
+    //     data: {},
+    //   })
+    // );
 
-  // render(<App />);
-  // await new Promise((r) => setTimeout(r, 1000));
+    render(<App />);
+    // await new Promise((r) => setTimeout(r, 1000));
 
-  // expect(
-  //   screen.getByRole("heading", { name: enMessages["login-title"][0].value })
-  // ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: loginTitle })
+    ).toBeInTheDocument();
 
-  // //act
-  // const emailTexfield = screen.getByRole("textbox", {
-  //   name: enMessages["email-label"][0].value,
-  // });
-  // const passwordTexfield = screen.getByTestId("password").childNodes[1]
-  //   .childNodes[0];
+    //act
+    const emailTexfield = screen.getByRole("textbox", {
+      name: emailLabel,
+    });
+    const passwordTexfield = screen.getByTestId(passwordId).childNodes[1]
+      .childNodes[0] as TargetElement;
 
-  // userEvent.type(emailTexfield, email);
-  // userEvent.type(passwordTexfield, password);
+    userEvent.type(emailTexfield, email);
+    userEvent.type(passwordTexfield, password);
 
-  // userEvent.click(
-  //   screen.getByRole("button", { name: enMessages["signin-label"][0].value })
-  // );
+    userEvent.click(
+      screen.getByRole("button", { name: buttonLabel })
+    );
 
-  // //assert
+    //assert
 
-  // expect(mockAxios.get).toHaveBeenCalledTimes(1);
+    // expect(mockAxios.get).toHaveBeenCalledTimes(1);
 
-  // expect(mockAxios.get).toHaveBeenLastCalledWith(
-  //   `${process.env.REACT_APP_API_URL}/user/login`,
-  //   {
-  //     params: {
-  //       email: email,
-  //       password: password,
-  //     },
-  //   }
-  // );
+    // expect(mockAxios.get).toHaveBeenLastCalledWith(
+    //   `${process.env.REACT_APP_API_URL}/user/login`,
+    //   {
+    //     params: {
+    //       email: email,
+    //       password: password,
+    //     },
+    //   }
+    // );
 
-  // expect(screen.getByRole("heading", { name: "Login" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: loginTitle })).toBeInTheDocument();
 
-  // expect(
-  //   await screen.findByText(enMessages["wrong-credentials-message"][0].value)
-  // ).toBeInTheDocument();
-  // });
+    expect(
+      await screen.findByText(wrongCredentialsMessage)
+    ).toBeInTheDocument();
+  });
 
   test.todo("Success on doing login with right credentials");
   // test("Success on doing login with right credentials", async () => {

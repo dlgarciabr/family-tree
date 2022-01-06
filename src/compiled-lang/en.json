@@ -29,6 +29,12 @@
       "value": "Login"
     }
   ],
+  "login.wrong-credentials": [
+    {
+      "type": 0,
+      "value": "Wrong credentials"
+    }
+  ],
   "message.error": [
     {
       "type": 0,

@@ -5,10 +5,34 @@
       "value": "Portal de la Arbor Familiar"
     }
   ],
-  "login.title": [
+  "login.button.label": [
     {
       "type": 0,
       "value": "Aceder"
+    }
+  ],
+  "login.email.label": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "login.password.label": [
+    {
+      "type": 0,
+      "value": "Contrasenã"
+    }
+  ],
+  "login.title": [
+    {
+      "type": 0,
+      "value": "Aceder la aplicacion"
+    }
+  ],
+  "login.wrong-credentials": [
+    {
+      "type": 0,
+      "value": "Wrong credentials"
     }
   ],
   "message.error": [

@@ -23,6 +23,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 // const useStyles = makeStyles((theme) => ({}));
 
+import useNotification from '../../hooks/notificationHandler';
+
 const LoginForm: React.FC<Props> = () => {
   // const showErrorMessage = useShowErrorMessage();
   // const dispatch = useDispatch();
@@ -30,25 +32,26 @@ const LoginForm: React.FC<Props> = () => {
 
   // const classes = useStyles(); 
   const { formatMessage } = useIntl();
+  const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
   // const [credentials, setCredentials] = useState({ email: "", password: "" });
 
-  // const handleClickSignin = async () => {
-  // const loginResponse = await doLogin({
-  //   email: credentials.email,
-  //   password: credentials.password,
-  // });
+  const handleClickSignin = async () => {
+    // const loginResponse = await doLogin({
+    //   email: credentials.email,
+    //   password: credentials.password,
+    // });
 
-  // if (loginResponse.token) {
-  //   sessionStorage.setItem(
-  //     "credentials",
-  //     JSON.stringify({ ...loginResponse })
-  //   );
-  //   dispatch(userLoggedIn(loginResponse));
-  //   history.push("/");
-  // } else {
-  //   showErrorMessage(fmt({ id: "wrong-credentials-message" }));
-  // }
-  // };
+    // if (loginResponse.token) {
+    //   sessionStorage.setItem(
+    //     "credentials",
+    //     JSON.stringify({ ...loginResponse })
+    //   );
+    //   dispatch(userLoggedIn(loginResponse));
+    //   history.push("/");
+    // } else {
+    showErrorNotification(formatMessage({ id: "login.wrong-credentials" }));
+    // }
+  };
 
   // const handleChangeField = (e) => {
   //   if (e.target.name === "email") {
@@ -99,8 +102,8 @@ const LoginForm: React.FC<Props> = () => {
         fullWidth
         variant="contained"
         color="primary"
-      // className={classes.submit}
-      // onClick={handleClickSignin}
+        // className={classes.submit}
+        onClick={handleClickSignin}
       >
         {formatMessage({ id: "login.button.label" })}
       </Button>

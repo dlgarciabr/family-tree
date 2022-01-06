@@ -20,5 +20,8 @@
   },
   "login.button.label": {
     "defaultMessage": "Sign In"
+  },
+  "login.wrong-credentials": {
+    "defaultMessage": "Wrong credentials"
   }
 }

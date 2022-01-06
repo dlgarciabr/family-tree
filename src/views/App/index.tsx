@@ -55,7 +55,7 @@ const App: React.FC<Props> = () => {
   notifierEffect();
 
   if (!user) {
-    console.log("user null")
+    // console.log("user null")
   }
 
   useEffect(() => {

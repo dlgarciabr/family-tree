@@ -5,10 +5,34 @@
       "value": "Portal da Árvore Familiar"
     }
   ],
+  "login.button.label": [
+    {
+      "type": 0,
+      "value": "Enviar"
+    }
+  ],
+  "login.email.label": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "login.password.label": [
+    {
+      "type": 0,
+      "value": "Senha"
+    }
+  ],
   "login.title": [
     {
       "type": 0,
-      "value": "Acesso"
+      "value": "Acesso ao portal"
+    }
+  ],
+  "login.wrong-credentials": [
+    {
+      "type": 0,
+      "value": "Wrong credentials"
     }
   ],
   "message.error": [
