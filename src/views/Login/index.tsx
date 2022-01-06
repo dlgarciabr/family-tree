@@ -25,6 +25,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import useNotification from '../../hooks/notificationHandler';
 
+import { useLazyLoginUserQuery } from '../../services/familyTreeApi';
+
 const LoginForm: React.FC<Props> = () => {
   // const showErrorMessage = useShowErrorMessage();
   // const dispatch = useDispatch();
@@ -32,7 +34,8 @@ const LoginForm: React.FC<Props> = () => {
 
   // const classes = useStyles(); 
   const { formatMessage } = useIntl();
-  const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
+  const { showErrorNotification } = useNotification();
+  // const { data, error, isLoading } = useLoginUserQuery({ email: 'asas', password: '343434' });
   // const [credentials, setCredentials] = useState({ email: "", password: "" });
 
   const handleClickSignin = async () => {

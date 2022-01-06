@@ -39,7 +39,7 @@
     "compile-i18n-es": "formatjs compile lang/es.json --ast --out-file src/compiled-lang/es.json",
     "compile-i18n-pt": "formatjs compile lang/pt.json --ast --out-file src/compiled-lang/pt.json",
     "compile-i18n-pt-br": "formatjs compile lang/pt-br.json --ast --out-file src/compiled-lang/pt-br.json",
-    "generate-api-queries": "npx @rtk-query/codegen-openapi openapi-config.json"
+    "generate-api": "npx @rtk-query/codegen-openapi openapi-config.json"
   },
   "browserslist": {
     "production": [
