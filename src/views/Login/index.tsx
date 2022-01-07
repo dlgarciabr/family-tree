@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { useDispatch } from "react-redux";
 
 
@@ -35,10 +35,14 @@ const LoginForm: React.FC<Props> = () => {
   // const classes = useStyles(); 
   const { formatMessage } = useIntl();
   const { showErrorNotification } = useNotification();
+
+  const { '0': fetchToken, '1': fetchTokenResult, '2': isLoading } = useLazyLoginUserQuery();
   // const { data, error, isLoading } = useLoginUserQuery({ email: 'asas', password: '343434' });
   // const [credentials, setCredentials] = useState({ email: "", password: "" });
 
   const handleClickSignin = async () => {
+
+    fetchToken({ email: 'asas', password: '343434' });
     // const loginResponse = await doLogin({
     //   email: credentials.email,
     //   password: credentials.password,
@@ -55,6 +59,13 @@ const LoginForm: React.FC<Props> = () => {
     showErrorNotification(formatMessage({ id: "login.wrong-credentials" }));
     // }
   };
+
+  useEffect(() => {
+    console.log(fetchTokenResult)
+    // contextDispatch({
+    //   type: actions.INITIAL_DATA_LOADED
+    // });
+  }, [fetchTokenResult]);
 
   // const handleChangeField = (e) => {
   //   if (e.target.name === "email") {
