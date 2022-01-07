@@ -359,12 +359,12 @@
       }
     },
     "/user/login": {
-      "get": {
+      "post": {
         "tags": [
           "user"
         ],
         "summary": "Logs user into the system",
-        "operationId": "loginUser",
+        "operationId": "login",
         "produces": [
           "application/json",
           "application/xml"

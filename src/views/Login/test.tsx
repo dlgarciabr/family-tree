@@ -3,6 +3,7 @@ import userEvent, { TargetElement } from "@testing-library/user-event";
 import { render, screen, waitFor } from "../../utils/test-utils";
 import { locales, getLocatedMessage } from '../../utils/i18n';
 // import mockAxios from "axios";
+// import {handlers} from '../../__mocks__/handlers';
 
 import App from "../App";
 

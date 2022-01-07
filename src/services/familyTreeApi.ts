@@ -77,9 +77,10 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.body,
       }),
     }),
-    loginUser: build.query<LoginUserApiResponse, LoginUserApiArg>({
+    login: build.mutation<LoginApiResponse, LoginApiArg>({
       query: (queryArg) => ({
         url: `/user/login`,
+        method: "POST",
         params: { email: queryArg.email, password: queryArg.password },
       }),
     }),
@@ -159,9 +160,9 @@ export type CreateUsersWithListInputApiArg = {
   /** List of user object */
   body: User[];
 };
-export type LoginUserApiResponse =
+export type LoginApiResponse =
   /** status 200 successful operation */ InlineResponse2002;
-export type LoginUserApiArg = {
+export type LoginApiArg = {
   /** The user name for login */
   email: string;
   /** The password for login in clear text */
@@ -239,7 +240,7 @@ export const {
   useCreateUserMutation,
   useCreateUsersWithArrayInputMutation,
   useCreateUsersWithListInputMutation,
-  useLoginUserQuery,
+  useLoginMutation,
   useLogoutUserQuery,
   useValidateTokenQuery,
   useGetUserByNameQuery,

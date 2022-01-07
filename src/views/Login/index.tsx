@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from 'react';
 // import { useDispatch } from "react-redux";
 
 
@@ -17,18 +17,13 @@ import TextField from "@mui/material/TextField";
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
-// import { useShowErrorMessage } from "../../../hooks/messageHandler";
-// import { doLogin } from "../apis";
-// import { userLoggedIn } from "../../app/ducks";
-
 // const useStyles = makeStyles((theme) => ({}));
 
 import useNotification from '../../hooks/notificationHandler';
 
-import { useLazyLoginUserQuery } from '../../services/familyTreeApi';
+import { useLoginMutation } from '../../services/familyTreeApi';
 
 const LoginForm: React.FC<Props> = () => {
-  // const showErrorMessage = useShowErrorMessage();
   // const dispatch = useDispatch();
   // const history = useHistory();
 
@@ -36,36 +31,30 @@ const LoginForm: React.FC<Props> = () => {
   const { formatMessage } = useIntl();
   const { showErrorNotification } = useNotification();
 
-  const { '0': fetchToken, '1': fetchTokenResult, '2': isLoading } = useLazyLoginUserQuery();
+  const [fetchToken, { isLoading, data: tokenResult }] = useLoginMutation();
   // const { data, error, isLoading } = useLoginUserQuery({ email: 'asas', password: '343434' });
   // const [credentials, setCredentials] = useState({ email: "", password: "" });
 
   const handleClickSignin = async () => {
-
     fetchToken({ email: 'asas', password: '343434' });
-    // const loginResponse = await doLogin({
-    //   email: credentials.email,
-    //   password: credentials.password,
-    // });
-
-    // if (loginResponse.token) {
-    //   sessionStorage.setItem(
-    //     "credentials",
-    //     JSON.stringify({ ...loginResponse })
-    //   );
-    //   dispatch(userLoggedIn(loginResponse));
-    //   history.push("/");
-    // } else {
-    showErrorNotification(formatMessage({ id: "login.wrong-credentials" }));
-    // }
   };
 
   useEffect(() => {
-    console.log(fetchTokenResult)
+
     // contextDispatch({
     //   type: actions.INITIAL_DATA_LOADED
     // });
-  }, [fetchTokenResult]);
+
+    if (tokenResult?.token) {
+      console.log(tokenResult?.token)
+      // sessionStorage.setItem(
+      //   "credentials",
+      //   JSON.stringify({ ...loginResponse })
+      // );
+      // dispatch(userLoggedIn(loginResponse));
+      // history.push("/");
+    }
+  }, [tokenResult]);
 
   // const handleChangeField = (e) => {
   //   if (e.target.name === "email") {

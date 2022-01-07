@@ -25,8 +25,8 @@ const App: React.FC<Props> = () => {
   // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
   const { appSettings: { messages, locale, user, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
-  const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
-  const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
+  // const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
+  // const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
 
   // const changeLanguage = async (newLocale: string) => {
   //   const newMessages = loadLocaleMessages(newLocale);
@@ -46,11 +46,11 @@ const App: React.FC<Props> = () => {
   //   createTreeNode({ treeNode });
   // };
 
-  if (isLoading) {
-    // console.log("loading")
-  } else {
-    // console.log(data);
-  }
+  // if (isLoading) {
+  //   // console.log("loading")
+  // } else {
+  //   // console.log(data);
+  // }
 
   notifierEffect();
 
