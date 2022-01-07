@@ -4,27 +4,31 @@ import { IntlProvider } from 'react-intl';
 
 import MainArea from '../MainArea';
 import { AppContext, actions } from '../../context/App';
-import { loadLocaleMessages, locales } from '../../utils/i18n';
+// import { loadLocaleMessages, locales } from '../../utils/i18n';
 import useNotification from '../../hooks/notificationHandler';
 import { Props } from '../../types';
-import logo from '../../logo.svg';
+// import logo from '../../logo.svg';
 import './style.css';
-import Dummy from '../Dummy';
+// import Dummy from '../Dummy';
 import notifierEffect from './notifierEffect';
-import { useSnackbar } from 'notistack';
+// import { useSnackbar } from 'notistack';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { RootState } from '../../utils/reduxStore';
 
 // import { useGetUserByNameQuery } from '../../services/user';
-import { useGetTreeNodeByIdQuery, useCreateTreeNodeMutation, TreeNode } from '../../services/familyTreeApi';
 
-import Login from '../Login'
+import Login from '../Login';
 
 const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
   // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
-  const { appSettings: { messages, locale, user, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
+  const { showInfoNotification } = useNotification();
+  const {
+    appSettings: {
+      messages, locale, user, loadInitialData
+    },
+    dispatch: contextDispatch
+  } = React.useContext(AppContext);
   // const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
   // const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
 
@@ -66,7 +70,7 @@ const App: React.FC<Props> = () => {
 
   useEffect(() => {
     if (!loadInitialData) {
-      showInfoNotification('locale changed to ' + locale);
+      showInfoNotification(`locale changed to ${locale}`);
     }
   }, [locale]);
 
@@ -75,7 +79,7 @@ const App: React.FC<Props> = () => {
       locale={locale}
       messages={messages}
     >
-      <div className='App'>
+      <div className="App">
         {user ? <MainArea /> : <Login />}
         {/* <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />

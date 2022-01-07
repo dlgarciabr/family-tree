@@ -6,11 +6,11 @@ export interface StackedNotification {
   message: SnackbarMessage,
   dismissed: boolean,
   options?: OptionsObject
-};
+}
 
 export interface NotificationState {
   notifications: StackedNotification[]
-};
+}
 
 const initialState: NotificationState = {
   notifications: [],

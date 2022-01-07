@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 // import { useDispatch } from "react-redux";
 
-
-import { Props } from '../../types';
 // import { useHistory } from "react-router-dom";
 
 // import { makeStyles } from "@material-ui/core/styles";
 // import Grid from "@material-ui/core/Grid";
 import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 // import Checkbox from "@material-ui/core/Checkbox";
 // import Link from "@material-ui/core/Link";
 // import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -17,9 +15,10 @@ import TextField from "@mui/material/TextField";
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
+import { Props } from '../../types';
 // const useStyles = makeStyles((theme) => ({}));
 
-import useNotification from '../../hooks/notificationHandler';
+// import useNotification from '../../hooks/notificationHandler';
 
 import { useLoginMutation } from '../../services/familyTreeApi';
 
@@ -27,11 +26,11 @@ const LoginForm: React.FC<Props> = () => {
   // const dispatch = useDispatch();
   // const history = useHistory();
 
-  // const classes = useStyles(); 
+  // const classes = useStyles();
   const { formatMessage } = useIntl();
-  const { showErrorNotification } = useNotification();
+  // const { showErrorNotification } = useNotification();
 
-  const [fetchToken, { isLoading, data: tokenResult }] = useLoginMutation();
+  const [fetchToken, { data: tokenResult }] = useLoginMutation();
   // const { data, error, isLoading } = useLoginUserQuery({ email: 'asas', password: '343434' });
   // const [credentials, setCredentials] = useState({ email: "", password: "" });
 
@@ -40,13 +39,12 @@ const LoginForm: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-
     // contextDispatch({
     //   type: actions.INITIAL_DATA_LOADED
     // });
 
     if (tokenResult?.token) {
-      console.log(tokenResult?.token)
+      console.log(tokenResult?.token);
       // sessionStorage.setItem(
       //   "credentials",
       //   JSON.stringify({ ...loginResponse })
@@ -79,7 +77,7 @@ const LoginForm: React.FC<Props> = () => {
         required
         fullWidth
         id="email"
-        label={formatMessage({ id: "login.email.label" })}
+        label={formatMessage({ id: 'login.email.label' })}
         name="email"
         autoComplete="email"
         autoFocus
@@ -92,7 +90,7 @@ const LoginForm: React.FC<Props> = () => {
         required
         fullWidth
         name="password"
-        label={formatMessage({ id: "login.password.label" })}
+        label={formatMessage({ id: 'login.password.label' })}
         type="password"
         id="password"
         data-testid="password"
@@ -108,15 +106,13 @@ const LoginForm: React.FC<Props> = () => {
         // className={classes.submit}
         onClick={handleClickSignin}
       >
-        {formatMessage({ id: "login.button.label" })}
+        {formatMessage({ id: 'login.button.label' })}
       </Button>
-
-    </div >
+    </div>
     //         <FormControlLabel
     //           control={<Checkbox value="remember" color="primary" />}
     //           label={fmt({ id: "remember-me-label" })}
     //         />
-
     //         <Grid container>
     //           <Grid item xs>
     //             <Link href="#" variant="body2">

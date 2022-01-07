@@ -12,14 +12,12 @@ const messageType = {
   ERROR: 'error' as VariantType
 };
 
-const createNotification = (message: string, variant: VariantType): StackedNotification => {
-  return {
-    key: new Date().getTime(),
-    message,
-    dismissed: false,
-    options: { variant }
-  }
-};
+const createNotification = (message: string, variant: VariantType): StackedNotification => ({
+  key: new Date().getTime(),
+  message,
+  dismissed: false,
+  options: { variant }
+});
 
 export const dispatchInfoNotification = (dispatch: Dispatch<any>, message: string) => {
   const notification = createNotification(message, messageType.INFO);

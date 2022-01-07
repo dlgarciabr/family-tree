@@ -65,5 +65,8 @@
                 ]
             }
         }
-    }
+    },
+    "ignorePatterns": [
+        "src/services/familyTreeApi.ts"
+    ]
 }
