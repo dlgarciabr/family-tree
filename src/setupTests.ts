@@ -4,15 +4,17 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
-// import { handlers } from './__mocks__/handlers';
-// import { store } from './utils/reduxStore';
-// import { familyTreeApi } from './services/familyTreeApi';
+import { mswServer } from './__mocks__/msw-server';
+import { store } from './utils/reduxStore';
+import { familyTreeApi } from './services/familyTreeApi';
 
-// beforeAll(() => handlers.listen());
+beforeAll(() => mswServer.listen({
+    onUnhandledRequest: 'error',
+}));
 
-// afterEach(() => {
-//     // server.resetHandlers();
+afterEach(() => {
+    mswServer.resetHandlers();
+    store.dispatch(familyTreeApi.util.resetApiState());
+});
 
-//     // This is the solution to clear RTK Query cache after each test
-//     store.dispatch(familyTreeApi.util.resetApiState());
-// });
+afterAll(() => mswServer.close());

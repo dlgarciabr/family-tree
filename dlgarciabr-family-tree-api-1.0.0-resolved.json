@@ -371,18 +371,13 @@
         ],
         "parameters": [
           {
-            "name": "email",
-            "in": "query",
-            "description": "The user name for login",
+            "in": "body",
+            "name": "body",
+            "description": "Params to login",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "description": "The password for login in clear text",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/UserLoginData"
+            }
           }
         ],
         "responses": {
@@ -571,7 +566,7 @@
             "description": "Invalid username supplied"
           },
           "404": {
-            "description": "User not found"
+            "description": "ULogiLoginDataot found"
           }
         }
       }
@@ -607,16 +602,7 @@
           "example": 123
         },
         "menuCode": {
-          "type": "string",
-          "example": "PAJ"
-        },
-        "groupName": {
-          "type": "string",
-          "example": "AAA"
-        },
-        "deleted": {
-          "type": "boolean",
-          "example": true
+          "type": "string"
         }
       }
     },
@@ -641,6 +627,19 @@
         },
         "username": {
           "type": "string"
+        }
+      }
+    },
+    "UserLoginData": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "abc@mail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "AAA"
         }
       }
     },

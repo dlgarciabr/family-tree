@@ -81,7 +81,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/user/login`,
         method: "POST",
-        params: { email: queryArg.email, password: queryArg.password },
+        body: queryArg.userLoginData,
       }),
     }),
     logoutUser: build.query<LogoutUserApiResponse, LogoutUserApiArg>({
@@ -163,10 +163,8 @@ export type CreateUsersWithListInputApiArg = {
 export type LoginApiResponse =
   /** status 200 successful operation */ InlineResponse2002;
 export type LoginApiArg = {
-  /** The user name for login */
-  email: string;
-  /** The password for login in clear text */
-  password: string;
+  /** Params to login */
+  userLoginData: UserLoginData;
 };
 export type LogoutUserApiResponse = unknown;
 export type LogoutUserApiArg = void;
@@ -211,8 +209,6 @@ export type InlineResponse2001 = {
 export type RuleToPersist = {
   id?: number;
   menuCode?: string;
-  groupName?: string;
-  deleted?: boolean;
 };
 export type TreeNode = {
   id?: number;
@@ -225,6 +221,10 @@ export type User = {
 export type InlineResponse2002 = {
   id?: number;
   token?: string;
+};
+export type UserLoginData = {
+  email?: string;
+  password?: string;
 };
 export type InlineResponse2003 = {
   valid?: boolean;

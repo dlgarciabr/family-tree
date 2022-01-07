@@ -1,7 +1,9 @@
-
-import userEvent, { TargetElement } from "@testing-library/user-event";
-import { render, screen, waitFor } from "../../utils/test-utils";
+import userEvent, { TargetElement } from '@testing-library/user-event';
+import { rest } from 'msw';
+import { render, screen, waitFor } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
+import { mswServer, waitForRequest } from '../../__mocks__/msw-server';
+import { loginDeniedHandler } from '../../__mocks__/msw-handlers';
 // import mockAxios from "axios";
 // import {handlers} from '../../__mocks__/handlers';
 
@@ -10,6 +12,8 @@ import App from "../App";
 // afterEach(() => {
 //   jest.clearAllMocks();
 // });
+
+const baseUrl = process.env.REACT_APP_API_URL;
 
 describe("Login process", () => {
   test("Open login form hidding secured features", () => {
@@ -46,13 +50,17 @@ describe("Login process", () => {
     const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'login.wrong-credentials');
     const email = "admin@mail.com";
     const password = "123456";
-    // const enMessages = await import("../../../compiled-lang/en.json");
+    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
-    // mockAxios.get.mockImplementationOnce(() =>
-    //   Promise.resolve({
-    //     data: {},
-    //   })
-    // );
+    // const loginDeniedHandler = rest.post(`${baseUrl}/user/login`, (req, res, ctx) => {
+    //   const body = req.body as any;
+    //   const msg = `[JEST] POST MSW mocked called with params: ${JSON.stringify(body)}`;
+    //   console.log(msg);
+
+    //   return res(ctx.status(400));
+    // });
+
+    mswServer.use(loginDeniedHandler);
 
     render(<App />);
     // await new Promise((r) => setTimeout(r, 1000));
@@ -76,18 +84,12 @@ describe("Login process", () => {
     );
 
     //assert
+    const request = await pendingRequest;
 
-    // expect(mockAxios.get).toHaveBeenCalledTimes(1);
-
-    // expect(mockAxios.get).toHaveBeenLastCalledWith(
-    //   `${process.env.REACT_APP_API_URL}/user/login`,
-    //   {
-    //     params: {
-    //       email: email,
-    //       password: password,
-    //     },
-    //   }
-    // );
+    expect(request.body).toEqual({
+      email: email,
+      password: password,
+    })
 
     expect(screen.getByRole("heading", { name: loginTitle })).toBeInTheDocument();
 

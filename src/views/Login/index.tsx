@@ -35,14 +35,13 @@ const LoginForm: React.FC<Props> = () => {
   // const [credentials, setCredentials] = useState({ email: "", password: "" });
 
   const handleClickSignin = async () => {
-    fetchToken({ email: 'asas', password: '343434' });
+    fetchToken({ userLoginData: { email: 'asas', password: '343434' } });
   };
 
   useEffect(() => {
     // contextDispatch({
     //   type: actions.INITIAL_DATA_LOADED
     // });
-
     if (tokenResult?.token) {
       console.log(tokenResult?.token);
       // sessionStorage.setItem(
