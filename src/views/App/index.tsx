@@ -23,6 +23,7 @@ const App: React.FC<Props> = () => {
   // const reduxDispatch = useDispatch();
   // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { showInfoNotification } = useNotification();
+
   const {
     appSettings: {
       messages, locale, user, loadInitialData
@@ -58,9 +59,9 @@ const App: React.FC<Props> = () => {
 
   notifierEffect();
 
-  if (!user) {
-    // console.log("user null")
-  }
+  // if (!user) {
+  // console.log("user null")
+  // }
 
   useEffect(() => {
     contextDispatch({

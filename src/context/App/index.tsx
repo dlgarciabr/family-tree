@@ -5,7 +5,8 @@ import { Props, AppContextInterface, AppSettings } from '../../types';
 
 export const actions = {
   LOCALE_CHANGED: 'LOCALE_CHANGED',
-  INITIAL_DATA_LOADED: 'INITIAL_DATA_LOADED'
+  INITIAL_DATA_LOADED: 'INITIAL_DATA_LOADED',
+  USER_LOGGED_IN: 'USER_LOGGED_IN'
 };
 
 const userLanguage = getUserLanguage();
@@ -35,6 +36,11 @@ const AppProvider: React.FC<Props> = ({ children }) => {
         return {
           ...state,
           loadInitialData: false
+        };
+      case actions.USER_LOGGED_IN:
+        return {
+          ...state,
+          user: action.data
         };
       default:
         throw new Error();

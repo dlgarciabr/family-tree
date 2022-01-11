@@ -1,5 +1,4 @@
 import userEvent, { TargetElement } from '@testing-library/user-event';
-import { rest } from 'msw';
 import { render, screen, waitFor } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
 import { mswServer, waitForRequest } from '../../__mocks__/msw-server';
@@ -25,7 +24,6 @@ describe("Login process", () => {
 
     //act
     render(<App />);
-    // await new Promise((r) => setTimeout(r, 1000));
 
     //assert
     expect(screen.queryByText("Main area")).not.toBeInTheDocument();
@@ -52,22 +50,9 @@ describe("Login process", () => {
     const password = "123456";
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
-    // const loginDeniedHandler = rest.post(`${baseUrl}/user/login`, (req, res, ctx) => {
-    //   const body = req.body as any;
-    //   const msg = `[JEST] POST MSW mocked called with params: ${JSON.stringify(body)}`;
-    //   console.log(msg);
-
-    //   return res(ctx.status(400));
-    // });
-
     mswServer.use(loginDeniedHandler);
 
     render(<App />);
-    // await new Promise((r) => setTimeout(r, 1000));
-
-    expect(
-      screen.getByRole("heading", { name: loginTitle })
-    ).toBeInTheDocument();
 
     //act
     const emailTexfield = screen.getByRole("textbox", {
@@ -98,61 +83,51 @@ describe("Login process", () => {
     ).toBeInTheDocument();
   });
 
-  test.todo("Success on doing login with right credentials");
-  // test("Success on doing login with right credentials", async () => {
-  //arrange
-  //   const email = "admin@mail.com";
-  //   const password = "123456";
-  //   const userId = 1;
-  //   const token = "1234567";
-  //   const enMessages = await import("../../../compiled-lang/en.json");
+  test("Success on doing login with right credentials", async () => {
+    // arrange
+    const loginTitle = getLocatedMessage(locales.EN.value, 'login.title');
+    const mainAreaHeaderTitle = await getLocatedMessage(locales.EN.value, 'app-title');
+    const emailLabel = "Email";
+    const passwordId = "password";
+    const buttonLabel = "Sign In";
+    const email = "admin@mail.com";
+    const password = "123456";
+    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
+    //   const userId = 1;
+    //   const token = "1234567";
 
-  //   mockAxios.get.mockImplementationOnce(() =>
-  //     Promise.resolve({
-  //       data: { id: userId, token: token },
-  //     })
-  //   );
+    render(<App />);
 
-  //   render(<App />);
-  //   await new Promise((r) => setTimeout(r, 1000));
+    //act
+    const emailTexfield = screen.getByRole("textbox", {
+      name: emailLabel,
+    });
+    const passwordTexfield = screen.getByTestId(passwordId).childNodes[1]
+      .childNodes[0] as TargetElement;
 
-  //   expect(
-  //     screen.getByRole("heading", { name: enMessages["login-title"][0].value })
-  //   ).toBeInTheDocument();
+    userEvent.type(emailTexfield, email);
+    userEvent.type(passwordTexfield, password);
 
-  //   //act
-  //   const emailTexfield = screen.getByRole("textbox", {
-  //     name: enMessages["email-label"][0].value,
-  //   });
-  //   const passwordTexfield = screen.getByTestId("password").childNodes[1]
-  //     .childNodes[0];
+    userEvent.click(
+      screen.getByRole("button", { name: buttonLabel })
+    );
 
-  //   userEvent.type(emailTexfield, email);
-  //   userEvent.type(passwordTexfield, password);
+    //assert
+    const request = await pendingRequest;
 
-  //   userEvent.click(
-  //     screen.getByRole("button", {
-  //       name: enMessages["signin-label"][0].value,
-  //     })
-  //   );
+    expect(request.body).toEqual({
+      email,
+      password,
+    });
 
-  //   //assert
-  //   expect(mockAxios.get).toHaveBeenCalledTimes(1);
+    await waitFor(() =>
+      expect(
+        screen.queryByRole("heading", { name: loginTitle })
+      ).not.toBeInTheDocument()
+    );
 
-  //   expect(mockAxios.get).toHaveBeenCalledWith(
-  //     `${process.env.REACT_APP_API_URL}/user/login`,
-  //     {
-  //       params: {
-  //         email: email,
-  //         password: password,
-  //       },
-  //     }
-  //   );
-
-  //   await waitFor(() =>
-  //     expect(
-  //       screen.queryByRole("heading", { name: "Login" })
-  //     ).not.toBeInTheDocument()
-  //   );
-  // });
+    expect(
+      screen.queryByText(mainAreaHeaderTitle)
+    ).toBeInTheDocument();
+  });
 });

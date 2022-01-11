@@ -22,6 +22,8 @@ import { Props } from '../../types';
 
 import { useLoginMutation } from '../../services/familyTreeApi';
 
+import { AppContext, actions } from '../../context/App';
+
 const LoginForm: React.FC<Props> = () => {
   // const dispatch = useDispatch();
   // const history = useHistory();
@@ -30,7 +32,11 @@ const LoginForm: React.FC<Props> = () => {
   const { formatMessage } = useIntl();
   // const { showErrorNotification } = useNotification();
 
-  const [fetchToken, { data: tokenResult }] = useLoginMutation();
+  const {
+    dispatch: contextDispatch
+  } = React.useContext(AppContext);
+
+  const [fetchToken, { data: resultData }] = useLoginMutation();
   // const { data, error, isLoading } = useLoginUserQuery({ email: 'asas', password: '343434' });
   const [credentials, setCredentials] = useState({ email: '', password: '' });
 
@@ -39,11 +45,12 @@ const LoginForm: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    // contextDispatch({
-    //   type: actions.INITIAL_DATA_LOADED
-    // });
-    if (tokenResult?.token) {
-      console.log(tokenResult?.token);
+    if (resultData?.token) {
+      contextDispatch({
+        type: actions.USER_LOGGED_IN,
+        data: resultData
+      });
+      // console.log(tokenResult?.token);
       // sessionStorage.setItem(
       //   "credentials",
       //   JSON.stringify({ ...loginResponse })
@@ -51,7 +58,7 @@ const LoginForm: React.FC<Props> = () => {
       // dispatch(userLoggedIn(loginResponse));
       // history.push("/");
     }
-  }, [tokenResult]);
+  }, [resultData?.token]);
 
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.name === 'email') {

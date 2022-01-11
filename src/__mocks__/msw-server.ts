@@ -14,12 +14,12 @@ const waitForRequest = (method: string, url: string): Promise<MockedRequest> => 
                 requestId = req.id
             }
         })
-        mswServer.events.on('request:match', (req) => {
+        mswServer.events.on('request:match', (req: MockedRequest) => {
             if (req.id === requestId) {
                 resolve(req)
             }
         })
-        mswServer.events.on('request:unhandled', (req) => {
+        mswServer.events.on('request:unhandled', (req: MockedRequest) => {
             if (req.id === requestId) {
                 reject(
                     new Error(`The ${req.method} ${req.url.href} request was unhandled.`),
