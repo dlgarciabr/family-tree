@@ -87,8 +87,8 @@ describe("Login process", () => {
     const request = await pendingRequest;
 
     expect(request.body).toEqual({
-      email: email,
-      password: password,
+      email,
+      password,
     })
 
     expect(screen.getByRole("heading", { name: loginTitle })).toBeInTheDocument();

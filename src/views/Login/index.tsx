@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 // import { useDispatch } from "react-redux";
 
 // import { useHistory } from "react-router-dom";
@@ -32,10 +32,10 @@ const LoginForm: React.FC<Props> = () => {
 
   const [fetchToken, { data: tokenResult }] = useLoginMutation();
   // const { data, error, isLoading } = useLoginUserQuery({ email: 'asas', password: '343434' });
-  // const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
 
   const handleClickSignin = async () => {
-    fetchToken({ userLoginData: { email: 'asas', password: '343434' } });
+    fetchToken({ userLoginData: credentials });
   };
 
   useEffect(() => {
@@ -53,13 +53,13 @@ const LoginForm: React.FC<Props> = () => {
     }
   }, [tokenResult]);
 
-  // const handleChangeField = (e) => {
-  //   if (e.target.name === "email") {
-  //     setCredentials({ ...credentials, email: e.target.value });
-  //   } else if (e.target.name === "password") {
-  //     setCredentials({ ...credentials, password: e.target.value });
-  //   }
-  // };
+  const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.name === 'email') {
+      setCredentials({ ...credentials, email: e.currentTarget.value });
+    } else if (e.target.name === 'password') {
+      setCredentials({ ...credentials, password: e.currentTarget.value });
+    }
+  };
 
   return (
     // <Grid container justify="center">
@@ -80,8 +80,8 @@ const LoginForm: React.FC<Props> = () => {
         name="email"
         autoComplete="email"
         autoFocus
-      // value={credentials.email}
-      // onChange={handleChangeField}
+        value={credentials.email}
+        onChange={handleChangeField}
       />
       <TextField
         variant="outlined"
@@ -94,8 +94,8 @@ const LoginForm: React.FC<Props> = () => {
         id="password"
         data-testid="password"
         autoComplete="current-password"
-      // value={credentials.password}
-      // onChange={handleChangeField}
+        value={credentials.password}
+        onChange={handleChangeField}
       />
       <Button
         type="button"
