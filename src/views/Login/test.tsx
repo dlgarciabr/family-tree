@@ -83,7 +83,7 @@ describe("Login process", () => {
     ).toBeInTheDocument();
   });
 
-  test("Success on doing login with right credentials", async () => {
+  test("Success on doing login with right credentials and refrash page", async () => {
     // arrange
     const loginTitle = getLocatedMessage(locales.EN.value, 'login.title');
     const mainAreaHeaderTitle = await getLocatedMessage(locales.EN.value, 'app-title');
@@ -93,8 +93,6 @@ describe("Login process", () => {
     const email = "admin@mail.com";
     const password = "123456";
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
-    //   const userId = 1;
-    //   const token = "1234567";
 
     render(<App />);
 
@@ -129,5 +127,7 @@ describe("Login process", () => {
     expect(
       screen.queryByText(mainAreaHeaderTitle)
     ).toBeInTheDocument();
+
+    // userEvent.keyboard('[Enter]');
   });
 });
