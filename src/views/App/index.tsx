@@ -1,27 +1,19 @@
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-// import { useSelector, useDispatch } from 'react-redux';
 
 import MainArea from '../MainArea';
 import { AppContext, actions } from '../../context/App';
-// import { loadLocaleMessages, locales } from '../../utils/i18n';
 import useNotification from '../../hooks/notificationHandler';
 import { Props } from '../../types';
 // import logo from '../../logo.svg';
-import './style.css';
-// import Dummy from '../Dummy';
+// import './style.css';
 import notifierEffect from './notifierEffect';
-// import { useSnackbar } from 'notistack';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { RootState } from '../../utils/reduxStore';
-
-// import { useGetUserByNameQuery } from '../../services/user';
+import { useLazyValidateTokenQuery } from '../../services/familyTreeApi';
 
 import Login from '../Login';
 
 const App: React.FC<Props> = () => {
-  // const reduxDispatch = useDispatch();
-  // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const storageCredentials = sessionStorage.getItem('credentials');
   const { showInfoNotification } = useNotification();
 
   const {
@@ -30,43 +22,18 @@ const App: React.FC<Props> = () => {
     },
     dispatch: contextDispatch
   } = React.useContext(AppContext);
-  // const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
-  // const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
 
-  // const changeLanguage = async (newLocale: string) => {
-  //   const newMessages = loadLocaleMessages(newLocale);
-  //   contextDispatch({
-  //     type: actions.LOCALE_CHANGED,
-  //     messages: newMessages,
-  //     locale: newLocale
-  //   });
-  // };
-
-  // const createRelative = async () => {
-  //   const treeNode = {
-  //     id: 0,
-  //     name: 'string'
-  //   } as TreeNode;
-
-  //   createTreeNode({ treeNode });
-  // };
-
-  // if (isLoading) {
-  //   // console.log("loading")
-  // } else {
-  //   // console.log(data);
-  // }
+  const [validateToken, validationTokenResult] = useLazyValidateTokenQuery();
 
   notifierEffect();
 
-  // if (!user) {
-  // console.log("user null")
-  // }
-
   useEffect(() => {
-    contextDispatch({
-      type: actions.INITIAL_DATA_LOADED
-    });
+    if (user === null && storageCredentials) {
+      const credentials = JSON.parse(storageCredentials);
+      if (credentials) {
+        validateToken({ token: credentials.token });
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -74,6 +41,20 @@ const App: React.FC<Props> = () => {
       showInfoNotification(`locale changed to ${locale}`);
     }
   }, [locale]);
+
+  useEffect(() => {
+    if (storageCredentials && validationTokenResult.data) {
+      if (validationTokenResult.data?.valid) {
+        const credentials = JSON.parse(storageCredentials as string);
+        contextDispatch({
+          type: actions.USER_LOGGED_IN,
+          data: { ...credentials }
+        });
+      } else {
+        sessionStorage.removeItem('credentials');
+      }
+    }
+  }, [validationTokenResult.data]);
 
   return (
     <IntlProvider

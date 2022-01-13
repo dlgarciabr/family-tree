@@ -243,6 +243,7 @@ export const {
   useLoginMutation,
   useLogoutUserQuery,
   useValidateTokenQuery,
+  useLazyValidateTokenQuery,
   useGetUserByNameQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,

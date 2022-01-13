@@ -37,7 +37,6 @@ const LoginForm: React.FC<Props> = () => {
   } = React.useContext(AppContext);
 
   const [fetchToken, { data: resultData }] = useLoginMutation();
-  // const { data, error, isLoading } = useLoginUserQuery({ email: 'asas', password: '343434' });
   const [credentials, setCredentials] = useState({ email: '', password: '' });
 
   const handleClickSignin = async () => {
@@ -46,17 +45,14 @@ const LoginForm: React.FC<Props> = () => {
 
   useEffect(() => {
     if (resultData?.token) {
+      sessionStorage.setItem(
+        'credentials',
+        JSON.stringify({ ...resultData })
+      );
       contextDispatch({
         type: actions.USER_LOGGED_IN,
         data: resultData
       });
-      // console.log(tokenResult?.token);
-      // sessionStorage.setItem(
-      //   "credentials",
-      //   JSON.stringify({ ...loginResponse })
-      // );
-      // dispatch(userLoggedIn(loginResponse));
-      // history.push("/");
     }
   }, [resultData?.token]);
 
