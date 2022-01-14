@@ -121,4 +121,17 @@ test.todo("Change language to Portuguese and then to English");
 //   expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
 // });
 
-test.todo("show toast sucess message on language change");
+test.todo('show toast sucess message on language change');
+
+test('Change page through routing', () => {
+    //arrange
+    render(<App />);
+
+    //act
+    // location.href = '/asdas';
+    // Object.assign(location, { host: "www.newhost.com", pathname: 'file.txt' });
+
+    //assert
+
+    expect(false).toBeTruthy();
+});
