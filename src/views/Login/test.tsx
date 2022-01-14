@@ -8,8 +8,6 @@ import {
   successValidateTokenHandler,
   failValidateTokenHandler
 } from '../../__mocks__/msw-handlers';
-// import mockAxios from "axios";
-// import {handlers} from '../../__mocks__/handlers';
 
 import App from "../App";
 
@@ -96,7 +94,7 @@ describe("Login process", () => {
     ).toBeInTheDocument();
   });
 
-  test("Success on doing login with right credentials and refrash page", async () => {
+  test("Success on doing login with right credentials", async () => {
     // arrange
     const emailLabel = "Email";
     const passwordId = "password";
@@ -180,7 +178,7 @@ describe("Login process", () => {
     );
 
     expect(
-      screen.queryByRole("heading", { name: loginTitle })
+      await screen.findByRole("heading", { name: loginTitle })
     ).toBeInTheDocument();
   });
 });

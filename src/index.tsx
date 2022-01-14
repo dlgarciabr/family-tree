@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from "react-router-dom";
 
 import AppProvider from './context/App';
 import './index.css';
@@ -11,13 +12,15 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SnackbarProvider maxSnack={3}>
-      <Provider store={store}>
-        <AppProvider>
-          <App />
-        </AppProvider>
-      </Provider>
-    </SnackbarProvider>
+    <BrowserRouter>
+      <SnackbarProvider maxSnack={3}>
+        <Provider store={store}>
+          <AppProvider>
+            <App />
+          </AppProvider>
+        </Provider>
+      </SnackbarProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

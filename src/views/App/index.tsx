@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
 import MainArea from '../MainArea';
 import { AppContext, actions } from '../../context/App';
@@ -11,9 +12,11 @@ import notifierEffect from './notifierEffect';
 import { useLazyValidateTokenQuery } from '../../services/familyTreeApi';
 
 import Login from '../Login';
+import Dummy from 'views/Dummy';
 
 const App: React.FC<Props> = () => {
   const storageCredentials = sessionStorage.getItem('credentials');
+  const navigate = useNavigate();
   const { showInfoNotification } = useNotification();
 
   const {
@@ -43,7 +46,9 @@ const App: React.FC<Props> = () => {
   }, [locale]);
 
   useEffect(() => {
-    if (storageCredentials && validationTokenResult.data) {
+    if (!storageCredentials) {
+      navigate("/login");
+    } else if (storageCredentials && validationTokenResult.data) {
       if (validationTokenResult.data?.valid) {
         const credentials = JSON.parse(storageCredentials as string);
         contextDispatch({
@@ -52,9 +57,16 @@ const App: React.FC<Props> = () => {
         });
       } else {
         sessionStorage.removeItem('credentials');
+        navigate("/login");
       }
     }
   }, [validationTokenResult.data]);
+
+  const routeList = [
+    <Route path="/login" key="LOGIN" element={<Login />} />,
+    <Route path="/" key="HOME" element={<MainArea />} />,
+    <Route path="dummy" key="DUMMY" element={<Dummy />} />
+  ];
 
   return (
     <IntlProvider
@@ -62,7 +74,10 @@ const App: React.FC<Props> = () => {
       messages={messages}
     >
       <div className="App">
-        {user ? <MainArea /> : <Login />}
+        {/* {user ? <MainArea /> : <Login />} */}
+        <Routes>
+          {routeList}
+        </Routes>
         {/* <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <p>
