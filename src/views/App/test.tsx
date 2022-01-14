@@ -123,9 +123,11 @@ test.todo("Change language to Portuguese and then to English");
 
 test.todo('show toast sucess message on language change');
 
-test('Change page through routing', () => {
-    //arrange
-    render(<App />);
+test.todo('Change page through routing');
+
+// test('Change page through routing', () => {
+//arrange
+render(<App />);
 
     //act
     // location.href = '/asdas';
@@ -134,4 +136,4 @@ test('Change page through routing', () => {
     //assert
 
     // expect(false).toBeTruthy();
-});
+// });
