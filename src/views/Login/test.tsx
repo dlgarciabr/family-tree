@@ -1,4 +1,4 @@
-import userEvent, { TargetElement } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
 import { mswServer, waitForRequest } from '../../__mocks__/msw-server';
@@ -66,7 +66,7 @@ describe("Login process", () => {
       name: emailLabel,
     });
     const passwordTexfield = screen.getByTestId(passwordId).childNodes[1]
-      .childNodes[0] as TargetElement;
+      .childNodes[0] as Element;
 
     userEvent.type(emailTexfield, email);
     userEvent.type(passwordTexfield, password);
@@ -114,7 +114,7 @@ describe("Login process", () => {
       name: emailLabel,
     });
     const passwordTexfield = screen.getByTestId(passwordId).childNodes[1]
-      .childNodes[0] as TargetElement;
+      .childNodes[0] as Element;
 
     userEvent.type(emailTexfield, email);
     userEvent.type(passwordTexfield, password);

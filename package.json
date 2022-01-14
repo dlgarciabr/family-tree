@@ -22,14 +22,14 @@
     "react-dom": "^17.0.2",
     "react-intl": "^5.21.2",
     "react-redux": "^7.2.6",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --silent --verbose true",
-    "test-verbose": "react-scripts test --watchAll --verbose true",
+    "test-verbose": "react-scripts test --watchAll --verbose true --testURL http://localhost:3000",
     "test-unmocked": "TEST_TYPE=unmocked react-scripts test --watchAll --silent --env=jest-environment-jsdom-sixteen --verbose true",
     "test-unmocked-verbose": "TEST_TYPE=unmocked react-scripts test --watchAll --env=jest-environment-jsdom-sixteen --verbose true",
     "test-coverage": "react-scripts test  --watchAll --collectCoverage --silent",
