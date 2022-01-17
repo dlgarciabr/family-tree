@@ -63,9 +63,9 @@ const App: React.FC<Props> = () => {
   }, [validationTokenResult.data]);
 
   const routeList = [
-    <Route path="/login" key="LOGIN" element={<Login />} />,
     <Route path="/" key="HOME" element={<MainArea />} />,
-    <Route path="dummy" key="DUMMY" element={<Dummy />} />
+    <Route path="/login" key="LOGIN" element={<Login />} />,
+    <Route path="/dummy" key="DUMMY" element={<Dummy />} />
   ];
 
   return (

@@ -1,139 +1,128 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
+import { mswServer } from '../../__mocks__/msw-server';
+import { successValidateTokenHandler } from '../../__mocks__/msw-handlers';
 import App from '.';
 
-test.todo("Change language to Spanish");
-// test("Change language to Spanish", async () => {
-//   //arrange
-//   const initialHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
-//   const expectedHeaderTitle = getLocatedMessage(locales.ES.value, 'app-title');
+describe("Change languages", () => {
+    //global arrange
+    window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
+    const enHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
 
-//   render(<App />);
+    test("Change language to Spanish", async () => {
+        //arrange
+        mswServer.use(successValidateTokenHandler);
+        const expectedHeaderTitle = getLocatedMessage(locales.ES.value, 'app-title');
 
-//   expect(screen.getByText(initialHeaderTitle)).toBeInTheDocument();
+        render(<App />);
 
-//   //act
-//   const languageButton = screen.getByRole("button", {
-//     name: 'language-button'
-//   });
+        expect(screen.getByText(enHeaderTitle)).toBeInTheDocument();
 
-//   userEvent.click(languageButton);
+        //act
+        const languageButton = screen.getByRole("button", {
+            name: 'language-button'
+        });
 
-//   const spanishLanguageButton = screen.getByRole("menuitem", {
-//     name: 'Es',
-//   });
+        userEvent.click(languageButton);
 
-//   userEvent.click(spanishLanguageButton);
+        const spanishLanguageButton = screen.getByRole("menuitem", {
+            name: 'Es',
+        });
 
-//   //assert
-//   expect(await screen.findByText(expectedHeaderTitle)).toBeInTheDocument();
-// });
+        userEvent.click(spanishLanguageButton);
 
-test.todo("Change language to Portuguese");
-// test("Change language to Portuguese", async () => {
-//   //arrange
-//   const initialHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
-//   const expectedHeaderTitle = getLocatedMessage(locales.PT.value, 'app-title');
+        //assert
+        expect(await screen.findByText(expectedHeaderTitle)).toBeInTheDocument();
+    });
 
-//   render(<App />);
+    test("Change language to Portuguese", async () => {
+        //arrange
+        mswServer.use(successValidateTokenHandler);
+        const expectedHeaderTitle = getLocatedMessage(locales.PT.value, 'app-title');
 
-//   expect(screen.getByText(initialHeaderTitle)).toBeInTheDocument();
+        render(<App />);
 
-//   //act
-//   const languageButton = screen.getByRole("button", {
-//     name: 'language-button'
-//   });
+        expect(screen.getByText(enHeaderTitle)).toBeInTheDocument();
 
-//   userEvent.click(languageButton);
+        //act
+        const languageButton = screen.getByRole("button", {
+            name: 'language-button'
+        });
 
-//   const ptLanguageButton = screen.getByRole("menuitem", {
-//     name: 'Pt',
-//   });
+        userEvent.click(languageButton);
 
-//   userEvent.click(ptLanguageButton);
+        const ptLanguageButton = screen.getByRole("menuitem", {
+            name: 'Pt',
+        });
 
-//   //assert
-//   expect(await screen.findByText(expectedHeaderTitle)).toBeInTheDocument();
-// });
+        userEvent.click(ptLanguageButton);
 
-test.todo("Change language to Brazilian Portuguese");
-// test("Change language to Brazilian Portuguese", async () => {
-//   //arrange
-//   const initialHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
-//   const expectedHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
+        //assert
+        expect(await screen.findByText(expectedHeaderTitle)).toBeInTheDocument();
+    });
 
-//   render(<App />);
+    test("Change language to Brazilian Portuguese", async () => {
+        //arrange
+        mswServer.use(successValidateTokenHandler);
+        const expectedHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
 
-//   expect(screen.getByText(initialHeaderTitle)).toBeInTheDocument();
+        render(<App />);
 
-//   //act
-//   const languageButton = screen.getByRole("button", {
-//     name: 'language-button'
-//   });
+        expect(screen.getByText(enHeaderTitle)).toBeInTheDocument();
 
-//   userEvent.click(languageButton);
+        //act
+        const languageButton = screen.getByRole("button", {
+            name: 'language-button'
+        });
 
-//   const ptLanguageButton = screen.getByRole("menuitem", {
-//     name: 'Pt-Br',
-//   });
+        userEvent.click(languageButton);
 
-//   userEvent.click(ptLanguageButton);
+        const ptLanguageButton = screen.getByRole("menuitem", {
+            name: 'Pt-Br',
+        });
 
-//   //assert
-//   expect(await screen.findByText(expectedHeaderTitle)).toBeInTheDocument();
-// });
+        userEvent.click(ptLanguageButton);
 
-test.todo("Change language to Portuguese and then to English");
-// test("Change language to Portuguese and then to English", async () => {
-//   //arrange
-//   const enHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
-//   const ptbrHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
+        //assert
+        expect(await screen.findByText(expectedHeaderTitle)).toBeInTheDocument();
+    });
 
-//   render(<App />);
+    test("Change language to Portuguese and then to English", async () => {
+        //arrange
+        mswServer.use(successValidateTokenHandler);
+        const ptbrHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
 
-//   expect(screen.getByText(enHeaderTitle)).toBeInTheDocument();
+        render(<App />);
 
-//   const languageButton = screen.getByRole("button", {
-//     name: 'language-button'
-//   });
+        expect(screen.getByText(enHeaderTitle)).toBeInTheDocument();
 
-//   userEvent.click(languageButton);
+        const languageButton = screen.getByRole("button", {
+            name: 'language-button'
+        });
 
-//   const ptLanguageButton = screen.getByRole("menuitem", {
-//     name: 'Pt-Br',
-//   });
+        userEvent.click(languageButton);
 
-//   userEvent.click(ptLanguageButton);
+        const ptLanguageButton = screen.getByRole("menuitem", {
+            name: 'Pt-Br',
+        });
 
-//   expect(await screen.findByText(ptbrHeaderTitle)).toBeInTheDocument();
+        userEvent.click(ptLanguageButton);
 
-//   //act
-//   userEvent.click(languageButton);
+        expect(await screen.findByText(ptbrHeaderTitle)).toBeInTheDocument();
 
-//   const enLanguageButton = screen.getByRole("menuitem", {
-//     name: 'En',
-//   });
+        //act
+        userEvent.click(languageButton);
 
-//   userEvent.click(enLanguageButton);
+        const enLanguageButton = screen.getByRole("menuitem", {
+            name: 'En',
+        });
 
-//   //assert
-//   expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
-// });
+        userEvent.click(enLanguageButton);
 
-test.todo('show toast sucess message on language change');
+        //assert
+        expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
+    });
 
-test.todo('Change page through routing');
-
-// test('Change page through routing', () => {
-//arrange
-render(<App />);
-
-    //act
-    // location.href = '/asdas';
-    // Object.assign(location, { host: "www.newhost.com", pathname: 'file.txt' });
-
-    //assert
-
-    // expect(false).toBeTruthy();
-// });
+    test.todo('show toast sucess message on language change');
+});
