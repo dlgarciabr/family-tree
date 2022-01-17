@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 // import Paper from "@material-ui/core/Paper";
 
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import { Props } from '../../types';
 // const useStyles = makeStyles((theme) => ({}));
@@ -55,7 +55,7 @@ const LoginForm: React.FC<Props> = () => {
         type: actions.USER_LOGGED_IN,
         data: resultData
       });
-      navigate("/");
+      navigate('/');
     }
   }, [resultData?.token]);
 

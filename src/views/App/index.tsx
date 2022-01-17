@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import MainArea from '../MainArea';
 import { AppContext, actions } from '../../context/App';
@@ -47,7 +47,7 @@ const App: React.FC<Props> = () => {
 
   useEffect(() => {
     if (!storageCredentials) {
-      navigate("/login");
+      navigate('/login');
     } else if (storageCredentials && validationTokenResult.data) {
       if (validationTokenResult.data?.valid) {
         const credentials = JSON.parse(storageCredentials as string);
@@ -57,10 +57,10 @@ const App: React.FC<Props> = () => {
         });
       } else {
         sessionStorage.removeItem('credentials');
-        navigate("/login");
+        navigate('/login');
       }
     } else {
-      navigate("/");
+      navigate('/');
     }
   }, [validationTokenResult.data]);
 
