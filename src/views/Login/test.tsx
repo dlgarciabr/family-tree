@@ -173,7 +173,7 @@ describe("Login process", () => {
     //assert
     await waitFor(() =>
       expect(
-        screen.queryByRole(mainAreaHeaderTitle)
+        screen.queryByText(mainAreaHeaderTitle)
       ).not.toBeInTheDocument()
     );
 

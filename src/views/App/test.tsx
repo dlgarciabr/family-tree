@@ -126,3 +126,7 @@ describe("Change languages", () => {
 
     test.todo('show toast sucess message on language change');
 });
+
+test('Open login page if there he is not logged in', async () => {
+
+})

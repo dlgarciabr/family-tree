@@ -57,7 +57,10 @@ const App: React.FC<Props> = () => {
         });
       } else {
         sessionStorage.removeItem('credentials');
+        navigate("/login");
       }
+    } else {
+      navigate("/");
     }
   }, [validationTokenResult.data]);
 
