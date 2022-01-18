@@ -8,6 +8,8 @@ import { mswServer } from './__mocks__/msw-server';
 import { store } from './utils/reduxStore';
 import { familyTreeApi } from './services/familyTreeApi';
 
+beforeEach(() => { });
+
 beforeAll(() => mswServer.listen({
     onUnhandledRequest: 'error',
 }));
