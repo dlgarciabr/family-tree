@@ -1,3 +1,4 @@
+import { PartialLocation } from 'history';
 import { MessageFormatElement } from 'intl-messageformat-parser';
 
 export interface Props {
@@ -22,6 +23,7 @@ export interface AuthContextType {
   setUser: (user: any) => void;
   signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
   signout: (callback: VoidFunction) => void;
+  validateToken: (storageCredentials: string, nextLocation: string) => void;
 }
 
 export interface AuthCredentials {
