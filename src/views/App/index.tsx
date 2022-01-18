@@ -1,16 +1,15 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, memo } from 'react';
 import { IntlProvider } from 'react-intl';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import MainArea from '../MainArea';
-import { AppContext, actions } from '../../context/App';
+import { AppContext } from '../../context/App';
 import useNotification from '../../hooks/notificationHandler';
 import { Props } from '../../types';
 // import logo from '../../logo.svg';
 // import './style.css';
 import notifierEffect from './notifierEffect';
-import { useLazyValidateTokenQuery } from '../../services/familyTreeApi';
-import { AuthenticationContext } from '../../context/Authentication';
+// import { useLazyValidateTokenQuery } from '../../services/familyTreeApi';
 
 import RequireAuth from '../../commons/RequireAuth';
 
@@ -20,18 +19,16 @@ import Dummy from 'views/Dummy';
 const App: React.FC<Props> = () => {
   // const storageCredentials = sessionStorage.getItem('credentials');
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { showInfoNotification } = useNotification();
-  let location = useLocation();
 
   const {
     appSettings: {
-      messages, locale, user, loadInitialData
-    },
-    dispatch: contextDispatch
+      messages, locale, loadInitialData
+    }
   } = React.useContext(AppContext);
 
-  const [validateToken, validationTokenResult] = useLazyValidateTokenQuery();
+  // const [validateToken, validationTokenResult] = useLazyValidateTokenQuery();
 
   notifierEffect();
 
@@ -50,28 +47,28 @@ const App: React.FC<Props> = () => {
     }
   }, [locale]);
 
-  useEffect(() => {
-    // if (!storageCredentials) {
-    // navigate('/login');
-    // } else if (storageCredentials && validationTokenResult.data) {
-    // if (validationTokenResult.data?.valid) {
-    //   const credentials = JSON.parse(storageCredentials as string);
-    //   contextDispatch({
-    //     type: actions.USER_LOGGED_IN,
-    //     data: { ...credentials }
-    //   });
-    // } else {
-    //   sessionStorage.removeItem('credentials');
-    //   navigate('/login');
-    // }
-    // } else {
-    //TODO remove this if after secured authetication implementation
-    // if (location.pathname != '/dummy') {
-    //   navigate('/');
-    // }
-    // navigate('/');
-    // }
-  }, [validationTokenResult.data]);
+  // useEffect(() => {
+  // if (!storageCredentials) {
+  // navigate('/login');
+  // } else if (storageCredentials && validationTokenResult.data) {
+  // if (validationTokenResult.data?.valid) {
+  //   const credentials = JSON.parse(storageCredentials as string);
+  //   contextDispatch({
+  //     type: actions.USER_LOGGED_IN,
+  //     data: { ...credentials }
+  //   });
+  // } else {
+  //   sessionStorage.removeItem('credentials');
+  //   navigate('/login');
+  // }
+  // } else {
+  //TODO remove this if after secured authetication implementation
+  // if (location.pathname != '/dummy') {
+  //   navigate('/');
+  // }
+  // navigate('/');
+  // }
+  // }, [validationTokenResult.data]);
 
   const routeList = [
     <Route path="/" key="HOME" element={<RequireAuth><MainArea /></RequireAuth>} />,
@@ -86,16 +83,9 @@ const App: React.FC<Props> = () => {
     >
       <div className="App">
         {/* {user ? <MainArea /> : <Login />} */}
-        {/* <AuthenticationContext.Consumer> */}
-        {/* {({ user }) => { */}
-        {/* // console.log("user:", user) */}
-        {/* return ( */}
         <Routes>
           {routeList}
         </Routes>
-        {/* ) */}
-        {/* }} */}
-        {/* </AuthenticationContext.Consumer> */}
         {/* <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <p>
@@ -115,4 +105,4 @@ const App: React.FC<Props> = () => {
   );
 };
 
-export default App;
+export default memo(App);

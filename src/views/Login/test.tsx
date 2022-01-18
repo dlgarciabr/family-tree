@@ -10,6 +10,7 @@ import {
 } from '../../__mocks__/msw-handlers';
 
 import App from "../App";
+import { act } from 'react-dom/test-utils';
 
 // afterEach(() => {
 //   jest.clearAllMocks();
@@ -143,7 +144,6 @@ describe("Login process", () => {
   test("Success on doing login with credentials from session store", async () => {
     // arrange
     mswServer.use(successValidateTokenHandler);
-
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
 
     //act
@@ -164,35 +164,32 @@ describe("Login process", () => {
   test("Fail on doing login with invalid credentials from session storage", async () => {
     // arrange
     mswServer.use(failValidateTokenHandler);
-
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
 
     //act
     render(<App />);
-
-    //assert
-    await waitFor(() =>
-      expect(
-        screen.queryByText(mainAreaHeaderTitle)
-      ).not.toBeInTheDocument()
-    );
 
     expect(
       await screen.findByRole("heading", { name: loginTitle })
     ).toBeInTheDocument();
   });
 
+  // test.todo("Success on opening a secured dummy view after session restored from token");
   test("Success on opening a secured dummy view after session restored from token", async () => {
     // arrange
     mswServer.use(successValidateTokenHandler);
-
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
 
-    //act
+    // act
     render(<App />);
 
-    const dummyLink = screen.getByRole("link", { name: 'Dummy' });
+    await waitFor(() =>
+      expect(
+        screen.queryByRole("heading", { name: loginTitle })
+      ).not.toBeInTheDocument()
+    );
 
+    const dummyLink = screen.getByRole("link", { name: 'Dummy' });
     userEvent.click(dummyLink);
 
     //assert
@@ -206,3 +203,4 @@ describe("Login process", () => {
     ).toBeInTheDocument();
   });
 });
+

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 
 // import { makeStyles } from "@material-ui/core/styles";
 // import Grid from "@material-ui/core/Grid";
@@ -15,34 +15,23 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Props } from '../../types';
 // const useStyles = makeStyles((theme) => ({}));
-
-// import useNotification from '../../hooks/notificationHandler';
-
-import { useLoginMutation } from '../../services/familyTreeApi';
-
-import { AppContext, actions } from '../../context/App';
-
 import { AuthenticationContext } from '../../context/Authentication';
 
 const LoginForm: React.FC<Props> = () => {
+  const storageCredentials = sessionStorage.getItem('credentials');
+  const { user, validateToken } = React.useContext(AuthenticationContext);
   const navigate = useNavigate();
   const location = useLocation();
-  // const dispatch = useDispatch();
 
   // const classes = useStyles();
   const { formatMessage } = useIntl();
-  // const { showErrorNotification } = useNotification();
-
-  const {
-    dispatch: contextDispatch
-  } = React.useContext(AppContext);
 
   const { signin } = React.useContext(AuthenticationContext);
 
   const [credentials, setCredentials] = useState({ email: '', password: '' });
 
   const handleClickSignin = () => {
-    const from = (location as any).state?.from?.pathname || "/";
+    const from = (location as any).state?.from?.pathname || '/';
     signin({ ...credentials }, () => navigate(from, { replace: true }));
   };
 
@@ -53,6 +42,14 @@ const LoginForm: React.FC<Props> = () => {
       setCredentials({ ...credentials, password: e.currentTarget.value });
     }
   };
+
+  useEffect(() => {
+    if (!user && storageCredentials) {
+      (async () => {
+        validateToken(storageCredentials, "/");
+      })();
+    }
+  }, []);
 
   return (
     // <Grid container justify="center">

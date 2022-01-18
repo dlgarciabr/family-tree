@@ -21,8 +21,8 @@ export const deniedLoginHandler = rest.post(`${baseUrl}/user/login`, (req, res, 
 });
 
 export const successValidateTokenHandler = rest.get(`${baseUrl}/user/validateToken`, (req, res, ctx) => {
-  // const msg = `[JEST] Default POST MSW mocked called with params: ${JSON.stringify(req.body)}`;
-  // console.info(msg);
+  const msg = `[successValidateTokenHandler] MSW mocked GET called with params: ${Array.from(req.url.searchParams.entries()).map(value => (value))}`;
+  console.info(msg);
   return res(
     ctx.json({
       valid: true
@@ -32,8 +32,8 @@ export const successValidateTokenHandler = rest.get(`${baseUrl}/user/validateTok
 });
 
 export const failValidateTokenHandler = rest.get(`${baseUrl}/user/validateToken`, (req, res, ctx) => {
-  // const msg = `[JEST] Default POST MSW mocked called with params: ${JSON.stringify(req.body)}`;
-  // console.info(msg);
+  const msg = `[failValidateTokenHandler] MSW mocked GET called with params: ${Array.from(req.url.searchParams.entries()).map(value => (value))}`;
+  console.info(msg);
   return res(
     ctx.json({
       valid: false
