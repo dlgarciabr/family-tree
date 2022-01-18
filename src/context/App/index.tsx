@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
 import { getUserLanguage, loadLocaleMessages } from '../../utils/i18n';
-import { Props, AppContextInterface, AppSettings } from '../../types';
+import { Props, AppContextType, AppSettings } from '../../types';
 
 export const actions = {
   LOCALE_CHANGED: 'LOCALE_CHANGED',
@@ -18,10 +18,11 @@ const initialAppSettings: AppSettings = {
   name: 'React Typescript App',
   locale: userLanguage,
   messages: loadLocaleMessages(userLanguage),
-  user: null,
+  user: null
 };
 
-export const AppContext = createContext<AppContextInterface>({} as AppContextInterface);
+export const AppContext = createContext<AppContextType>({} as AppContextType);
+AppContext.displayName = "AppContext";
 
 const AppProvider: React.FC<Props> = ({ children }) => {
   const [appSettings, dispatch] = useReducer((state: AppSettings, action: any) => {
@@ -52,7 +53,9 @@ const AppProvider: React.FC<Props> = ({ children }) => {
       default:
         throw new Error();
     }
-  }, initialAppSettings);
+  }, {
+    ...initialAppSettings
+  });
 
   return (
     <AppContext.Provider value={{ appSettings, dispatch }}>

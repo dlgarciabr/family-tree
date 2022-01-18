@@ -181,4 +181,28 @@ describe("Login process", () => {
       await screen.findByRole("heading", { name: loginTitle })
     ).toBeInTheDocument();
   });
+
+  test("Success on opening a secured dummy view after session restored from token", async () => {
+    // arrange
+    mswServer.use(successValidateTokenHandler);
+
+    window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
+
+    //act
+    render(<App />);
+
+    const dummyLink = screen.getByRole("link", { name: 'Dummy' });
+
+    userEvent.click(dummyLink);
+
+    //assert
+    await waitFor(() =>
+      expect(
+        screen.queryByText(mainAreaHeaderTitle)
+      ).not.toBeInTheDocument()
+    );
+    expect(
+      screen.getByText('dummy comp')
+    ).toBeInTheDocument();
+  });
 });

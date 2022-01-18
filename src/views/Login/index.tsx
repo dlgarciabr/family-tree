@@ -1,7 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-// import { useDispatch } from "react-redux";
-
-// import { useHistory } from "react-router-dom";
+import React, { ChangeEvent, useState } from 'react';
 
 // import { makeStyles } from "@material-ui/core/styles";
 // import Grid from "@material-ui/core/Grid";
@@ -14,7 +11,7 @@ import TextField from '@mui/material/TextField';
 // import Paper from "@material-ui/core/Paper";
 
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Props } from '../../types';
 // const useStyles = makeStyles((theme) => ({}));
@@ -25,10 +22,12 @@ import { useLoginMutation } from '../../services/familyTreeApi';
 
 import { AppContext, actions } from '../../context/App';
 
+import { AuthenticationContext } from '../../context/Authentication';
+
 const LoginForm: React.FC<Props> = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   // const dispatch = useDispatch();
-  // const history = useHistory();
 
   // const classes = useStyles();
   const { formatMessage } = useIntl();
@@ -38,26 +37,14 @@ const LoginForm: React.FC<Props> = () => {
     dispatch: contextDispatch
   } = React.useContext(AppContext);
 
-  const [fetchToken, { data: resultData }] = useLoginMutation();
+  const { signin } = React.useContext(AuthenticationContext);
+
   const [credentials, setCredentials] = useState({ email: '', password: '' });
 
-  const handleClickSignin = async () => {
-    fetchToken({ userLoginData: credentials });
+  const handleClickSignin = () => {
+    const from = (location as any).state?.from?.pathname || "/";
+    signin({ ...credentials }, () => navigate(from, { replace: true }));
   };
-
-  useEffect(() => {
-    if (resultData?.token) {
-      sessionStorage.setItem(
-        'credentials',
-        JSON.stringify({ ...resultData })
-      );
-      contextDispatch({
-        type: actions.USER_LOGGED_IN,
-        data: resultData
-      });
-      navigate('/');
-    }
-  }, [resultData?.token]);
 
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.name === 'email') {

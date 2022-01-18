@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from "react-router-dom";
 
 import AppProvider from './context/App';
+import AuthenticationProvider from './context/Authentication';
 import './index.css';
 import App from './views/App';
 import { store } from './utils/reduxStore';
@@ -15,9 +16,11 @@ ReactDOM.render(
     <BrowserRouter>
       <SnackbarProvider maxSnack={3}>
         <Provider store={store}>
-          <AppProvider>
-            <App />
-          </AppProvider>
+          <AuthenticationProvider>
+            <AppProvider>
+              <App />
+            </AppProvider>
+          </AuthenticationProvider>
         </Provider>
       </SnackbarProvider>
     </BrowserRouter>

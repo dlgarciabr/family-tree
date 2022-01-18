@@ -31,7 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --silent --verbose true",
+    "test": "react-scripts test  --watchAll --verbose true --silent",
     "test-verbose": "react-scripts test --watchAll --verbose true --testURL http://localhost:3000",
     "test-unmocked": "TEST_TYPE=unmocked react-scripts test --watchAll --silent --env=jest-environment-jsdom-sixteen --verbose true",
     "test-unmocked-verbose": "TEST_TYPE=unmocked react-scripts test --watchAll --env=jest-environment-jsdom-sixteen --verbose true",

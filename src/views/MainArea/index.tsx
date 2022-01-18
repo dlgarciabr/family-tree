@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 
 import { Props } from '../../types';
@@ -9,7 +9,8 @@ const MainArea: React.FC<Props> = () => (
   <div>
     <Box sx={{ flexGrow: 1 }}>
       <TopBar />
-      Main area
+      <p>Main area</p>
+      <Link to="/dummy">Dummy</Link>
     </Box>
   </div>
 );
