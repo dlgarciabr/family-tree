@@ -22,7 +22,7 @@ const initialAppSettings: AppSettings = {
 };
 
 export const AppContext = createContext<AppContextType>({} as AppContextType);
-AppContext.displayName = "AppContext";
+AppContext.displayName = 'AppContext';
 
 const AppProvider: React.FC<Props> = ({ children }) => {
   const [appSettings, dispatch] = useReducer((state: AppSettings, action: any) => {

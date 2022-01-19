@@ -8,15 +8,23 @@ import { mswServer } from './__mocks__/msw-server';
 import { store } from './utils/reduxStore';
 import { familyTreeApi } from './services/familyTreeApi';
 
-beforeEach(() => { });
+beforeEach(() => {
+  // console.info(location.href);
+});
 
 beforeAll(() => mswServer.listen({
-    onUnhandledRequest: 'error',
+  onUnhandledRequest: 'error',
+  // onUnhandledRequest: 'bypass',
 }));
 
 afterEach(() => {
-    mswServer.resetHandlers();
-    store.dispatch(familyTreeApi.util.resetApiState());
+  mswServer.resetHandlers();
+  store.dispatch(familyTreeApi.util.resetApiState());
+  window.sessionStorage.clear();
 });
 
-afterAll(() => mswServer.close());
+afterAll(() => {
+  mswServer.close();
+  // console.debug('==========================================================================================');
+});
+

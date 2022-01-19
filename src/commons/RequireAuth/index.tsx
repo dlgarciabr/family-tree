@@ -9,17 +9,20 @@ interface Props {
 
 const RequireAuth: React.FC<Props> = ({ children }) => {
   const storageCredentials = sessionStorage.getItem('credentials');
-  const { user, validateToken } = React.useContext(AuthenticationContext);
+  // const { user, validateToken } = React.useContext(AuthenticationContext);
+  const { settings: { user, validateToken } } = React.useContext(AuthenticationContext);
   const location = useLocation();
 
   useEffect(() => {
     if (!user && storageCredentials) {
       (async () => {
+        // console.log("useEffect:storageCredentials", storageCredentials)
+        // console.log("useEffect:user", user)
         validateToken(storageCredentials, location.pathname);
       })();
     }
   }, []);
-
+  // console.log("RequireAuth:render", storageCredentials)
   if (!user && !storageCredentials) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them

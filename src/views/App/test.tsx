@@ -7,11 +7,11 @@ import App from '.';
 
 describe("Change languages", () => {
   //global arrange
-  window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
   const enHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
 
   test("Change language to Spanish", async () => {
     //arrange
+    window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
     mswServer.use(successValidateTokenHandler);
     const expectedHeaderTitle = getLocatedMessage(locales.ES.value, 'app-title');
 
@@ -30,7 +30,9 @@ describe("Change languages", () => {
       name: 'Es',
     });
 
-    userEvent.click(spanishLanguageButton);
+    userEvent.click(spanishLanguageButton)
+
+    // await new Promise((r) => setTimeout(r, 1000));
 
     //assert
     expect(await screen.findByText(expectedHeaderTitle)).toBeInTheDocument();
@@ -38,6 +40,7 @@ describe("Change languages", () => {
 
   test("Change language to Portuguese", async () => {
     //arrange
+    window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
     mswServer.use(successValidateTokenHandler);
     const expectedHeaderTitle = getLocatedMessage(locales.PT.value, 'app-title');
 
@@ -64,6 +67,7 @@ describe("Change languages", () => {
 
   test("Change language to Brazilian Portuguese", async () => {
     //arrange
+    window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
     mswServer.use(successValidateTokenHandler);
     const expectedHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
 
@@ -90,6 +94,7 @@ describe("Change languages", () => {
 
   test("Change language to Portuguese and then to English", async () => {
     //arrange
+    window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
     mswServer.use(successValidateTokenHandler);
     const ptbrHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
 
@@ -126,5 +131,3 @@ describe("Change languages", () => {
 
   test.todo('show toast sucess message on language change');
 });
-
-test.todo('Open login page if user is not logged in');
