@@ -2,24 +2,24 @@ import { getUserLanguage, loadLocaleMessages } from './index';
 import { locales } from '../../utils/i18n';
 
 test("Recover user language from browser", () => {
-    //arrange
-    const expectedLanguage = locales.EN.value;
+  //arrange
+  const expectedLanguage = locales.EN.value;
 
-    //act
-    const userLanguage = getUserLanguage();
+  //act
+  const userLanguage = getUserLanguage();
 
-    //assert
-    expect(userLanguage).toBe(expectedLanguage);
+  //assert
+  expect(userLanguage).toBe(expectedLanguage);
 });
 
 test("Recover Language message for Brazilian Portuguese", async () => {
-    //arrange
-    const locale = locales.PT_BR.value;
-    const ptbrFileMessages = await import("../../compiled-lang/pt-br.json");
+  //arrange
+  const locale = locales.PT_BR.value;
+  const ptbrFileMessages = await import("../../compiled-lang/pt-br.json");
 
-    //act
-    const messages = loadLocaleMessages(locale);
+  //act
+  const messages = loadLocaleMessages(locale);
 
-    //assert
-    expect((messages["app-title"][0] as any).value).toBe(ptbrFileMessages["app-title"][0].value);
+  //assert
+  expect((messages["app-title"][0] as any).value).toBe(ptbrFileMessages["app-title"][0].value);
 });

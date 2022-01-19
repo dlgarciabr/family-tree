@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
 import AppProvider from './context/App';
 import AuthenticationProvider from './context/Authentication';
