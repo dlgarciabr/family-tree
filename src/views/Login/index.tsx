@@ -46,7 +46,7 @@ const LoginForm: React.FC<Props> = () => {
   useEffect(() => {
     if (!user && storageCredentials) {
       (async () => {
-        validateToken(storageCredentials, "/");
+        validateToken(storageCredentials, '/');
       })();
     }
   }, []);
