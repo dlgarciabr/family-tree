@@ -29,7 +29,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
           if (callback) {
             callback();
           }
-        })
+        });
     } catch (error) {
       // handled by error middleware
     }
@@ -69,7 +69,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
     switch (action.type) {
       case 'RESET_STATE':
         return { ...state };
-      case 'USER_LOGGEDIN':
+      case actions.USER_LOGGEDIN:
         return {
           ...state,
           user: action.user

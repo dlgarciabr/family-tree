@@ -10,13 +10,10 @@ import MainArea from 'views/MainArea';
 import Login from 'views/Login';
 import Dummy from 'views/Dummy';
 import notifierEffect from './notifierEffect';
-import { AuthenticationContext } from 'context/Authentication';
 
 const App: React.FC<Props> = () => {
   const { showInfoNotification } = useNotification();
-  // const { user, validateToken } = React.useContext(AuthenticationContext);
-  const { settings: { user, validateToken } } = React.useContext(AuthenticationContext);
-  // console.log("App:render:user", user)
+
   const {
     appSettings: {
       messages, locale, loadInitialData

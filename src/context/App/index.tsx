@@ -6,7 +6,6 @@ import { Props, AppContextType, AppSettings } from '../../types';
 export const actions = {
   LOCALE_CHANGED: 'LOCALE_CHANGED',
   INITIAL_DATA_LOADED: 'INITIAL_DATA_LOADED',
-  USER_LOGGED_IN: 'USER_LOGGED_IN',
   TOKEN_VALIDATION_STARDED: 'TOKEN_VALIDATION_STARDED',
   TOKEN_VALIDATION_FINISHED: 'TOKEN_VALIDATION_FINISHED'
 };
@@ -35,21 +34,6 @@ const AppProvider: React.FC<Props> = ({ children }) => {
           messages: action.messages,
           locale: action.locale
         };
-      // case actions.INITIAL_DATA_LOADED:
-      //   return {
-      //     ...state,
-      //     loadInitialData: false
-      //   };
-      case actions.USER_LOGGED_IN:
-        return {
-          ...state,
-          user: action.data
-        };
-      // case actions.TOKEN_VALIDATION_STARDED:
-      //   return {
-      //     ...state,
-      //     user: action.data
-      //   };
       default:
         throw new Error();
     }
