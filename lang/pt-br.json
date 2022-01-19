@@ -8,5 +8,20 @@
   },
   "message.error": {
     "defaultMessage": "Ocorreu um erro ao tentar executar a operação!"
+  },
+  "login.title": {
+    "defaultMessage": "Acesso ao portal"
+  },
+  "login.email.label": {
+    "defaultMessage": "Email"
+  },
+  "login.password.label": {
+    "defaultMessage": "Senha"
+  },
+  "login.button.label": {
+    "defaultMessage": "Enviar"
+  },
+  "login.wrong-credentials": {
+    "defaultMessage": "Wrong credentials"
   }
 }

@@ -12,7 +12,6 @@ export interface NotificationState {
   notifications: StackedNotification[]
 }
 
-// initial state
 const initialState: NotificationState = {
   notifications: [],
 };

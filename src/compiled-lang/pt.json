@@ -2,7 +2,37 @@
   "app-title": [
     {
       "type": 0,
-      "value": "Sítio de Voluntários"
+      "value": "Sítio da Árvore Familiar"
+    }
+  ],
+  "login.button.label": [
+    {
+      "type": 0,
+      "value": "Enviar"
+    }
+  ],
+  "login.email.label": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "login.password.label": [
+    {
+      "type": 0,
+      "value": "Palavra passe"
+    }
+  ],
+  "login.title": [
+    {
+      "type": 0,
+      "value": "Aceda ao sítio"
+    }
+  ],
+  "login.wrong-credentials": [
+    {
+      "type": 0,
+      "value": "Wrong credentials"
     }
   ],
   "message.error": [

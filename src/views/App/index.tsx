@@ -1,76 +1,91 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { IntlProvider } from 'react-intl';
-// import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import MainArea from '../MainArea';
-import { AppContext, actions } from '../../context/App';
-import { loadLocaleMessages, locales } from '../../utils/i18n';
+import { AppContext } from '../../context/App';
 import useNotification from '../../hooks/notificationHandler';
 import { Props } from '../../types';
-import logo from '../../logo.svg';
-import './style.css';
-import Dummy from '../Dummy';
+// import logo from '../../logo.svg';
+// import './style.css';
 import notifierEffect from './notifierEffect';
-import { useSnackbar } from 'notistack';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { RootState } from '../../utils/reduxStore';
+// import { useLazyValidateTokenQuery } from '../../services/familyTreeApi';
 
-// import { useGetUserByNameQuery } from '../../services/user';
-import { useGetTreeNodeByIdQuery, useCreateTreeNodeMutation, TreeNode } from '../../services/familyTreeApi';
+import RequireAuth from '../../commons/RequireAuth';
+
+import Login from '../Login';
+import Dummy from 'views/Dummy';
 
 const App: React.FC<Props> = () => {
-  // const reduxDispatch = useDispatch();
-  // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
-  const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
-  const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
-  const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
+  // const storageCredentials = sessionStorage.getItem('credentials');
 
-  const changeLanguage = async (newLocale: string) => {
-    const newMessages = loadLocaleMessages(newLocale);
-    contextDispatch({
-      type: actions.LOCALE_CHANGED,
-      messages: newMessages,
-      locale: newLocale
-    });
-  };
+  // const navigate = useNavigate();
+  const { showInfoNotification } = useNotification();
 
-  const createRelative = async () => {
-    const treeNode = {
-      id: 0,
-      name: 'string'
-    } as TreeNode;
+  const {
+    appSettings: {
+      messages, locale, loadInitialData
+    }
+  } = React.useContext(AppContext);
 
-    createTreeNode({ treeNode });
-  };
-
-  if (isLoading) {
-    // console.log("loading")
-  } else {
-    // console.log(data);
-  }
+  // const [validateToken, validationTokenResult] = useLazyValidateTokenQuery();
 
   notifierEffect();
 
   useEffect(() => {
-    contextDispatch({
-      type: actions.INITIAL_DATA_LOADED
-    });
+    // if (user === null && storageCredentials) {
+    //   const credentials = JSON.parse(storageCredentials);
+    //   if (credentials) {
+    //     validateToken({ token: credentials.token });
+    //   }
+    // }
   }, []);
 
   useEffect(() => {
     if (!loadInitialData) {
-      showInfoNotification('locale changed to ' + locale);
+      showInfoNotification(`locale changed to ${locale}`);
     }
   }, [locale]);
+
+  // useEffect(() => {
+  // if (!storageCredentials) {
+  // navigate('/login');
+  // } else if (storageCredentials && validationTokenResult.data) {
+  // if (validationTokenResult.data?.valid) {
+  //   const credentials = JSON.parse(storageCredentials as string);
+  //   contextDispatch({
+  //     type: actions.USER_LOGGED_IN,
+  //     data: { ...credentials }
+  //   });
+  // } else {
+  //   sessionStorage.removeItem('credentials');
+  //   navigate('/login');
+  // }
+  // } else {
+  //TODO remove this if after secured authetication implementation
+  // if (location.pathname != '/dummy') {
+  //   navigate('/');
+  // }
+  // navigate('/');
+  // }
+  // }, [validationTokenResult.data]);
+
+  const routeList = [
+    <Route path="/" key="HOME" element={<RequireAuth><MainArea /></RequireAuth>} />,
+    <Route path="/login" key="LOGIN" element={<Login />} />,
+    <Route path="/dummy" key="DUMMY" element={<RequireAuth><Dummy /></RequireAuth>} />
+  ];
 
   return (
     <IntlProvider
       locale={locale}
       messages={messages}
     >
-      <div className='App'>
-        <MainArea />
+      <div className="App">
+        {/* {user ? <MainArea /> : <Login />} */}
+        <Routes>
+          {routeList}
+        </Routes>
         {/* <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <p>
@@ -85,9 +100,9 @@ const App: React.FC<Props> = () => {
           <Dummy />
         </header> */}
       </div>
-    </IntlProvider>
+    </IntlProvider >
 
   );
 };
 
-export default App;
+export default memo(App);
