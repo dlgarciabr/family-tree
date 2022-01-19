@@ -18,12 +18,16 @@ export interface AppContextType {
   dispatch: React.Dispatch<any>;
 }
 
-export interface AuthContextType {
+export interface AuthenticationSettings {
   user: any;
-  setUser: (user: any) => void;
   signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
   signout: (callback: VoidFunction) => void;
   validateToken: (storageCredentials: string, nextLocation: string) => void;
+}
+
+export interface AuthContextType {
+  settings: AuthenticationSettings;
+  dispatch: React.Dispatch<any>;
 }
 
 export interface AuthCredentials {

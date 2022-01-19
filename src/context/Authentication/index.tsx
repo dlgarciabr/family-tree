@@ -7,21 +7,8 @@ import React, {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Props,/*, AuthContextType, */AuthCredentials } from '../../types';
+import { Props, AuthCredentials, AuthContextType, AuthenticationSettings } from '../../types';
 import { useLoginMutation, useLazyValidateTokenQuery } from '../../services/familyTreeApi';
-
-interface AuthenticationSettings {
-  user: any;
-  // setUser: (user: any) => void;
-  signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
-  signout: (callback: VoidFunction) => void;
-  validateToken: (storageCredentials: string, nextLocation: string) => void;
-}
-
-interface AuthContextType {
-  settings: AuthenticationSettings;
-  dispatch: React.Dispatch<any>;
-}
 
 export const AuthenticationContext = createContext<AuthContextType>({} as AuthContextType);
 AuthenticationContext.displayName = 'AuthenticationContext';
@@ -39,37 +26,13 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
 
   const signin = async (credentials: AuthCredentials, callback: VoidFunction) => {
     try {
-      // console.log('signin:1')
-      // const payload = await fetchToken({ userLoginData: credentials }).unwrap();
-      // dispatch({ type: "USER_LOGGEDIN", payload: { ...payload } });
       fetchToken({ userLoginData: credentials })
         .then((payload) => {
-          // console.log('signin:afterFetch_then')
-          // console.log('signin:2')
-          // console.log('signin:payload:', payload)
           dispatch({ type: "USER_LOGGEDIN", user: { ...payload } });
-          // setUser({ ...data });
-          // sessionStorage.setItem(
-          //   'credentials',
-          //   JSON.stringify({ ...data })
-          // );
           if (callback) {
             callback();
           }
         })
-      //   .catch((error) => console.log('signin:afterFetch:error:', error));
-      // console.log('signin:2')
-      // // console.log('signin:payload', payload)
-      // // console.log("signin:setUser:", payload)
-      // // setUser(payload);
-      // sessionStorage.setItem(
-      //   'credentials',
-      //   JSON.stringify({ ...payload })
-      //   // JSON.stringify({ "asdasd": "sdsd" })
-      // );
-      // if (callback) {
-      //   callback();
-      // }
     } catch (error) {
       // handled by error middleware
     }
@@ -82,22 +45,18 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
   };
 
   const validateToken = async (storageCredentials: string, nextLocation: string) => {
-    // console.log("validateToken:storageCredentials", storageCredentials);
-    // console.log("validateToken:storageCredentials", storageCredentials);
-    // console.log("validateToken:setUser:", setUser)
-    // console.log("validateToken:user:", settings.user)
     if (settings.user) {
       return;
     }
     const credentials = JSON.parse(storageCredentials);
     const payload = await checkTokenValidity({ token: credentials.token });
-    if (payload.data?.valid) {
-      // setUser({ ...credentials });
+
+    if (payload.data && payload.data.valid) {
       dispatch({ type: "USER_LOGGEDIN", user: { ...credentials } });
       navigate(nextLocation);
     } else {
-      // setUser(null);
       dispatch({ type: "USER_LOGGEDIN", user: null });
+      sessionStorage.clear();
       navigate('/login');
     }
   };

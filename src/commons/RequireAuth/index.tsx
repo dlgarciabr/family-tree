@@ -1,28 +1,45 @@
 import React, { memo, useEffect } from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 
-import { AuthenticationContext } from '../../context/Authentication';
+import { AuthenticationContext } from 'context/Authentication';
+import { useLazyValidateTokenQuery } from 'services/familyTreeApi';
 
 interface Props {
   children: JSX.Element;
 }
 
 const RequireAuth: React.FC<Props> = ({ children }) => {
+  const [checkTokenValidity] = useLazyValidateTokenQuery();
   const storageCredentials = sessionStorage.getItem('credentials');
-  // const { user, validateToken } = React.useContext(AuthenticationContext);
-  const { settings: { user, validateToken } } = React.useContext(AuthenticationContext);
+  const { settings: { user }, dispatch } = React.useContext(AuthenticationContext);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const validateToken = async (storageCredentials: string, nextLocation: string) => {
+    if (user) {
+      return;
+    }
+    const credentials = JSON.parse(storageCredentials);
+    const payload = await checkTokenValidity({ token: credentials.token });
+
+    if (payload.data && payload.data.valid) {
+      dispatch({ type: "USER_LOGGEDIN", user: { ...credentials } });
+      navigate(nextLocation);
+    } else {
+      dispatch({ type: "USER_LOGGEDIN", user: null });
+      sessionStorage.clear();
+      navigate('/login');
+    }
+  };
 
   useEffect(() => {
     if (!user && storageCredentials) {
       (async () => {
-        // console.log("useEffect:storageCredentials", storageCredentials)
-        // console.log("useEffect:user", user)
         validateToken(storageCredentials, location.pathname);
       })();
     }
   }, []);
-  // console.log("RequireAuth:render", storageCredentials)
+
   if (!user && !storageCredentials) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
