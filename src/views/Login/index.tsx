@@ -15,11 +15,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Props } from 'types';
 // const useStyles = makeStyles((theme) => ({}));
-import { AuthenticationContext } from 'context/Authentication';
 import { useLazyValidateTokenQuery } from 'services/familyTreeApi';
+import { AuthenticationContext, actions } from 'context/Authentication';
 
 const LoginForm: React.FC<Props> = () => {
-  const storageCredentials = sessionStorage.getItem('credentials');
+  const sessionStorageCredentials = sessionStorage.getItem('credentials');
   const { settings: { user, signin }, dispatch } = React.useContext(AuthenticationContext);
   const [checkTokenValidity] = useLazyValidateTokenQuery();
   const navigate = useNavigate();
@@ -28,18 +28,18 @@ const LoginForm: React.FC<Props> = () => {
   // const classes = useStyles();
   const { formatMessage } = useIntl();
 
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [userCredentials, setUserCredentials] = useState({ email: '', password: '' });
 
   const handleClickSignin = () => {
     const from = (location as any).state?.from?.pathname || '/';
-    signin({ ...credentials }, () => navigate(from, { replace: true }));
+    signin({ ...userCredentials }, () => navigate(from, { replace: true }));
   };
 
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.name === 'email') {
-      setCredentials({ ...credentials, email: e.currentTarget.value });
+      setUserCredentials({ ...userCredentials, email: e.currentTarget.value });
     } else if (e.target.name === 'password') {
-      setCredentials({ ...credentials, password: e.currentTarget.value });
+      setUserCredentials({ ...userCredentials, password: e.currentTarget.value });
     }
   };
 
@@ -50,18 +50,18 @@ const LoginForm: React.FC<Props> = () => {
     const credentials = JSON.parse(storageCredentials);
     const payload = await checkTokenValidity({ token: credentials.token });
     if (payload.data?.valid) {
-      dispatch({ type: "USER_LOGGEDIN", user: { ...credentials } });
+      dispatch({ type: actions.USER_LOGGEDIN, user: { ...credentials } });
       navigate(nextLocation);
     } else {
-      dispatch({ type: "USER_LOGGEDIN", user: null });
+      dispatch({ type: actions.USER_LOGGEDIN, user: null });
       navigate('/login');
     }
   };
 
   useEffect(() => {
-    if (!user && storageCredentials) {
+    if (!user && sessionStorageCredentials) {
       (async () => {
-        validateToken(storageCredentials, '/');
+        validateToken(sessionStorageCredentials, '/');
       })();
     }
   }, []);
@@ -85,7 +85,7 @@ const LoginForm: React.FC<Props> = () => {
         name="email"
         autoComplete="email"
         autoFocus
-        value={credentials.email}
+        value={userCredentials.email}
         onChange={handleChangeField}
       />
       <TextField
@@ -99,7 +99,7 @@ const LoginForm: React.FC<Props> = () => {
         id="password"
         data-testid="password"
         autoComplete="current-password"
-        value={credentials.password}
+        value={userCredentials.password}
         onChange={handleChangeField}
       />
       <Button

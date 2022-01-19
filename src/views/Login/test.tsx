@@ -10,7 +10,6 @@ import {
 } from '../../__mocks__/msw-handlers';
 
 import App from "../App";
-import { act } from 'react-dom/test-utils';
 
 // afterEach(() => {
 //   jest.clearAllMocks();

@@ -1,7 +1,5 @@
 import React, {
   createContext,
-  useState,
-  useMemo,
   memo,
   useReducer
 } from 'react';
@@ -13,22 +11,21 @@ import { useLoginMutation, useLazyValidateTokenQuery } from '../../services/fami
 export const AuthenticationContext = createContext<AuthContextType>({} as AuthContextType);
 AuthenticationContext.displayName = 'AuthenticationContext';
 
+export const actions = {
+  USER_LOGGEDIN: 'USER_LOGGEDIN'
+};
+
 const AuthenticationProvider: React.FC<Props> = ({ children }) => {
-  // const [user, setUser] = useState<any>(null);
   const [fetchToken] = useLoginMutation();
   const [checkTokenValidity] = useLazyValidateTokenQuery();
 
   const navigate = useNavigate();
 
-  // const setContextUser = (newUser: any) => {
-  //   setUser(newUser);
-  // };
-
   const signin = async (credentials: AuthCredentials, callback: VoidFunction) => {
     try {
       fetchToken({ userLoginData: credentials })
         .then((payload) => {
-          dispatch({ type: "USER_LOGGEDIN", user: { ...payload } });
+          dispatch({ type: actions.USER_LOGGEDIN, user: { ...payload } });
           if (callback) {
             callback();
           }
@@ -52,17 +49,16 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
     const payload = await checkTokenValidity({ token: credentials.token });
 
     if (payload.data && payload.data.valid) {
-      dispatch({ type: "USER_LOGGEDIN", user: { ...credentials } });
+      dispatch({ type: actions.USER_LOGGEDIN, user: { ...credentials } });
       navigate(nextLocation);
     } else {
-      dispatch({ type: "USER_LOGGEDIN", user: null });
+      dispatch({ type: actions.USER_LOGGEDIN, user: null });
       sessionStorage.clear();
       navigate('/login');
     }
   };
 
   const initialAuthenticationSettings: AuthenticationSettings = {
-    // setUser,
     signin,
     signout,
     validateToken,
@@ -74,7 +70,6 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       case 'RESET_STATE':
         return { ...state };
       case 'USER_LOGGEDIN':
-        // console.log('dispatcher:USER_LOGGEDIN')
         return {
           ...state,
           user: action.user
