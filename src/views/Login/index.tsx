@@ -15,13 +15,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Props } from 'types';
 // const useStyles = makeStyles((theme) => ({}));
-import { useLazyValidateTokenQuery } from 'services/familyTreeApi';
-import { AuthenticationContext, actions } from 'context/Authentication';
+import { AuthenticationContext } from 'context/Authentication';
 
 const LoginForm: React.FC<Props> = () => {
   const sessionStorageCredentials = sessionStorage.getItem('credentials');
-  const { settings: { user, signin }, dispatch } = React.useContext(AuthenticationContext);
-  const [checkTokenValidity] = useLazyValidateTokenQuery();
+  const { settings: { user, signin, validateToken } } = React.useContext(AuthenticationContext);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,21 +39,6 @@ const LoginForm: React.FC<Props> = () => {
       setUserCredentials({ ...userCredentials, email: e.currentTarget.value });
     } else if (e.target.name === 'password') {
       setUserCredentials({ ...userCredentials, password: e.currentTarget.value });
-    }
-  };
-
-  const validateToken = async (storageCredentials: string, nextLocation: string) => {
-    if (user) {
-      return;
-    }
-    const credentials = JSON.parse(storageCredentials);
-    const payload = await checkTokenValidity({ token: credentials.token });
-    if (payload.data?.valid) {
-      dispatch({ type: actions.USER_LOGGEDIN, user: { ...credentials } });
-      navigate(nextLocation);
-    } else {
-      dispatch({ type: actions.USER_LOGGEDIN, user: null });
-      navigate('/login');
     }
   };
 
