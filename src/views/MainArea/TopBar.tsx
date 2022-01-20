@@ -13,10 +13,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
+import Grid from '@mui/material/Grid';
 
-import { Props } from '../../types';
-import { AppContext, actions } from '../../context/App';
-import { loadLocaleMessages, locales } from '../../utils/i18n';
+import { Props } from 'types';
+import { AppContext, actions } from 'context/App';
+import { loadLocaleMessages, locales } from 'utils/i18n';
 
 const TopBar: React.FC<Props> = () => {
   const anchorRef = React.useRef<HTMLDivElement>(null);
@@ -63,58 +64,66 @@ const TopBar: React.FC<Props> = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <FormattedMessage id="app-title" />
-        </Typography>
-        <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
-          <Button>{options.find((option) => option.value === selectedLocale)?.label}</Button>
-          <Button
-            type="button"
-            size="small"
-            aria-controls={openLanguageOptions ? 'split-button-menu' : undefined}
-            aria-expanded={openLanguageOptions ? 'true' : undefined}
-            aria-label="language-button"
-            aria-haspopup="menu"
-            onClick={handleToggle}
-          >
-            <ArrowDropDownIcon />
-          </Button>
-        </ButtonGroup>
-        <Popper
-          open={openLanguageOptions}
-          anchorEl={anchorRef.current}
-          role={undefined}
-          transition
-          disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === 'bottom' ? 'center top' : 'center bottom',
-              }}
+        <Grid container={true} spacing={12}>
+          <Grid item xs={10}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <FormattedMessage id="app-title" />
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button" fullWidth>
+              <Button>{options.find((option) => option.value === selectedLocale)?.label}</Button>
+              <Button
+                type="button"
+                size="small"
+                aria-controls={openLanguageOptions ? 'split-button-menu' : undefined}
+                aria-expanded={openLanguageOptions ? 'true' : undefined}
+                aria-label="language-button"
+                aria-haspopup="menu"
+                onClick={handleToggle}
+                sx={{
+                  maxWidth: 50
+                }}
+              >
+                <ArrowDropDownIcon />
+              </Button>
+            </ButtonGroup>
+            <Popper
+              open={openLanguageOptions}
+              anchorEl={anchorRef.current}
+              role={undefined}
+              transition
+              disablePortal
             >
-              <Paper>
-
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList id="split-button-menu">
-                    {options.map((option) => (
-                      <MenuItem
-                        key={option.value}
-                        disabled={option.value === selectedLocale}
-                        selected={option.value === selectedLocale}
-                        onClick={(event) => handleMenuItemClick(event, option.value)}
-                      >
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                    transformOrigin:
+                      placement === 'bottom' ? 'center top' : 'center bottom',
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList id="split-button-menu">
+                        {options.map((option) => (
+                          <MenuItem
+                            key={option.value}
+                            disabled={option.value === selectedLocale}
+                            selected={option.value === selectedLocale}
+                            onClick={(event) => handleMenuItemClick(event, option.value)}
+                          >
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+          </Grid>
+        </Grid>
       </Toolbar>
     </AppBar>
   );

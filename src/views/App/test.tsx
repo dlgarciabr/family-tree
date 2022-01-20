@@ -27,7 +27,7 @@ describe("Change languages", () => {
     userEvent.click(languageButton);
 
     const spanishLanguageButton = screen.getByRole("menuitem", {
-      name: 'Es',
+      name: 'Español',
     });
 
     userEvent.click(spanishLanguageButton)
@@ -56,7 +56,7 @@ describe("Change languages", () => {
     userEvent.click(languageButton);
 
     const ptLanguageButton = screen.getByRole("menuitem", {
-      name: 'Pt',
+      name: 'Português',
     });
 
     userEvent.click(ptLanguageButton);
@@ -83,7 +83,7 @@ describe("Change languages", () => {
     userEvent.click(languageButton);
 
     const ptLanguageButton = screen.getByRole("menuitem", {
-      name: 'Pt-Br',
+      name: 'Português Br',
     });
 
     userEvent.click(ptLanguageButton);
@@ -109,7 +109,7 @@ describe("Change languages", () => {
     userEvent.click(languageButton);
 
     const ptLanguageButton = screen.getByRole("menuitem", {
-      name: 'Pt-Br',
+      name: 'Português Br',
     });
 
     userEvent.click(ptLanguageButton);
@@ -120,7 +120,7 @@ describe("Change languages", () => {
     userEvent.click(languageButton);
 
     const enLanguageButton = screen.getByRole("menuitem", {
-      name: 'En',
+      name: 'English',
     });
 
     userEvent.click(enLanguageButton);

@@ -8,19 +8,19 @@ import Portuguese from '../../compiled-lang/pt.json';
 export const locales: { [key: string]: { value: string, label: string } } = {
   EN: {
     value: 'en',
-    label: 'En'
+    label: 'English'
   },
   ES: {
     value: 'es',
-    label: 'Es'
+    label: 'Español'
   },
   PT: {
     value: 'pt',
-    label: 'Pt'
+    label: 'Português'
   },
   PT_BR: {
     value: 'pt-br',
-    label: 'Pt-Br'
+    label: 'Português Br'
   },
 };
 
