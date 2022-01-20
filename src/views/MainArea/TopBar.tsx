@@ -64,15 +64,15 @@ const TopBar: React.FC<Props> = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Grid container={true} spacing={12}>
-          <Grid item xs={10}>
+        <Grid container={true} spacing={0} >
+          <Grid item xs={8} md={9} lg={10}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <FormattedMessage id="app-title" />
             </Typography>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={4} md={3} lg={2}>
             <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button" fullWidth>
-              <Button>{options.find((option) => option.value === selectedLocale)?.label}</Button>
+              <Button style={{ minWidth: 150 }}>{options.find((option) => option.value === selectedLocale)?.label}</Button>
               <Button
                 type="button"
                 size="small"
@@ -81,47 +81,45 @@ const TopBar: React.FC<Props> = () => {
                 aria-label="language-button"
                 aria-haspopup="menu"
                 onClick={handleToggle}
-                sx={{
-                  maxWidth: 50
-                }}
+                style={{ width: 50 }}
               >
                 <ArrowDropDownIcon />
               </Button>
+              <Popper
+                open={openLanguageOptions}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                transition
+                disablePortal
+              >
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{
+                      transformOrigin:
+                        placement === 'bottom' ? 'center top' : 'center bottom',
+                    }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleClose}>
+                        <MenuList id="split-button-menu">
+                          {options.map((option) => (
+                            <MenuItem
+                              key={option.value}
+                              disabled={option.value === selectedLocale}
+                              selected={option.value === selectedLocale}
+                              onClick={(event) => handleMenuItemClick(event, option.value)}
+                            >
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
             </ButtonGroup>
-            <Popper
-              open={openLanguageOptions}
-              anchorEl={anchorRef.current}
-              role={undefined}
-              transition
-              disablePortal
-            >
-              {({ TransitionProps, placement }) => (
-                <Grow
-                  {...TransitionProps}
-                  style={{
-                    transformOrigin:
-                      placement === 'bottom' ? 'center top' : 'center bottom',
-                  }}
-                >
-                  <Paper>
-                    <ClickAwayListener onClickAway={handleClose}>
-                      <MenuList id="split-button-menu">
-                        {options.map((option) => (
-                          <MenuItem
-                            key={option.value}
-                            disabled={option.value === selectedLocale}
-                            selected={option.value === selectedLocale}
-                            onClick={(event) => handleMenuItemClick(event, option.value)}
-                          >
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </MenuList>
-                    </ClickAwayListener>
-                  </Paper>
-                </Grow>
-              )}
-            </Popper>
           </Grid>
         </Grid>
       </Toolbar>
