@@ -8,5 +8,20 @@
   },
   "message.error": {
     "defaultMessage": "Erro na tua operação!"
+  },
+  "login.title": {
+    "defaultMessage": "Aceda ao sítio"
+  },
+  "login.email.label": {
+    "defaultMessage": "Email"
+  },
+  "login.password.label": {
+    "defaultMessage": "Palavra passe"
+  },
+  "login.button.label": {
+    "defaultMessage": "Enviar"
+  },
+  "login.wrong-credentials": {
+    "defaultMessage": "Wrong credentials"
   }
 }

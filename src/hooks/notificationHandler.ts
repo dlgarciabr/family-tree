@@ -12,14 +12,12 @@ const messageType = {
   ERROR: 'error' as VariantType
 };
 
-const createNotification = (message: string, variant: VariantType): StackedNotification => {
-  return {
-    key: new Date().getTime(),
-    message,
-    dismissed: false,
-    options: { variant }
-  }
-};
+const createNotification = (message: string, variant: VariantType): StackedNotification => ({
+  key: new Date().getTime(),
+  message,
+  dismissed: false,
+  options: { variant }
+});
 
 export const dispatchInfoNotification = (dispatch: Dispatch<any>, message: string) => {
   const notification = createNotification(message, messageType.INFO);
@@ -41,14 +39,14 @@ const useNotification = () => {
   const { appSettings: { messages } } = useContext(AppContext);
 
   return {
-    showInfoNotification: (message = 'info message is empty') => {
+    showInfoNotification: (message: string | undefined = 'info message is empty') => {
       dispatchInfoNotification(dispatch, message);
     },
-    showSuccessNotification: (message = undefined) => {
+    showSuccessNotification: (message: string | undefined = undefined) => {
       const defaultMessage = messages['message.success'].map((t: any) => t.value)[0];
       dispatchSuccessNotification(dispatch, message || defaultMessage);
     },
-    showErrorNotification: (message = undefined) => {
+    showErrorNotification: (message: string | undefined = undefined) => {
       const defaultMessage = messages['message.error'].map((t: any) => t.value)[0];
       dispatchErrorNotification(dispatch, message || defaultMessage);
     }

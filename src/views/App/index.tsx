@@ -1,76 +1,49 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { IntlProvider } from 'react-intl';
-// import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 
-import MainArea from '../MainArea';
-import { AppContext, actions } from '../../context/App';
-import { loadLocaleMessages, locales } from '../../utils/i18n';
-import useNotification from '../../hooks/notificationHandler';
-import { Props } from '../../types';
-import logo from '../../logo.svg';
-import './style.css';
-import Dummy from '../Dummy';
+import { AppContext } from 'context/App';
+import useNotification from 'hooks/notificationHandler';
+import { Props } from 'types';
+import RequireAuth from 'commons/RequireAuth';
+import MainArea from 'views/MainArea';
+import Login from 'views/Login';
+import Dummy from 'views/Dummy';
 import notifierEffect from './notifierEffect';
-import { useSnackbar } from 'notistack';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { RootState } from '../../utils/reduxStore';
-
-// import { useGetUserByNameQuery } from '../../services/user';
-import { useGetTreeNodeByIdQuery, useCreateTreeNodeMutation, TreeNode } from '../../services/familyTreeApi';
 
 const App: React.FC<Props> = () => {
-  // const reduxDispatch = useDispatch();
-  // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { showSuccessNotification, showInfoNotification, showErrorNotification } = useNotification();
-  const { appSettings: { messages, locale, name, loadInitialData }, dispatch: contextDispatch } = React.useContext(AppContext);
-  const { data, error, isLoading } = useGetTreeNodeByIdQuery({ treeNodeId: 3434 });
-  const [createTreeNode, { isLoading: createLoading }] = useCreateTreeNodeMutation();
+  const { showInfoNotification } = useNotification();
 
-  const changeLanguage = async (newLocale: string) => {
-    const newMessages = loadLocaleMessages(newLocale);
-    contextDispatch({
-      type: actions.LOCALE_CHANGED,
-      messages: newMessages,
-      locale: newLocale
-    });
-  };
-
-  const createRelative = async () => {
-    const treeNode = {
-      id: 0,
-      name: 'string'
-    } as TreeNode;
-
-    createTreeNode({ treeNode });
-  };
-
-  if (isLoading) {
-    // console.log("loading")
-  } else {
-    // console.log(data);
-  }
+  const {
+    appSettings: {
+      messages, locale, loadInitialData
+    }
+  } = React.useContext(AppContext);
 
   notifierEffect();
 
   useEffect(() => {
-    contextDispatch({
-      type: actions.INITIAL_DATA_LOADED
-    });
-  }, []);
-
-  useEffect(() => {
     if (!loadInitialData) {
-      showInfoNotification('locale changed to ' + locale);
+      showInfoNotification(`locale changed to ${locale}`);
     }
   }, [locale]);
+
+  const routeList = [
+    <Route path="/" key="HOME" element={<RequireAuth><MainArea /></RequireAuth>} />,
+    <Route path="/login" key="LOGIN" element={<Login />} />,
+    <Route path="/dummy" key="DUMMY" element={<RequireAuth><Dummy /></RequireAuth>} />
+  ];
 
   return (
     <IntlProvider
       locale={locale}
       messages={messages}
     >
-      <div className='App'>
-        <MainArea />
+      <div className="App">
+        {/* {user ? <MainArea /> : <Login />} */}
+        <Routes>
+          {routeList}
+        </Routes>
         {/* <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <p>
@@ -86,8 +59,7 @@ const App: React.FC<Props> = () => {
         </header> */}
       </div>
     </IntlProvider>
-
   );
 };
 
-export default App;
+export default memo(App);
