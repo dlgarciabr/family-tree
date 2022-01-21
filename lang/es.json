@@ -1,6 +1,6 @@
 {
   "app-title": {
-    "defaultMessage": "Portal de la Arbor Familiar",
+    "defaultMessage": "Portal del voluntarios",
     "description": "El nombre de la aplicacion"
   },
   "message.success": {
@@ -20,6 +20,9 @@
   },
   "login.button.label": {
     "defaultMessage": "Aceder"
+  },
+  "logout.button.label": {
+    "defaultMessage": "Salir"
   },
   "login.wrong-credentials": {
     "defaultMessage": "Wrong credentials"

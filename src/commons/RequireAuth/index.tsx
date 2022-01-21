@@ -9,7 +9,10 @@ interface Props {
 
 const RequireAuth: React.FC<Props> = ({ children }) => {
   const sessionStorageCredentials = sessionStorage.getItem('credentials');
-  const { settings: { user, validateToken } } = React.useContext(AuthenticationContext);
+  const {
+    state: { user },
+    operations: { validateToken }
+  } = React.useContext(AuthenticationContext);
   const location = useLocation();
 
   useEffect(() => {
