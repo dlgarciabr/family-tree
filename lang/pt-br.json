@@ -1,6 +1,6 @@
 {
   "app-title": {
-    "defaultMessage": "Portal da Árvore Familiar",
+    "defaultMessage": "Portal de Voluntários",
     "description": "O nome da aplicação"
   },
   "message.success": {
@@ -20,6 +20,9 @@
   },
   "login.button.label": {
     "defaultMessage": "Enviar"
+  },
+  "logout.button.label": {
+    "defaultMessage": "Sair"
   },
   "login.wrong-credentials": {
     "defaultMessage": "Wrong credentials"

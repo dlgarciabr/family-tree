@@ -16,6 +16,7 @@ const baseUrl = process.env.REACT_APP_API_URL;
 describe("Login process", () => {
   const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
   const loginTitle = getLocatedMessage(locales.EN.value, 'login.title');
+  const logoutLabel = getLocatedMessage(locales.EN.value, 'logout.button.label');
   const emailLabel = "Email";
   const passwordId = "password";
   const buttonLabel = "Sign In";
@@ -228,8 +229,12 @@ describe("Login process", () => {
       await screen.findByText(mainAreaHeaderTitle)
     ).toBeInTheDocument();
 
-    const logout = screen.getByRole("link", { name: 'logout' });
+    const logout = screen.getByRole("button", { name: logoutLabel });
     userEvent.click(logout);
+
+    expect(
+      await screen.findByText(loginTitle)
+    ).toBeInTheDocument();
   });
 
   // test.todo('Open login page only if user is not logged in');

@@ -2,7 +2,7 @@
   "app-title": [
     {
       "type": 0,
-      "value": "Family Tree Portal"
+      "value": "Volunteer Portal"
     }
   ],
   "login.button.label": [
@@ -33,6 +33,12 @@
     {
       "type": 0,
       "value": "Wrong credentials"
+    }
+  ],
+  "logout.button.label": [
+    {
+      "type": 0,
+      "value": "Sign Out"
     }
   ],
   "message.error": [

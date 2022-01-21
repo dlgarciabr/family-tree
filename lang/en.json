@@ -1,6 +1,6 @@
 {
   "app-title": {
-    "defaultMessage": "Family Tree Portal",
+    "defaultMessage": "Volunteer Portal",
     "description": "The title of the application"
   },
   "message.success": {
@@ -20,6 +20,9 @@
   },
   "login.button.label": {
     "defaultMessage": "Sign In"
+  },
+  "logout.button.label": {
+    "defaultMessage": "Sign Out"
   },
   "login.wrong-credentials": {
     "defaultMessage": "Wrong credentials"
