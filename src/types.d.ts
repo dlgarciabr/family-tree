@@ -28,8 +28,7 @@ export interface AuthContextType {
     signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
     signout: (callback: VoidFunction) => void;
     validateToken: (storageCredentials: string, nextLocation: string) => void;
-  },
-  dispatch: React.Dispatch<any>;
+  }
 }
 
 export interface AuthCredentials {

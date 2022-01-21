@@ -94,7 +94,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
 
   return (
 
-    <AuthenticationContext.Provider value={{ state, operations, dispatch }}>
+    <AuthenticationContext.Provider value={{ state, operations }}>
       {children}
     </AuthenticationContext.Provider>
   );
