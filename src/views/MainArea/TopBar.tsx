@@ -32,8 +32,6 @@ const TopBar: React.FC<Props> = () => {
     operations: { signout }
   } = React.useContext(AuthenticationContext);
 
-
-
   const options = Object.values(locales);
 
   const changeLanguage = (newLocale: string) => {
@@ -127,7 +125,7 @@ const TopBar: React.FC<Props> = () => {
                 )}
               </Popper>
             </ButtonGroup>
-            <Button variant="contained">
+            <Button variant="contained" onClick={() => signout()}>
               <FormattedMessage id="logout.button.label" />
             </Button>
           </Grid>

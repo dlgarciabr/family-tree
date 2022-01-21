@@ -26,7 +26,7 @@ export interface AuthContextType {
   state: AuthContextState,
   operations: {
     signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
-    signout: (callback: VoidFunction) => void;
+    signout: (callback?: VoidFunction) => void;
     validateToken: (storageCredentials: string, nextLocation: string) => void;
   }
 }
@@ -38,22 +38,11 @@ export interface AuthCredentials {
 
 export interface User {
   id: number;
-  username: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  email: string | null;
-  password: string | null;
-  phone: string | null;
-  userStatus: number | null
-}
-
-export interface RelativeNode {
-  id: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phone: string;
-  userStatus: number
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  phone?: string;
+  userStatus?: number
 }

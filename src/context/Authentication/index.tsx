@@ -37,7 +37,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       case actions.USER_LOGGED_IN:
         return {
           ...state,
-          user: { id: action.data.id } as User,
+          user: { id: action.data.id },
           token: action.data.token
         };
       case actions.USER_LOGGED_OUT:
@@ -70,9 +70,12 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
           // handled by error middleware
         });
     },
-    signout: (callback: VoidFunction) => {
-      // dispatch({ type: actions.USER_LOGGED_OUT });
-      callback();
+    signout: (callback?: VoidFunction) => {
+      dispatch({ type: actions.USER_LOGGED_OUT });
+      sessionStorage.clear();
+      if (callback) {
+        callback();
+      }
     },
     validateToken: async (storageCredentials: string, nextLocation: string) => {
       if (state.user) {
