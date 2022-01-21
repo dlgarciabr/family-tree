@@ -17,6 +17,7 @@ import Grid from '@mui/material/Grid';
 
 import { Props } from 'types';
 import { AppContext, actions } from 'context/App';
+import { AuthenticationContext } from 'context/Authentication';
 import { loadLocaleMessages, locales } from 'utils/i18n';
 
 const TopBar: React.FC<Props> = () => {
@@ -26,6 +27,12 @@ const TopBar: React.FC<Props> = () => {
     appSettings: { locale: selectedLocale },
     dispatch: contextDispatch
   } = React.useContext(AppContext);
+
+  const {
+    operations: { signout }
+  } = React.useContext(AuthenticationContext);
+
+
 
   const options = Object.values(locales);
 

@@ -16,8 +16,7 @@ const initialAppSettings: AppSettings = {
   loadInitialData: true,
   name: 'React Typescript App',
   locale: userLanguage,
-  messages: loadLocaleMessages(userLanguage),
-  user: null
+  messages: loadLocaleMessages(userLanguage)
 };
 
 export const AppContext = createContext<AppContextType>({} as AppContextType);

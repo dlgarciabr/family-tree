@@ -10,7 +10,6 @@ export interface AppSettings {
   name: string;
   locale: string;
   messages: Record<string, MessageFormatElement[]>;
-  user: User | null
 }
 
 export interface AppContextType {
@@ -18,15 +17,18 @@ export interface AppContextType {
   dispatch: React.Dispatch<any>;
 }
 
-export interface AuthenticationSettings {
-  user: any;
-  signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
-  signout: (callback: VoidFunction) => void;
-  validateToken: (storageCredentials: string, nextLocation: string) => void;
+export interface AuthContextState {
+  user: User | null;
+  token: string | null;
 }
 
 export interface AuthContextType {
-  settings: AuthenticationSettings;
+  state: AuthContextState,
+  operations: {
+    signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
+    signout: (callback: VoidFunction) => void;
+    validateToken: (storageCredentials: string, nextLocation: string) => void;
+  },
   dispatch: React.Dispatch<any>;
 }
 
@@ -37,13 +39,13 @@ export interface AuthCredentials {
 
 export interface User {
   id: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phone: string;
-  userStatus: number
+  username: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  password: string | null;
+  phone: string | null;
+  userStatus: number | null
 }
 
 export interface RelativeNode {
