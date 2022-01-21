@@ -69,7 +69,7 @@ const TopBar: React.FC<Props> = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Grid container={true} spacing={0} >
+        <Grid container spacing={0}>
           <Grid item xs={8} md={9} lg={10}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <FormattedMessage id="app-title" />
@@ -77,7 +77,9 @@ const TopBar: React.FC<Props> = () => {
           </Grid>
           <Grid item xs={4} md={3} lg={2}>
             <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button" fullWidth>
-              <Button style={{ minWidth: 150 }}>{options.find((option) => option.value === selectedLocale)?.label}</Button>
+              <Button style={{ minWidth: 150 }}>
+                {options.find((option) => option.value === selectedLocale)?.label}
+              </Button>
               <Button
                 type="button"
                 size="small"

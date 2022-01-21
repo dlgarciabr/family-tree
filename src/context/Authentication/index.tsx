@@ -6,7 +6,7 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 
 import {
-  Props, AuthCredentials, AuthContextType, AuthContextState, User
+  Props, AuthCredentials, AuthContextType, AuthContextState
 } from 'types';
 import {
   useLoginMutation, useLazyValidateTokenQuery
@@ -30,7 +30,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
     user: null, token: null
   };
 
-  const [state, dispatch] = useReducer((state: AuthContextState, action: any) => {
+  const [currentState, dispatch] = useReducer((state: AuthContextState, action: any) => {
     switch (action.type) {
       case 'RESET_STATE':
         return { ...state };
@@ -66,7 +66,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
             }
           }
         })
-        .catch((error) => {
+        .catch(() => {
           // handled by error middleware
         });
     },
@@ -78,7 +78,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       }
     },
     validateToken: async (storageCredentials: string, nextLocation: string) => {
-      if (state.user) {
+      if (currentState.user) {
         return;
       }
       const credentials = JSON.parse(storageCredentials);
@@ -92,12 +92,11 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
         sessionStorage.clear();
         navigate('/login');
       }
-    },
-  }
+    }
+  };
 
   return (
-
-    <AuthenticationContext.Provider value={{ state, operations }}>
+    <AuthenticationContext.Provider value={{ state: currentState, operations }}>
       {children}
     </AuthenticationContext.Provider>
   );
