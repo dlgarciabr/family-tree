@@ -19,7 +19,10 @@ import { AuthenticationContext } from 'context/Authentication';
 
 const LoginForm: React.FC<Props> = () => {
   const sessionStorageCredentials = sessionStorage.getItem('credentials');
-  const { settings: { user, signin, validateToken } } = React.useContext(AuthenticationContext);
+  const {
+    state: { user },
+    operations: { signin, validateToken }
+  } = React.useContext(AuthenticationContext);
 
   const navigate = useNavigate();
   const location = useLocation();

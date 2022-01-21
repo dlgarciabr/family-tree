@@ -1,4 +1,3 @@
-import { PartialLocation } from 'history';
 import { MessageFormatElement } from 'intl-messageformat-parser';
 
 export interface Props {
@@ -10,7 +9,6 @@ export interface AppSettings {
   name: string;
   locale: string;
   messages: Record<string, MessageFormatElement[]>;
-  user: User | null
 }
 
 export interface AppContextType {
@@ -18,16 +16,18 @@ export interface AppContextType {
   dispatch: React.Dispatch<any>;
 }
 
-export interface AuthenticationSettings {
-  user: any;
-  signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
-  signout: (callback: VoidFunction) => void;
-  validateToken: (storageCredentials: string, nextLocation: string) => void;
+export interface AuthContextState {
+  user: User | null;
+  token: string | null;
 }
 
 export interface AuthContextType {
-  settings: AuthenticationSettings;
-  dispatch: React.Dispatch<any>;
+  state: AuthContextState,
+  operations: {
+    signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
+    signout: (callback?: VoidFunction) => void;
+    validateToken: (storageCredentials: string, nextLocation: string) => void;
+  }
 }
 
 export interface AuthCredentials {
@@ -37,22 +37,11 @@ export interface AuthCredentials {
 
 export interface User {
   id: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phone: string;
-  userStatus: number
-}
-
-export interface RelativeNode {
-  id: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phone: string;
-  userStatus: number
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  phone?: string;
+  userStatus?: number
 }

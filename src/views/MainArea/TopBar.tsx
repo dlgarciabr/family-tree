@@ -17,6 +17,7 @@ import Grid from '@mui/material/Grid';
 
 import { Props } from 'types';
 import { AppContext, actions } from 'context/App';
+import { AuthenticationContext } from 'context/Authentication';
 import { loadLocaleMessages, locales } from 'utils/i18n';
 
 const TopBar: React.FC<Props> = () => {
@@ -26,6 +27,10 @@ const TopBar: React.FC<Props> = () => {
     appSettings: { locale: selectedLocale },
     dispatch: contextDispatch
   } = React.useContext(AppContext);
+
+  const {
+    operations: { signout }
+  } = React.useContext(AuthenticationContext);
 
   const options = Object.values(locales);
 
@@ -64,7 +69,7 @@ const TopBar: React.FC<Props> = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Grid container={true} spacing={0} >
+        <Grid container spacing={0}>
           <Grid item xs={8} md={9} lg={10}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <FormattedMessage id="app-title" />
@@ -72,7 +77,9 @@ const TopBar: React.FC<Props> = () => {
           </Grid>
           <Grid item xs={4} md={3} lg={2}>
             <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button" fullWidth>
-              <Button style={{ minWidth: 150 }}>{options.find((option) => option.value === selectedLocale)?.label}</Button>
+              <Button style={{ minWidth: 150 }}>
+                {options.find((option) => option.value === selectedLocale)?.label}
+              </Button>
               <Button
                 type="button"
                 size="small"
@@ -120,6 +127,9 @@ const TopBar: React.FC<Props> = () => {
                 )}
               </Popper>
             </ButtonGroup>
+            <Button variant="contained" onClick={() => signout()}>
+              <FormattedMessage id="logout.button.label" />
+            </Button>
           </Grid>
         </Grid>
       </Toolbar>

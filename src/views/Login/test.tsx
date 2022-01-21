@@ -11,27 +11,26 @@ import {
 
 import App from "../App";
 
-// afterEach(() => {
-//   jest.clearAllMocks();
-// });
-
 const baseUrl = process.env.REACT_APP_API_URL;
 
 describe("Login process", () => {
   const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
   const loginTitle = getLocatedMessage(locales.EN.value, 'login.title');
+  const logoutLabel = getLocatedMessage(locales.EN.value, 'logout.button.label');
+  const emailLabel = "Email";
+  const passwordId = "password";
+  const buttonLabel = "Sign In";
+  const email = "admin@mail.com";
+  const password = "123456";
 
   test("Open login form hidding secured features", () => {
     //arrange
-    const emailLabel = "Email";
-    const passwordId = "password";
-    const buttonLabel = "Sign In";
 
     //act
     render(<App />);
 
     //assert
-    expect(screen.queryByText("Main area")).not.toBeInTheDocument();
+    expect(screen.queryByText(mainAreaHeaderTitle)).not.toBeInTheDocument();
 
     expect(
       screen.getByRole("heading", { name: loginTitle })
@@ -46,15 +45,9 @@ describe("Login process", () => {
 
   test("Fail on doing login with wrong credentials", async () => {
     //arrange
-    const emailLabel = "Email";
-    const passwordId = "password";
-    const buttonLabel = "Sign In";
-    const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'login.wrong-credentials');
-    const email = "admin@mail.com";
-    const password = "123456";
-    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
-
     mswServer.use(deniedLoginHandler);
+    const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'login.wrong-credentials');
+    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
     render(<App />);
 
@@ -95,14 +88,8 @@ describe("Login process", () => {
 
   test("Success on doing login with right credentials", async () => {
     // arrange
-    const emailLabel = "Email";
-    const passwordId = "password";
-    const buttonLabel = "Sign In";
-    const email = "admin@mail.com";
-    const password = "123456";
-    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
-
     mswServer.use(successLoginHandler);
+    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
     render(<App />);
 
@@ -197,6 +184,56 @@ describe("Login process", () => {
     );
     expect(
       screen.getByText('dummy comp')
+    ).toBeInTheDocument();
+
+    const mainAreaLink = screen.getByRole("link", { name: 'Main area' });
+    userEvent.click(mainAreaLink);
+  });
+
+  test("Success on doing login and logout", async () => {
+    // arrange
+    mswServer.use(successLoginHandler);
+    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
+
+    render(<App />);
+
+    //act
+    const emailTexfield = screen.getByRole("textbox", {
+      name: emailLabel,
+    });
+    const passwordTexfield = screen.getByTestId(passwordId).childNodes[1]
+      .childNodes[0] as Element;
+
+    userEvent.type(emailTexfield, email);
+    userEvent.type(passwordTexfield, password);
+
+    userEvent.click(
+      screen.getByRole("button", { name: buttonLabel })
+    );
+
+    //assert
+    const request = await pendingRequest;
+
+    expect(request.body).toEqual({
+      email,
+      password,
+    });
+
+    await waitFor(() =>
+      expect(
+        screen.queryByRole("heading", { name: loginTitle })
+      ).not.toBeInTheDocument()
+    );
+
+    expect(
+      await screen.findByText(mainAreaHeaderTitle)
+    ).toBeInTheDocument();
+
+    const logout = screen.getByRole("button", { name: logoutLabel });
+    userEvent.click(logout);
+
+    expect(
+      await screen.findByText(loginTitle)
     ).toBeInTheDocument();
   });
 
