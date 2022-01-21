@@ -1,4 +1,3 @@
-import { PartialLocation } from 'history';
 import { MessageFormatElement } from 'intl-messageformat-parser';
 
 export interface Props {
