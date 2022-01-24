@@ -240,3 +240,18 @@ describe("Login process", () => {
   // test.todo('Open login page only if user is not logged in');
 });
 
+describe("Sign up process", () => {
+  test("User complete the sign up process and access main page", () => {
+    //arrange
+    const signUpbuttonLabel = "Sign Up";
+    render(<App />);
+
+    //act
+    userEvent.click(
+      screen.getByRole("button", { name: signUpbuttonLabel })
+    );
+
+    //assert
+  });
+});
+

@@ -24,6 +24,9 @@
   "logout.button.label": {
     "defaultMessage": "Salir"
   },
+  "signup.button.label": {
+    "defaultMessage": "Cadastro"
+  },
   "login.wrong-credentials": {
     "defaultMessage": "Wrong credentials"
   }

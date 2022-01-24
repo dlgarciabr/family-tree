@@ -24,6 +24,9 @@
   "logout.button.label": {
     "defaultMessage": "Sign Out"
   },
+  "signup.button.label": {
+    "defaultMessage": "Sign Up"
+  },
   "login.wrong-credentials": {
     "defaultMessage": "Wrong credentials"
   }

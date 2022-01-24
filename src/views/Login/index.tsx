@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 
 // import { makeStyles } from "@material-ui/core/styles";
-// import Grid from "@material-ui/core/Grid";
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -37,6 +37,11 @@ const LoginForm: React.FC<Props> = () => {
     signin({ ...userCredentials }, () => navigate(from, { replace: true }));
   };
 
+  const handleClickSignup = () => {
+    const from = (location as any).state?.from?.pathname || '/';
+    signin({ ...userCredentials }, () => navigate(from, { replace: true }));
+  };
+
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.name === 'email') {
       setUserCredentials({ ...userCredentials, email: e.currentTarget.value });
@@ -58,47 +63,69 @@ const LoginForm: React.FC<Props> = () => {
     //   <Grid item xs={6}>
     //     <Paper elevation={3}>
     <div>
-      <Typography variant="h5">
-        <FormattedMessage id="login.title" />
-      </Typography>
+      <Grid container spacing={0}>
+        <Grid item xs={12}>
+          <Typography variant="h5">
+            <FormattedMessage id="login.title" />
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label={formatMessage({ id: 'login.email.label' })}
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={userCredentials.email}
+            onChange={handleChangeField}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label={formatMessage({ id: 'login.password.label' })}
+            type="password"
+            id="password"
+            data-testid="password"
+            autoComplete="current-password"
+            value={userCredentials.password}
+            onChange={handleChangeField}
+          />
+        </Grid>
+      </Grid>
       {/* <form className={classes.form} noValidate> */}
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        id="email"
-        label={formatMessage({ id: 'login.email.label' })}
-        name="email"
-        autoComplete="email"
-        autoFocus
-        value={userCredentials.email}
-        onChange={handleChangeField}
-      />
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        name="password"
-        label={formatMessage({ id: 'login.password.label' })}
-        type="password"
-        id="password"
-        data-testid="password"
-        autoComplete="current-password"
-        value={userCredentials.password}
-        onChange={handleChangeField}
-      />
-      <Button
-        type="button"
-        fullWidth
-        variant="contained"
-        color="primary"
-        // className={classes.submit}
-        onClick={handleClickSignin}
-      >
-        {formatMessage({ id: 'login.button.label' })}
-      </Button>
+      <Grid item xs={6}>
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="primary"
+          // className={classes.submit}
+          onClick={handleClickSignin}
+        >
+          {formatMessage({ id: 'login.button.label' })}
+        </Button>
+      </Grid>
+      <Grid item xs={6}>
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="primary"
+          // className={classes.submit}
+          onClick={handleClickSignup}
+        >
+          {formatMessage({ id: 'signup.button.label' })}
+        </Button>
+      </Grid>
     </div>
     //         <FormControlLabel
     //           control={<Checkbox value="remember" color="primary" />}
