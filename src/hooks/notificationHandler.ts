@@ -43,11 +43,13 @@ const useNotification = () => {
       dispatchInfoNotification(dispatch, message);
     },
     showSuccessNotification: (message: string | undefined = undefined) => {
-      const defaultMessage = messages['message.success'].map((t: any) => t.value)[0];
+      const defaultMessage = messages['message.success'];
+      // const defaultMessage = messages['message.success'].map((t: any) => t.value)[0];
       dispatchSuccessNotification(dispatch, message || defaultMessage);
     },
     showErrorNotification: (message: string | undefined = undefined) => {
-      const defaultMessage = messages['message.error'].map((t: any) => t.value)[0];
+      const defaultMessage = messages['message.error'];
+      // const defaultMessage = messages['message.error'].map((t: any) => t.value)[0];
       dispatchErrorNotification(dispatch, message || defaultMessage);
     }
   };
