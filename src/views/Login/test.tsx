@@ -237,7 +237,7 @@ describe("Login process", () => {
     ).toBeInTheDocument();
   });
 
-  // test.todo('Open login page only if user is not logged in');
+  test.todo('Open login page only if user is not logged in');
 });
 
 describe("Sign up process", () => {
@@ -251,7 +251,13 @@ describe("Sign up process", () => {
       screen.getByRole("button", { name: signUpbuttonLabel })
     );
 
+    const nameField = screen.getByRole("textbox", {
+      name: "name",
+    });
+
     //assert
+
+
   });
 });
 
