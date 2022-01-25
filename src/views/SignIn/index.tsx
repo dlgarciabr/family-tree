@@ -18,7 +18,7 @@ import { Props } from 'types';
 import { AuthenticationContext } from 'context/Authentication';
 import { Routes } from 'commons/AppRoutes';
 
-const LoginForm: React.FC<Props> = () => {
+const SignInForm: React.FC<Props> = () => {
   const sessionStorageCredentials = sessionStorage.getItem('credentials');
   const {
     state: { user },
@@ -152,4 +152,4 @@ const LoginForm: React.FC<Props> = () => {
   );
 };
 
-export default LoginForm;
+export default SignInForm;

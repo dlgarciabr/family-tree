@@ -14,7 +14,6 @@ const userLanguage = getUserLanguage();
 
 const initialAppSettings: AppSettings = {
   loadInitialData: true,
-  name: 'React Typescript App',
   locale: userLanguage,
   messages: loadLocaleMessages(userLanguage)
 };
