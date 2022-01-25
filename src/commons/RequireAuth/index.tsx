@@ -2,7 +2,9 @@ import React, { memo, useEffect } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 
 import { AuthenticationContext } from 'context/Authentication';
+import { Routes } from 'commons/AppRoutes';
 
+//TODO revisar
 interface Props {
   children: JSX.Element;
 }
@@ -22,9 +24,8 @@ const RequireAuth: React.FC<Props> = ({ children }) => {
       })();
     }
   }, []);
-
   if (!user && !sessionStorageCredentials) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to={Routes.SIGN_IN} state={{ from: location }} replace />;
   }
 
   return children;

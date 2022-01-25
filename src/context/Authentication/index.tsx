@@ -12,6 +12,8 @@ import {
   useLoginMutation, useLazyValidateTokenQuery
 } from 'services/familyTreeApi';
 
+import { Routes } from 'commons/AppRoutes';
+
 export const AuthenticationContext = createContext<AuthContextType>({} as AuthContextType);
 AuthenticationContext.displayName = 'AuthenticationContext';
 
@@ -90,7 +92,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       } else {
         dispatch({ type: actions.USER_LOGGED_OUT });
         sessionStorage.clear();
-        navigate('/login');
+        navigate(Routes.SIGN_IN);
       }
     }
   };
