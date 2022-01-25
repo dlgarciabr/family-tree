@@ -1,13 +1,13 @@
 {
   "app-title": "Portal del voluntarios",
-  "description": "El nombre de la aplicacion",
   "message.success": "Operacion OK",
   "message.error": "Un problema en la operacion!",
-  "login.title": "Aceder la aplicacion",
-  "login.email.label": "Email",
-  "login.password.label": "Contrasenã",
-  "login.button.label": "Aceder",
-  "logout.button.label": "Salir",
+  "signin.title": "Aceder la aplicacion",
+  "signin.email.label": "Email",
+  "signin.password.label": "Contrasenã",
+  "signin.button.label": "Aceder",
+  "signin.wrong.credentials.message": "Wrong credentials",
+  "signout.button.label": "Salir",
   "signup.button.label": "Cadastro",
-  "login.wrong-credentials": "Wrong credentials"
+  "signup.name.label": "Nombre"
 }

@@ -1,13 +1,13 @@
 {
   "app-title": "Volunteer Portal",
-  "description": "The title of the application",
   "message.success": "Operation sucessfull",
   "message.error": "An error has occurred!",
-  "login.title": "Login",
-  "login.email.label": "Email",
-  "login.password.label": "Password",
-  "login.button.label": "Sign In",
-  "logout.button.label": "Sign Out",
+  "signin.title": "Login",
+  "signin.email.label": "Email",
+  "signin.password.label": "Password",
+  "signin.button.label": "Sign In",
+  "signin.wrong.credentials.message": "Wrong credentials",
+  "signout.button.label": "Sign Out",
   "signup.button.label": "Sign Up",
-  "login.wrong-credentials": "Wrong credentials"
+  "signup.name.label": "Name"
 }

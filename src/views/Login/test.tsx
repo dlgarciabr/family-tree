@@ -15,8 +15,8 @@ const baseUrl = process.env.REACT_APP_API_URL;
 
 describe("Login process", () => {
   const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
-  const loginTitle = getLocatedMessage(locales.EN.value, 'login.title');
-  const logoutLabel = getLocatedMessage(locales.EN.value, 'logout.button.label');
+  const loginTitle = getLocatedMessage(locales.EN.value, 'signin.title');
+  const logoutLabel = getLocatedMessage(locales.EN.value, 'signout.button.label');
   const emailLabel = "Email";
   const passwordId = "password";
   const buttonLabel = "Sign In";
@@ -46,7 +46,7 @@ describe("Login process", () => {
   test("Fail on doing login with wrong credentials", async () => {
     //arrange
     mswServer.use(deniedLoginHandler);
-    const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'login.wrong-credentials');
+    const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'signin.wrong.credentials.message');
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
     render(<App />);
@@ -243,6 +243,7 @@ describe("Login process", () => {
 describe("Sign up process", () => {
   test("User complete the sign up process and access main page", () => {
     //arrange
+    const nameLabel = getLocatedMessage(locales.EN.value, 'signup.name.label');
     const signUpbuttonLabel = "Sign Up";
     render(<App />);
 
@@ -252,7 +253,7 @@ describe("Sign up process", () => {
     );
 
     const nameField = screen.getByRole("textbox", {
-      name: "name",
+      name: nameLabel,
     });
 
     //assert

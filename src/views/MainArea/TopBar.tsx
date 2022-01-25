@@ -128,7 +128,7 @@ const TopBar: React.FC<Props> = () => {
               </Popper>
             </ButtonGroup>
             <Button variant="contained" onClick={() => signout()}>
-              <FormattedMessage id="logout.button.label" />
+              <FormattedMessage id="signout.button.label" />
             </Button>
           </Grid>
         </Grid>

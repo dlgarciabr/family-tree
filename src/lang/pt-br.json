@@ -2,11 +2,12 @@
   "app-title": "Portal de Voluntários",
   "message.success": "Operação realizada com sucesso",
   "message.error": "Ocorreu um erro ao tentar executar a operação!",
-  "login.title": "Acesso ao portal",
-  "login.email.label": "Email",
-  "login.password.label": "Senha",
-  "login.button.label": "Enviar",
-  "logout.button.label": "Sair",
+  "signin.title": "Acesso ao portal",
+  "signin.email.label": "Email",
+  "signin.password.label": "Senha",
+  "signin.button.label": "Enviar",
+  "signin.wrong.credentials.message": "Wrong credentials",
+  "signout.button.label": "Sair",
   "signup.button.label": "Criar conta",
-  "login.wrong-credentials": "Wrong credentials"
+  "signup.name.label": "Name"
 }

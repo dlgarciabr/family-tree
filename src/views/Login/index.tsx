@@ -39,8 +39,9 @@ const LoginForm: React.FC<Props> = () => {
   };
 
   const handleClickSignup = () => {
-    const from = (location as any).state?.from?.pathname || Routes.SIGN_UP;
-    signin({ ...userCredentials }, () => navigate(from, { replace: true }));
+    // const from = (location as any).state?.from?.pathname || Routes.SIGN_UP;
+    navigate(Routes.SIGN_UP, { replace: true });
+    // signin({ ...userCredentials }, () => navigate(from, { replace: true }));
   };
 
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +68,7 @@ const LoginForm: React.FC<Props> = () => {
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <Typography variant="h5">
-            <FormattedMessage id="login.title" />
+            <FormattedMessage id="signin.title" />
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -77,7 +78,7 @@ const LoginForm: React.FC<Props> = () => {
             required
             fullWidth
             id="email"
-            label={formatMessage({ id: 'login.email.label' })}
+            label={formatMessage({ id: 'signin.email.label' })}
             name="email"
             autoComplete="email"
             autoFocus
@@ -92,7 +93,7 @@ const LoginForm: React.FC<Props> = () => {
             required
             fullWidth
             name="password"
-            label={formatMessage({ id: 'login.password.label' })}
+            label={formatMessage({ id: 'signin.password.label' })}
             type="password"
             id="password"
             data-testid="password"
@@ -112,7 +113,7 @@ const LoginForm: React.FC<Props> = () => {
           // className={classes.submit}
           onClick={handleClickSignin}
         >
-          {formatMessage({ id: 'login.button.label' })}
+          {formatMessage({ id: 'signin.button.label' })}
         </Button>
       </Grid>
       <Grid item xs={6}>

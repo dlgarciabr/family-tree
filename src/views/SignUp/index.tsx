@@ -55,7 +55,7 @@ const SignUpForm: React.FC<Props> = () => {
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <Typography variant="h5">
-            <FormattedMessage id="login.title" />
+            <FormattedMessage id="signin.title" />
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -64,12 +64,12 @@ const SignUpForm: React.FC<Props> = () => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label={formatMessage({ id: 'login.email.label' })}
-            name="email"
-            autoComplete="email"
+            id="name"
+            label={formatMessage({ id: 'signup.name.label' })}
+            name="name"
+            autoComplete="name"
             autoFocus
-            value={userData.email}
+            value={userData.name}
             onChange={handleChangeField}
           />
         </Grid>
@@ -80,7 +80,7 @@ const SignUpForm: React.FC<Props> = () => {
             required
             fullWidth
             name="password"
-            label={formatMessage({ id: 'login.password.label' })}
+            label={formatMessage({ id: 'signin.password.label' })}
             type="password"
             id="password"
             data-testid="password"
@@ -100,13 +100,13 @@ const SignUpForm: React.FC<Props> = () => {
           // className={classes.submit}
           onClick={handleClickSubmit}
         >
-          {formatMessage({ id: 'login.button.label' })}
+          {formatMessage({ id: 'signin.button.label' })}
         </Button>
       </Grid>
       <Grid item xs={6}>
         {/* <Button
           type="button"
-          fullWidth
+          fullWidth 
           variant="contained"
           color="primary"
           // className={classes.submit}

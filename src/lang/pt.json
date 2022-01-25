@@ -2,11 +2,12 @@
   "app-title": "Sítio de Voluntários",
   "message.success": "Operação OK",
   "message.error": "Erro na tua operação!",
-  "login.title": "Aceda ao sítio",
-  "login.email.label": "Email",
-  "login.password.label": "Palavra passe",
-  "login.button.label": "Enviar",
-  "logout.button.label": "Sair",
+  "signin.title": "Aceda ao sítio",
+  "signin.email.label": "Email",
+  "signin.password.label": "Palavra passe",
+  "signin.button.label": "Enviar",
+  "signin.wrong.credentials.message": "Wrong credentials",
+  "signout.button.label": "Sair",
   "signup.button.label": "Criar conta",
-  "login.wrong-credentials": "Wrong credentials"
+  "signup.name.label": "Name"
 }

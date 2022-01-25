@@ -10,9 +10,9 @@ import { Props } from 'types';
 
 export const Routes = {
   HOME: '/',
-  SIGN_IN: 'signin',
-  SIGN_UP: 'signup',
-  DUMMY: 'dummy'
+  SIGN_IN: '/signin',
+  SIGN_UP: '/signup',
+  DUMMY: '/dummy'
 };
 
 const AppRoutes: React.FC<Props> = () => (
