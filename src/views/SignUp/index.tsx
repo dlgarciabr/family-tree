@@ -11,10 +11,9 @@ import { Props } from 'types';
 import { AuthenticationContext } from 'context/Authentication';
 
 const SignUpForm: React.FC<Props> = () => {
-  // const sessionStorageCredentials = sessionStorage.getItem('credentials');
   const {
     state: { user },
-    operations: { signin, validateToken }
+    operations: { signUp, validateToken }
   } = React.useContext(AuthenticationContext);
 
   const navigate = useNavigate();
@@ -25,18 +24,13 @@ const SignUpForm: React.FC<Props> = () => {
 
   const [userData, setUserData] = useState({
     email: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     password: ''
   });
 
-  // const handleClickSignin = () => {
-  //   const from = (location as any).state?.from?.pathname || '/';
-  //   signin({ ...userCredentials }, () => navigate(from, { replace: true }));
-  // };
-
   const handleClickSubmit = () => {
-    const from = (location as any).state?.from?.pathname || '/';
-    // signin({ ...userCredentials }, () => navigate(from, { replace: true }));
+    signUp(userData);
   };
 
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,30 +58,60 @@ const SignUpForm: React.FC<Props> = () => {
             margin="normal"
             required
             fullWidth
-            id="name"
-            label={formatMessage({ id: 'signup.name.label' })}
-            name="name"
-            autoComplete="name"
+            id="firstName"
+            label={formatMessage({ id: 'signup.first.name.label' })}
+            name="firstName"
+            autoComplete="firstName"
             autoFocus
-            value={userData.name}
+            value={userData.firstName}
             onChange={handleChangeField}
           />
         </Grid>
         <Grid item xs={6}>
-          {/* <TextField
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="lastName"
+            label={formatMessage({ id: 'signup.last.name.label' })}
+            name="lastName"
+            autoComplete="lastName"
+            autoFocus
+            value={userData.lastName}
+            onChange={handleChangeField}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label={formatMessage({ id: 'signup.email.label' })}
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={userData.email}
+            onChange={handleChangeField}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             name="password"
-            label={formatMessage({ id: 'signin.password.label' })}
+            label={formatMessage({ id: 'signup.password.label' })}
             type="password"
             id="password"
             data-testid="password"
             autoComplete="current-password"
-            value={userCredentials.password}
+            value={userData.password}
             onChange={handleChangeField}
-          /> */}
+          />
         </Grid>
       </Grid>
       {/* <form className={classes.form} noValidate> */}
@@ -100,7 +124,7 @@ const SignUpForm: React.FC<Props> = () => {
           // className={classes.submit}
           onClick={handleClickSubmit}
         >
-          {formatMessage({ id: 'signin.button.label' })}
+          {formatMessage({ id: 'signup.submit.button.label' })}
         </Button>
       </Grid>
       <Grid item xs={6}>

@@ -6,7 +6,7 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 
 import {
-  Props, AuthCredentials, AuthContextType, AuthContextState
+  Props, AuthCredentials, AuthContextType, AuthContextState, User
 } from 'types';
 import {
   useLoginMutation, useLazyValidateTokenQuery
@@ -54,7 +54,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
   }, initialState);
 
   const operations = {
-    signin: async (credentials: AuthCredentials, callback: VoidFunction) => {
+    signIn: async (credentials: AuthCredentials, callback: VoidFunction) => {
       fetchToken({ userLoginData: credentials })
         .then((payload: any) => {
           if (!payload.error) {
@@ -72,12 +72,30 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
           // handled by error middleware
         });
     },
-    signout: (callback?: VoidFunction) => {
+    signOut: (callback?: VoidFunction) => {
       dispatch({ type: actions.USER_LOGGED_OUT });
       sessionStorage.clear();
       if (callback) {
         callback();
       }
+    },
+    signUp: async (userData: User) => {
+      // fetchToken({ userLoginData: credentials })
+      //   .then((payload: any) => {
+      //     if (!payload.error) {
+      //       dispatch({ type: actions.USER_LOGGED_IN, data: payload.data });
+      //       sessionStorage.setItem(
+      //         'credentials',
+      //         JSON.stringify({ ...payload.data })
+      //       );
+      //       if (callback) {
+      //         callback();
+      //       }
+      //     }
+      //   })
+      //   .catch(() => {
+      //     // handled by error middleware
+      //   });
     },
     validateToken: async (storageCredentials: string, nextLocation: string) => {
       if (currentState.user) {

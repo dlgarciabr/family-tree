@@ -21,8 +21,9 @@ export interface AuthContextState {
 export interface AuthContextType {
   state: AuthContextState,
   operations: {
-    signin: (credentials: AuthCredentials, callback: VoidFunction) => void;
-    signout: (callback?: VoidFunction) => void;
+    signIn: (credentials: AuthCredentials, callback: VoidFunction) => void;
+    signOut: (callback?: VoidFunction) => void;
+    signUp: (userData: User) => void;
     validateToken: (storageCredentials: string, nextLocation: string) => void;
   }
 }
@@ -33,8 +34,7 @@ export interface AuthCredentials {
 }
 
 export interface User {
-  id: number;
-  username?: string;
+  id?: number;
   firstName?: string;
   lastName?: string;
   email?: string;

@@ -9,5 +9,9 @@
   "signin.wrong.credentials.message": "Wrong credentials",
   "signout.button.label": "Sign Out",
   "signup.button.label": "Sign Up",
-  "signup.name.label": "Name"
+  "signup.first.name.label": "Name",
+  "signup.last.name.label": "Surname",
+  "signup.email.label": "Email",
+  "signup.password.label": "Password",
+  "signup.submit.button.label": "Send"
 }

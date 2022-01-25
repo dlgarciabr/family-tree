@@ -29,7 +29,7 @@ const TopBar: React.FC<Props> = () => {
   } = React.useContext(AppContext);
 
   const {
-    operations: { signout }
+    operations: { signOut }
   } = React.useContext(AuthenticationContext);
 
   const options = Object.values(locales);
@@ -127,7 +127,7 @@ const TopBar: React.FC<Props> = () => {
                 )}
               </Popper>
             </ButtonGroup>
-            <Button variant="contained" onClick={() => signout()}>
+            <Button variant="contained" onClick={() => signOut()}>
               <FormattedMessage id="signout.button.label" />
             </Button>
           </Grid>

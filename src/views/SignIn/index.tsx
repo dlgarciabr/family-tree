@@ -19,10 +19,9 @@ import { AuthenticationContext } from 'context/Authentication';
 import { Routes } from 'commons/AppRoutes';
 
 const SignInForm: React.FC<Props> = () => {
-  const sessionStorageCredentials = sessionStorage.getItem('credentials');
   const {
     state: { user },
-    operations: { signin, validateToken }
+    operations: { signIn, validateToken }
   } = React.useContext(AuthenticationContext);
 
   const navigate = useNavigate();
@@ -35,13 +34,11 @@ const SignInForm: React.FC<Props> = () => {
 
   const handleClickSignin = () => {
     const from = (location as any).state?.from?.pathname || Routes.HOME;
-    signin({ ...userCredentials }, () => navigate(from, { replace: true }));
+    signIn({ ...userCredentials }, () => navigate(from, { replace: true }));
   };
 
   const handleClickSignup = () => {
-    // const from = (location as any).state?.from?.pathname || Routes.SIGN_UP;
     navigate(Routes.SIGN_UP, { replace: true });
-    // signin({ ...userCredentials }, () => navigate(from, { replace: true }));
   };
 
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +50,7 @@ const SignInForm: React.FC<Props> = () => {
   };
 
   useEffect(() => {
+    const sessionStorageCredentials = sessionStorage.getItem('credentials');
     if (!user && sessionStorageCredentials) {
       (async () => {
         validateToken(sessionStorageCredentials, Routes.HOME);
