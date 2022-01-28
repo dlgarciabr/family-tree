@@ -9,7 +9,7 @@ import {
   Props, AuthCredentials, AuthContextType, AuthContextState, User
 } from 'types';
 import {
-  useSigninMutation, useSignupMutation, useLazyValidateTokenQuery, InlineResponse200, SignupApiResponse
+  useSigninMutation, useSignupMutation, useLazyValidateTokenQuery
 } from 'services/volunteerHubApi';
 
 import { Routes } from 'commons/AppRoutes';

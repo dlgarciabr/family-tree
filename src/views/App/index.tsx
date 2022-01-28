@@ -4,8 +4,8 @@ import { IntlProvider } from 'react-intl';
 import { AppContext } from 'context/App';
 import useNotification from 'hooks/notificationHandler';
 import { Props } from 'types';
-import notifierEffect from './notifierEffect';
 import AppRoutes from 'commons/AppRoutes';
+import notifierEffect from './notifierEffect';
 
 const App: React.FC<Props> = () => {
   const { showInfoNotification } = useNotification();

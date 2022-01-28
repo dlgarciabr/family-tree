@@ -123,16 +123,14 @@ const SignUpForm: React.FC<Props> = () => {
         </Button>
       </Grid>
       <Grid item xs={6}>
-        {/* <Button
+        <Button
           type="button"
-          fullWidth 
+          fullWidth
           variant="contained"
           color="primary"
-          // className={classes.submit}
-          onClick={handleClickSignup}
         >
-          {formatMessage({ id: 'signup.button.label' })}
-        </Button> */}
+          {formatMessage({ id: 'back.button.label' })}
+        </Button>
       </Grid>
     </div>
   );

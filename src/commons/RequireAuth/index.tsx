@@ -4,7 +4,7 @@ import { useLocation, Navigate } from 'react-router-dom';
 import { AuthenticationContext } from 'context/Authentication';
 import { Routes } from 'commons/AppRoutes';
 
-//TODO revisar
+// TODO revisar
 interface Props {
   children: JSX.Element;
 }
