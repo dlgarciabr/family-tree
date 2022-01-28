@@ -13,10 +13,10 @@ const handler = (action: AnyAction, dispatch: Dispatch) => {
     const httpStatusCode = action.payload ? (action.payload as any).status : undefined;
     switch (httpStatusCode) {
       case 400:
-        dispatchErrorNotification(dispatch, 'Wrong credentials');
+        dispatchErrorNotification(dispatch, 'Bad request');
         break;
       case 401:
-        dispatchErrorNotification(dispatch, 'unauthenticated');
+        dispatchErrorNotification(dispatch, 'Wrong credentials');
         break;
       case 404:
         dispatchErrorNotification(dispatch, 'try again later');

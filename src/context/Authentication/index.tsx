@@ -9,8 +9,8 @@ import {
   Props, AuthCredentials, AuthContextType, AuthContextState, User
 } from 'types';
 import {
-  useLoginMutation, useLazyValidateTokenQuery
-} from 'services/familyTreeApi';
+  useSigninMutation, useLazyValidateTokenQuery
+} from 'services/volunteerHubApi';
 
 import { Routes } from 'commons/AppRoutes';
 
@@ -23,7 +23,7 @@ export const actions = {
 };
 
 const AuthenticationProvider: React.FC<Props> = ({ children }) => {
-  const [fetchToken] = useLoginMutation();
+  const [fetchToken] = useSigninMutation();
   const [checkTokenValidity] = useLazyValidateTokenQuery();
 
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
 
   const operations = {
     signIn: async (credentials: AuthCredentials, callback: VoidFunction) => {
-      fetchToken({ userLoginData: credentials })
+      fetchToken({ userSigninData: credentials })
         .then((payload: any) => {
           if (!payload.error) {
             dispatch({ type: actions.USER_LOGGED_IN, data: payload.data });

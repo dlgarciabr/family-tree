@@ -1,21 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Family Tree Portal APIs",
+    "description": "Volunteer Hub APIs",
     "version": "1.0.0",
-    "title": "Family Tree APIs"
+    "title": "Volunteer Hub APIs"
   },
   "host": "virtserver.swaggerhub.com",
-  "basePath": "/dlgarciabr/family-tree-api/1.0.0",
+  "basePath": "/dlgarciabr/volunteerhub-api/1.0.0",
   "tags": [
-    {
-      "name": "rule",
-      "description": "APIs about Rules (Portal Menus x AD Groups)"
-    },
-    {
-      "name": "treeNode",
-      "description": "APIs about Tree Nodes"
-    },
     {
       "name": "user",
       "description": "APIs about User"
@@ -26,216 +18,6 @@
     "http"
   ],
   "paths": {
-    "/rule": {
-      "get": {
-        "tags": [
-          "rule"
-        ],
-        "summary": "Get Rules - Relationship between Menus and Groups",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "examples": {
-              "application/json": {
-                "status": 200,
-                "data": [
-                  {
-                    "id": 8282851,
-                    "menuCode": "SETUP_MENUS",
-                    "groupName": "NATIONS\\perfil_admin"
-                  },
-                  {
-                    "id": 8282851,
-                    "menuCode": "VOLUME_PED_VENDA",
-                    "groupName": "NATIONS\\perfil_admin"
-                  }
-                ]
-              }
-            },
-            "schema": {
-              "$ref": "#/definitions/inline_response_200"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "rule"
-        ],
-        "summary": "Post Rules - Relationship between Menus and Groups",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "Rules to persist",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/RuleToPersist"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/inline_response_200_1"
-            }
-          }
-        }
-      }
-    },
-    "/treeNode": {
-      "post": {
-        "tags": [
-          "treeNode"
-        ],
-        "summary": "Add a new tree node",
-        "operationId": "createTreeNode",
-        "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/json",
-          "application/xml"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "TreeNode object that needs to be added to the store",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TreeNode"
-            }
-          }
-        ],
-        "responses": {
-          "405": {
-            "description": "Invalid input"
-          },
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "treeNode"
-        ],
-        "summary": "Update an existing treeNode",
-        "operationId": "updateTreeNode",
-        "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/json",
-          "application/xml"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "TreeNode object that needs to be added to the store",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TreeNode"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "TreeNode not found"
-          },
-          "405": {
-            "description": "Validation exception"
-          }
-        }
-      }
-    },
-    "/treeNode/{treeNodeId}": {
-      "get": {
-        "tags": [
-          "treeNode"
-        ],
-        "summary": "Find treeNode by ID",
-        "description": "Returns a single treeNode",
-        "operationId": "getTreeNodeById",
-        "produces": [
-          "application/json",
-          "application/xml"
-        ],
-        "parameters": [
-          {
-            "name": "treeNodeId",
-            "in": "path",
-            "description": "ID of treeNode to return",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/TreeNode"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "TreeNode not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "treeNode"
-        ],
-        "summary": "Deletes a treeNode",
-        "operationId": "deleteTreeNode",
-        "produces": [
-          "application/json",
-          "application/xml"
-        ],
-        "parameters": [
-          {
-            "name": "api_key",
-            "in": "header",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "treeNodeId",
-            "in": "path",
-            "description": "TreeNode id to delete",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "TreeNode not found"
-          }
-        }
-      }
-    },
     "/user": {
       "get": {
         "tags": [
@@ -358,13 +140,13 @@
         }
       }
     },
-    "/user/login": {
+    "/user/signin": {
       "post": {
         "tags": [
           "user"
         ],
         "summary": "Logs user into the system",
-        "operationId": "login",
+        "operationId": "signin",
         "produces": [
           "application/json",
           "application/xml"
@@ -376,7 +158,7 @@
             "description": "Params to login",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UserLoginData"
+              "$ref": "#/definitions/UserSigninData"
             }
           }
         ],
@@ -396,22 +178,22 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/inline_response_200_2"
+              "$ref": "#/definitions/inline_response_200"
             }
           },
-          "400": {
+          "401": {
             "description": "Invalid username/password supplied"
           }
         }
       }
     },
-    "/user/logout": {
+    "/user/signout": {
       "get": {
         "tags": [
           "user"
         ],
         "summary": "Logs out current logged in user session",
-        "operationId": "logoutUser",
+        "operationId": "signoutUser",
         "produces": [
           "application/json",
           "application/xml"
@@ -420,6 +202,53 @@
         "responses": {
           "default": {
             "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create a new user into the system",
+        "operationId": "signup",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Params to login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserSignupData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/inline_response_200"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
           }
         }
       }
@@ -459,7 +288,7 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/inline_response_200_3"
+              "$ref": "#/definitions/inline_response_200_1"
             }
           },
           "400": {
@@ -573,52 +402,6 @@
     }
   },
   "definitions": {
-    "Rule": {
-      "type": "object",
-      "required": [
-        "groupName",
-        "menuCode"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer",
-          "example": 123
-        },
-        "menuCode": {
-          "type": "string",
-          "example": "PAJ"
-        },
-        "groupName": {
-          "type": "string",
-          "example": "AAA"
-        }
-      }
-    },
-    "RuleToPersist": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "example": 123
-        },
-        "menuCode": {
-          "type": "string"
-        }
-      }
-    },
-    "TreeNode": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "example": 123
-        },
-        "name": {
-          "type": "string",
-          "example": "Jonh"
-        }
-      }
-    },
     "User": {
       "type": "object",
       "properties": {
@@ -630,9 +413,30 @@
         }
       }
     },
-    "UserLoginData": {
+    "UserSigninData": {
       "type": "object",
       "properties": {
+        "email": {
+          "type": "string",
+          "example": "abc@mail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "AAA"
+        }
+      }
+    },
+    "UserSignupData": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Carlos"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Costa"
+        },
         "email": {
           "type": "string",
           "example": "abc@mail.com"
@@ -646,34 +450,6 @@
     "inline_response_200": {
       "type": "object",
       "properties": {
-        "status": {
-          "type": "integer"
-        },
-        "message": {
-          "type": "string"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Rule"
-          }
-        }
-      }
-    },
-    "inline_response_200_1": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "integer"
-        },
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "inline_response_200_2": {
-      "type": "object",
-      "properties": {
         "id": {
           "type": "integer",
           "example": 4
@@ -684,7 +460,7 @@
         }
       }
     },
-    "inline_response_200_3": {
+    "inline_response_200_1": {
       "type": "object",
       "properties": {
         "valid": {
