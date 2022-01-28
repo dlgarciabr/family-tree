@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { Props } from 'types';
+import { Props, AuthCredentials } from 'types';
 // const useStyles = makeStyles((theme) => ({}));
 import { AuthenticationContext } from 'context/Authentication';
 import { Routes } from 'commons/AppRoutes';
@@ -30,11 +30,14 @@ const SignInForm: React.FC<Props> = () => {
   // const classes = useStyles();
   const { formatMessage } = useIntl();
 
-  const [userCredentials, setUserCredentials] = useState({ email: '', password: '' });
+  const [userCredentials, setUserCredentials] = useState<AuthCredentials>({
+    email: '',
+    password: ''
+  });
 
   const handleClickSignin = () => {
     const from = (location as any).state?.from?.pathname || Routes.HOME;
-    signIn({ ...userCredentials }, () => navigate(from, { replace: true }));
+    signIn(userCredentials, () => navigate(from, { replace: true }));
   };
 
   const handleClickSignup = () => {
@@ -42,11 +45,11 @@ const SignInForm: React.FC<Props> = () => {
   };
 
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.name === 'email') {
-      setUserCredentials({ ...userCredentials, email: e.currentTarget.value });
-    } else if (e.target.name === 'password') {
-      setUserCredentials({ ...userCredentials, password: e.currentTarget.value });
-    }
+    const newUserCredentials = {
+      ...userCredentials
+    };
+    newUserCredentials[e.currentTarget.name] = e.currentTarget.value;
+    setUserCredentials(newUserCredentials);
   };
 
   useEffect(() => {

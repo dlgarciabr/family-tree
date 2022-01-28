@@ -5,24 +5,19 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useNavigate, useLocation } from 'react-router-dom';
 
-import { Props } from 'types';
+import { Props, User } from 'types';
 import { AuthenticationContext } from 'context/Authentication';
 
 const SignUpForm: React.FC<Props> = () => {
   const {
-    state: { user },
-    operations: { signUp, validateToken }
+    operations: { signUp }
   } = React.useContext(AuthenticationContext);
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   // const classes = useStyles();
   const { formatMessage } = useIntl();
 
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<User>({
     email: '',
     firstName: '',
     lastName: '',
@@ -34,11 +29,11 @@ const SignUpForm: React.FC<Props> = () => {
   };
 
   const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
-    // if (e.currentTarget.name === 'email') {
-    // setUserCredentials({ ...userCredentials, email: e.currentTarget.value });
-    // } else if (e.target.name === 'password') {
-    //   setUserCredentials({ ...userCredentials, password: e.currentTarget.value });
-    // }
+    const newUserData = {
+      ...userData
+    };
+    newUserData[e.currentTarget.name] = e.currentTarget.value;
+    setUserData(newUserData);
   };
 
   useEffect(() => {

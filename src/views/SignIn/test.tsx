@@ -47,7 +47,7 @@ describe("Login process", () => {
     //arrange
     mswServer.use(deniedLoginHandler);
     const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'signin.wrong.credentials.message');
-    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
+    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/signin`);
 
     render(<App />);
 
@@ -238,5 +238,7 @@ describe("Login process", () => {
   });
 
   test.todo('Open login page only if user is not logged in');
+
+  test.todo("Fail on doing sign in with incomplete form");
 });
 

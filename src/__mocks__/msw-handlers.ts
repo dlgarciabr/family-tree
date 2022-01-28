@@ -42,4 +42,15 @@ export const failValidateTokenHandler = rest.get(`${baseUrl}/user/validateToken`
   );
 });
 
+export const successSignUpHandler = rest.post(`${baseUrl}/user/signup`, (req, res, ctx) => {
+  // const msg = `[successValidateTokenHandler] MSW mocked GET called with params: ${Array.from(req.url.searchParams.entries()).map(value => (value))}`;
+  // console.info(msg);
+  return res(
+    ctx.json({
+      id: "134546"
+    }),
+    ctx.status(200)
+  );
+});
+
 export const handlers = []

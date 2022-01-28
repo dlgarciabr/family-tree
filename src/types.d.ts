@@ -2,6 +2,11 @@ export interface Props {
   children?: JSX.Element | string;
 };
 
+
+export interface IndexedType {
+  [key: string]: string;
+}
+
 export interface AppSettings {
   loadInitialData: boolean;
   locale: string;
@@ -28,17 +33,17 @@ export interface AuthContextType {
   }
 }
 
-export interface AuthCredentials {
+export interface AuthCredentials extends IndexedType {
   email: string;
-  password: string
+  password: string;
 }
 
-export interface User {
+export interface User extends IndexedType {
   id?: number;
   firstName?: string;
   lastName?: string;
   email?: string;
   password?: string;
   phone?: string;
-  userStatus?: number
+  userStatus?: number;
 }

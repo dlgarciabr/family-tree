@@ -9,7 +9,7 @@ import {
   Props, AuthCredentials, AuthContextType, AuthContextState, User
 } from 'types';
 import {
-  useSigninMutation, useLazyValidateTokenQuery
+  useSigninMutation, useSignupMutation, useLazyValidateTokenQuery, InlineResponse200, SignupApiResponse
 } from 'services/volunteerHubApi';
 
 import { Routes } from 'commons/AppRoutes';
@@ -19,11 +19,13 @@ AuthenticationContext.displayName = 'AuthenticationContext';
 
 export const actions = {
   USER_LOGGED_IN: 'USER_LOGGED_IN',
+  USER_LOGGED_UP: 'USER_LOGGED_UP',
   USER_LOGGED_OUT: 'USER_LOGGED_OUT'
 };
 
 const AuthenticationProvider: React.FC<Props> = ({ children }) => {
   const [fetchToken] = useSigninMutation();
+  const [registerUser] = useSignupMutation();
   const [checkTokenValidity] = useLazyValidateTokenQuery();
 
   const navigate = useNavigate();
@@ -41,6 +43,11 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
           ...state,
           user: { id: action.data.id },
           token: action.data.token
+        };
+      case actions.USER_LOGGED_UP:
+        return {
+          ...state,
+          user: { id: action.data.id },
         };
       case actions.USER_LOGGED_OUT:
         return {
@@ -80,22 +87,14 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       }
     },
     signUp: async (userData: User) => {
-      // fetchToken({ userLoginData: credentials })
-      //   .then((payload: any) => {
-      //     if (!payload.error) {
-      //       dispatch({ type: actions.USER_LOGGED_IN, data: payload.data });
-      //       sessionStorage.setItem(
-      //         'credentials',
-      //         JSON.stringify({ ...payload.data })
-      //       );
-      //       if (callback) {
-      //         callback();
-      //       }
-      //     }
-      //   })
-      //   .catch(() => {
-      //     // handled by error middleware
-      //   });
+      registerUser({ userSignupData: userData })
+        .then((payload: any) => {
+          dispatch({ type: actions.USER_LOGGED_UP, data: payload.data });
+          // sessionStorage.setItem(
+          //   'credentials',
+          //   JSON.stringify({ ...payload.data })
+          // );
+        });
     },
     validateToken: async (storageCredentials: string, nextLocation: string) => {
       if (currentState.user) {
