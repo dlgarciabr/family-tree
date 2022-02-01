@@ -5,12 +5,14 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 // import TextField from '@mui/material/TextField';
-import { Formik, Form, Field } from 'formik';
+import { Field } from 'formik';
 import { TextField } from 'formik-mui';
 import { FormattedMessage, useIntl } from 'react-intl';
+import * as Yup from 'yup';
 
 import { Props, User } from 'types';
 import { AuthenticationContext } from 'context/Authentication';
+import Form from 'commons/Form';
 
 const SignUpForm: React.FC<Props> = () => {
   const {
@@ -30,145 +32,93 @@ const SignUpForm: React.FC<Props> = () => {
   useEffect(() => {
   }, []);
 
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    lastName: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string()
+      .min(8, 'Too Short!')
+      .max(10, 'Too Long!')
+      .required('Required'),
+  });
+
   return (
     <div>
-      <Formik
+      <Form
+        onClickSubmit={signUp}
         initialValues={userData}
-        validate={(values) => {
-          const errors: Partial<User> = {};
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address';
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          signUp(values);
-        }}
+        validationSchema={validationSchema}
+        onClickBackButton={() => console.log("redirect to login page")}
       >
-        {({ submitForm, isSubmitting }) => (
-          <Form>
-            <Grid container spacing={0}>
-              <Grid item xs={12}>
-                <Typography variant="h5">
-                  <FormattedMessage id="signin.title" />
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  name="firstName"
-                  label={formatMessage({ id: 'signup.first.name.label' })}
-                />
-                {/* <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label={formatMessage({ id: 'signup.first.name.label' })}
-                  name="firstName"
-                  autoComplete="firstName"
-                  autoFocus
-                  value={userData.firstName}
-                  onChange={handleChangeField}
-                /> */}
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  name="lastName"
-                  label={formatMessage({ id: 'signup.last.name.label' })}
-                />
-                {/* <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label={formatMessage({ id: 'signup.last.name.label' })}
-                  name="lastName"
-                  autoComplete="lastName"
-                  autoFocus
-                  value={userData.lastName}
-                  onChange={handleChangeField}
-                /> */}
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  name="email"
-                  type="email"
-                  label={formatMessage({ id: 'signup.email.label' })}
-                />
-                {/* <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label={formatMessage({ id: 'signup.email.label' })}
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  value={userData.email}
-                  onChange={handleChangeField}
-                /> */}
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  name="password"
-                  type="password"
-                  label={formatMessage({ id: 'signup.password.label' })}
-                />
-                {/* <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label={formatMessage({ id: 'signup.password.label' })}
-                  type="password"
-                  id="password"
-                  data-testid="password"
-                  autoComplete="current-password"
-                  value={userData.password}
-                  onChange={handleChangeField}
-                /> */}
-              </Grid>
-            </Grid>
-            {/* <form className={classes.form} noValidate> */}
-            <Grid item xs={6}>
-              <Button
-                type="button"
-                fullWidth
-                variant="contained"
-                color="primary"
-                // className={classes.submit}
-                disabled={isSubmitting}
-                onClick={submitForm}
-              >
-                {formatMessage({ id: 'signup.submit.button.label' })}
-              </Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                type="button"
-                fullWidth
-                variant="contained"
-                color="primary"
-                disabled={isSubmitting}
-              >
-                {formatMessage({ id: 'back.button.label' })}
-              </Button>
-            </Grid>
-          </Form>
-        )}
-      </Formik>
+        <Grid container spacing={0}>
+          <Grid item xs={12}>
+            <Typography variant="h5">
+              <FormattedMessage id="signin.title" />
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Field
+              component={TextField}
+              name="firstName"
+              label={formatMessage({ id: 'signup.first.name.label' })}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Field
+              component={TextField}
+              name="lastName"
+              label={formatMessage({ id: 'signup.last.name.label' })}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Field
+              component={TextField}
+              name="email"
+              type="email"
+              label={formatMessage({ id: 'signup.email.label' })}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Field
+              component={TextField}
+              name="password"
+              type="password"
+              label={formatMessage({ id: 'signup.password.label' })}
+            />
+          </Grid>
+        </Grid>
+        {/* <form className={classes.form} noValidate> */}
+        {/* <Grid item xs={6}> */}
+        {/* <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            // className={classes.submit}
+            disabled={isSubmitting}
+            onClick={submitForm}
+          >
+            {formatMessage({ id: 'signup.submit.button.label' })}
+          </Button> */}
+        {/* </Grid> */}
+        {/* <Grid item xs={6}> */}
+        {/* <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+          >
+            {formatMessage({ id: 'back.button.label' })}
+          </Button> */}
+        {/* </Grid> */}
+      </Form>
     </div>
   );
 };
