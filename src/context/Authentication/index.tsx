@@ -90,6 +90,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       registerUser({ userSignupData: userData })
         .then((payload: any) => {
           dispatch({ type: actions.USER_LOGGED_UP, data: payload.data });
+          navigate(Routes.HOME);
           // sessionStorage.setItem(
           //   'credentials',
           //   JSON.stringify({ ...payload.data })

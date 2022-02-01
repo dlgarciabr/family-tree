@@ -2,6 +2,7 @@
   "app-title": "Volunteer Portal",
   "message.success": "Operation sucessfull",
   "message.error": "An error has occurred!",
+  "back.button.label": "Back",
   "signin.title": "Login",
   "signin.email.label": "Email",
   "signin.password.label": "Password",

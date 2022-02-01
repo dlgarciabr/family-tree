@@ -4,5 +4,9 @@
   "apiImport": "baseApi",
   "outputFile": "./src/services/volunteerHubApi.ts",
   "exportName": "volunteerHubApi",
-  "hooks": true
+  "hooks": {
+    "queries": true,
+    "lazyQueries": true,
+    "mutations": true
+  }
 }
