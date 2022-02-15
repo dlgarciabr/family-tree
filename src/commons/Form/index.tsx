@@ -1,3 +1,4 @@
+import React from 'react';
 import { Formik, Form as FormikForm } from 'formik';
 import { Button, Grid } from '@mui/material';
 import { useIntl } from 'react-intl';
@@ -66,7 +67,7 @@ const Form: React.FC<Props> = ({
         </FormikForm>
       )}
     </Formik>
-  )
+  );
 };
 
 export default Form;

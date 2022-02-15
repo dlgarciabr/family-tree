@@ -1,10 +1,8 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { LinearProgress } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-// import TextField from '@mui/material/TextField';
+import {
+  Grid, Typography
+} from '@mui/material';
 import { Field } from 'formik';
 import { TextField } from 'formik-mui';
 import { FormattedMessage, useIntl } from 'react-intl';
