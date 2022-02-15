@@ -1,8 +1,8 @@
 import { setupServer } from 'msw/node';
 import { matchRequestUrl, MockedRequest } from 'msw';
-import { handlers } from './msw-handlers';
+import { successHandlers } from './msw-handlers';
 
-const mswServer = setupServer(...handlers);
+const mswServer = setupServer(...successHandlers);
 
 const waitForRequest = (method: string, url: string): Promise<MockedRequest> => {
     let requestId = '';

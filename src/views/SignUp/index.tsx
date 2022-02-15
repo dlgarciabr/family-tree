@@ -17,30 +17,25 @@ const SignUpForm: React.FC<Props> = () => {
     operations: { signUp }
   } = React.useContext(AuthenticationContext);
 
-  // const classes = useStyles();
   const { formatMessage } = useIntl();
-
-  const [userData, setUserData] = useState<User>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    password: ''
-  });
-
-  useEffect(() => {
-  }, []);
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
-      .min(2, 'Too Short!')
+      .min(3, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Required'),
     lastName: Yup.string()
-      .min(2, 'Too Short!')
+      .min(3, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Required'),
-    email: Yup.string().email('Invalid email').required('Required'),
+    email: Yup.string()
+      .email('Invalid email')
+      .required('Required'),
     password: Yup.string()
+      .min(8, 'Too Short!')
+      .max(10, 'Too Long!')
+      .required('Required'),
+    confirmPassword: Yup.string()
       .min(8, 'Too Short!')
       .max(10, 'Too Long!')
       .required('Required'),
@@ -51,7 +46,6 @@ const SignUpForm: React.FC<Props> = () => {
       <Form
         onClickSubmit={signUp}
         onClickBackButton={() => console.log("redirect to login page")}
-        initialValues={userData}
         validationSchema={validationSchema}
       >
         <Grid container spacing={0}>
@@ -91,9 +85,18 @@ const SignUpForm: React.FC<Props> = () => {
               label={formatMessage({ id: 'signup.password.label' })}
             />
           </Grid>
+          <Grid item xs={6}>
+            <Field
+              component={TextField}
+              name="confirmPassword"
+              type="password"
+              data-testid="confirmPassword"
+              label={formatMessage({ id: 'signup.confirmPassword.label' })}
+            />
+          </Grid>
         </Grid>
       </Form>
-    </div>
+    </div >
   );
 };
 

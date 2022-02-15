@@ -3,9 +3,7 @@ import { render, screen, waitFor } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
 import { mswServer, waitForRequest } from '../../__mocks__/msw-server';
 import {
-  successLoginHandler,
   deniedLoginHandler,
-  successValidateTokenHandler,
   failValidateTokenHandler
 } from '../../__mocks__/msw-handlers';
 
@@ -88,7 +86,6 @@ describe("Login process", () => {
 
   test("Success on doing login with right credentials", async () => {
     // arrange
-    mswServer.use(successLoginHandler);
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
     render(<App />);
@@ -128,7 +125,6 @@ describe("Login process", () => {
 
   test("Success on doing login with credentials from session store", async () => {
     // arrange
-    mswServer.use(successValidateTokenHandler);
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
 
     //act
@@ -161,7 +157,6 @@ describe("Login process", () => {
 
   test("Success on opening a secured dummy view after session restored from token", async () => {
     // arrange
-    mswServer.use(successValidateTokenHandler);
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
 
     // act
@@ -192,7 +187,6 @@ describe("Login process", () => {
 
   test("Success on doing login and logout", async () => {
     // arrange
-    mswServer.use(successLoginHandler);
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
     render(<App />);

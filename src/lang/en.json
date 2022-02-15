@@ -2,8 +2,8 @@
   "app-title": "Volunteer Portal",
   "message.success": "Operation sucessfull",
   "message.error": "An error has occurred!",
-  "submit.button.label": "Send",
-  "back.button.label": "Back",
+  "default.submit.button.label": "Send",
+  "default.back.button.label": "Back",
   "signin.title": "Login",
   "signin.email.label": "Email",
   "signin.password.label": "Password",
@@ -15,5 +15,6 @@
   "signup.last.name.label": "Surname",
   "signup.email.label": "Email",
   "signup.password.label": "Password",
+  "signup.confirmPassword.label": "Confirm password",
   "signup.submit.button.label": "Send"
 }

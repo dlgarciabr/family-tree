@@ -2,7 +2,7 @@ import { rest } from 'msw';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-export const successLoginHandler = rest.post(`${baseUrl}/user/signin`, (req, res, ctx) => {
+const successLoginHandler = rest.post(`${baseUrl}/user/signin`, (req, res, ctx) => {
   // const msg = `[successLoginHandler] MSW mocked POST called with params: ${JSON.stringify(req.body)}`;
   // console.info(msg);
   return res(
@@ -20,7 +20,7 @@ export const deniedLoginHandler = rest.post(`${baseUrl}/user/signin`, (req, res,
   return res(ctx.status(401));
 });
 
-export const successValidateTokenHandler = rest.get(`${baseUrl}/user/validateToken`, (req, res, ctx) => {
+const successValidateTokenHandler = rest.get(`${baseUrl}/user/validateToken`, (req, res, ctx) => {
   // const msg = `[successValidateTokenHandler] MSW mocked GET called with params: ${Array.from(req.url.searchParams.entries()).map(value => (value))}`;
   // console.info(msg);
   return res(
@@ -42,7 +42,7 @@ export const failValidateTokenHandler = rest.get(`${baseUrl}/user/validateToken`
   );
 });
 
-export const successSignUpHandler = rest.post(`${baseUrl}/user/signup`, (req, res, ctx) => {
+const successSignUpHandler = rest.post(`${baseUrl}/user/signup`, (req, res, ctx) => {
   // const msg = `[successValidateTokenHandler] MSW mocked GET called with params: ${Array.from(req.url.searchParams.entries()).map(value => (value))}`;
   // console.info(msg);
   return res(
@@ -53,4 +53,8 @@ export const successSignUpHandler = rest.post(`${baseUrl}/user/signup`, (req, re
   );
 });
 
-export const handlers = []
+export const successHandlers = [
+  successLoginHandler,
+  successValidateTokenHandler,
+  successSignUpHandler
+];

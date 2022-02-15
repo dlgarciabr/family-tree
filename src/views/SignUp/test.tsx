@@ -13,14 +13,14 @@ const baseUrl = process.env.REACT_APP_API_URL;
 describe("Sign up process", () => {
   test("User complete the sign up and access main page", async () => {
     //arrange
-    mswServer.use(successSignUpHandler);
     const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
     const firstNameLabel = getLocatedMessage(locales.EN.value, 'signup.first.name.label');
     const lastNameLabel = getLocatedMessage(locales.EN.value, 'signup.last.name.label');
     const emailLabel = getLocatedMessage(locales.EN.value, 'signup.email.label');
     const passwordId = "password";
+    const confirmPasswordId = "confirmPassword";
     const signUpButtonLabel = getLocatedMessage(locales.EN.value, 'signup.button.label');
-    const submitButtonLabel = "Send";
+    const submitButtonLabel = getLocatedMessage(locales.EN.value, 'default.submit.button.label');
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/signup`);
     const email = "abc@mail.com";
     const password = "XXXXXXXX";
@@ -54,6 +54,11 @@ describe("Sign up process", () => {
 
     userEvent.type(passwordField, password);
 
+    const confirmPasswordField = screen.getByTestId(confirmPasswordId).childNodes[1]
+      .childNodes[0] as Element;
+
+    userEvent.type(confirmPasswordField, password);
+
     userEvent.click(
       screen.getByRole("button", { name: submitButtonLabel })
     );
@@ -65,14 +70,15 @@ describe("Sign up process", () => {
       email,
       password,
       firstName,
-      lastName
+      lastName,
+      confirmPassword: password
     })
 
     expect(
       await screen.findByText(mainAreaHeaderTitle)
     ).toBeInTheDocument();
 
-  }, 6000);
+  }, 7000);
 
   test.todo("Fail on doing sign up with incomplete form");
 });

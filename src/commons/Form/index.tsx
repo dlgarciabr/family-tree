@@ -5,9 +5,9 @@ import { useIntl } from 'react-intl';
 
 interface Props {
   children: JSX.Element;
-  initialValues: any;
   onClickSubmit: (values: any) => void;
   onClickBackButton: () => void;
+  initialValues?: any;
   validationSchema: any;
   submitButtonLabel?: string;
   backButtonLabel?: string;
@@ -17,15 +17,15 @@ const Form: React.FC<Props> = ({
   children,
   onClickSubmit,
   onClickBackButton,
-  initialValues,
+  initialValues = {},
   validationSchema,
   submitButtonLabel,
   backButtonLabel
 }) => {
   const { formatMessage } = useIntl();
 
-  const submitLabel = submitButtonLabel || formatMessage({ id: 'submit.button.label' });
-  const backLabel = backButtonLabel || formatMessage({ id: 'back.button.label' });
+  const submitLabel = submitButtonLabel || formatMessage({ id: 'default.submit.button.label' });
+  const backLabel = backButtonLabel || formatMessage({ id: 'default.back.button.label' });
 
   return (
     <Formik
