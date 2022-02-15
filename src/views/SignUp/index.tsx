@@ -23,27 +23,34 @@ const SignUpForm: React.FC<Props> = () => {
     firstName: Yup.string()
       .min(3, 'Too Short!')
       .max(50, 'Too Long!')
-      .required('Required'),
+      .required(formatMessage({ id: 'signup.first.name.required.message' })),
     lastName: Yup.string()
       .min(3, 'Too Short!')
       .max(50, 'Too Long!')
-      .required('Required'),
+      .required(formatMessage({ id: 'signup.last.name.required.message' })),
     email: Yup.string()
       .email('Invalid email')
-      .required('Required'),
+      .required(formatMessage({ id: 'signup.email.required.message' })),
     password: Yup.string()
       .min(8, 'Too Short!')
       .max(10, 'Too Long!')
-      .required('Required'),
+      .required(formatMessage({ id: 'signup.password.required.message' })),
     confirmPassword: Yup.string()
       .min(8, 'Too Short!')
       .max(10, 'Too Long!')
-      .required('Required'),
+      .required(formatMessage({ id: 'signup.confirmPassword.required.message' })),
   });
 
   return (
     <div>
       <Form
+        initialValues={{
+          email: '',
+          firstName: '',
+          lastName: '',
+          password: '',
+          confirmPassword: ''
+        }}
         onClickSubmit={signUp}
         onClickBackButton={() => console.log("redirect to login page")}
         validationSchema={validationSchema}

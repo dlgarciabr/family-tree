@@ -7,7 +7,7 @@ interface Props {
   children: JSX.Element;
   onClickSubmit: (values: any) => void;
   onClickBackButton: () => void;
-  initialValues?: any;
+  initialValues: any;
   validationSchema: any;
   submitButtonLabel?: string;
   backButtonLabel?: string;
@@ -17,7 +17,7 @@ const Form: React.FC<Props> = ({
   children,
   onClickSubmit,
   onClickBackButton,
-  initialValues = {},
+  initialValues,
   validationSchema,
   submitButtonLabel,
   backButtonLabel
