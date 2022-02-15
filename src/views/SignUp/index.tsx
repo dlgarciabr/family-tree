@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import {
   Grid, Typography
@@ -8,7 +8,7 @@ import { TextField } from 'formik-mui';
 import { FormattedMessage, useIntl } from 'react-intl';
 import * as Yup from 'yup';
 
-import { Props, User } from 'types';
+import { Props } from 'types';
 import { AuthenticationContext } from 'context/Authentication';
 import Form from 'commons/Form';
 
@@ -103,7 +103,7 @@ const SignUpForm: React.FC<Props> = () => {
           </Grid>
         </Grid>
       </Form>
-    </div >
+    </div>
   );
 };
 
