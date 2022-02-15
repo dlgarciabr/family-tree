@@ -52,9 +52,9 @@ const SignUpForm: React.FC<Props> = () => {
     <div>
       <Form
         onClickSubmit={signUp}
+        onClickBackButton={() => console.log("redirect to login page")}
         initialValues={userData}
         validationSchema={validationSchema}
-        onClickBackButton={() => console.log("redirect to login page")}
       >
         <Grid container spacing={0}>
           <Grid item xs={12}>
@@ -89,35 +89,11 @@ const SignUpForm: React.FC<Props> = () => {
               component={TextField}
               name="password"
               type="password"
+              data-testid="password"
               label={formatMessage({ id: 'signup.password.label' })}
             />
           </Grid>
         </Grid>
-        {/* <form className={classes.form} noValidate> */}
-        {/* <Grid item xs={6}> */}
-        {/* <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            // className={classes.submit}
-            disabled={isSubmitting}
-            onClick={submitForm}
-          >
-            {formatMessage({ id: 'signup.submit.button.label' })}
-          </Button> */}
-        {/* </Grid> */}
-        {/* <Grid item xs={6}> */}
-        {/* <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            disabled={isSubmitting}
-          >
-            {formatMessage({ id: 'back.button.label' })}
-          </Button> */}
-        {/* </Grid> */}
       </Form>
     </div>
   );

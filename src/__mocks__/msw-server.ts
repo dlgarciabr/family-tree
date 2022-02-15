@@ -1,11 +1,11 @@
 import { setupServer } from 'msw/node';
-import { matchRequestUrl, MockedRequest, MockedResponse } from 'msw';
+import { matchRequestUrl, MockedRequest } from 'msw';
 import { handlers } from './msw-handlers';
 
 const mswServer = setupServer(...handlers);
 
 const waitForRequest = (method: string, url: string): Promise<MockedRequest> => {
-    let requestId = ''
+    let requestId = '';
     return new Promise((resolve, reject) => {
         mswServer.events.on('request:start', (req: MockedRequest) => {
             const matchesMethod = req.method.toLowerCase() === method.toLowerCase()

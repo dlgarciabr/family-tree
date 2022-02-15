@@ -6,12 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### `npm install`
 
-Install all libraries in order to run the application
-
-## Internationalization
-
-In order to build i18n files you have to install FormatJS CLI using command below
-### `npm i -D @formatjs/cli`
+Install all dependencies in order to run the application
 
 ## Available Scripts
 

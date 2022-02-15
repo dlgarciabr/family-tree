@@ -19,10 +19,10 @@ describe("Sign up process", () => {
     const lastNameLabel = getLocatedMessage(locales.EN.value, 'signup.last.name.label');
     const emailLabel = getLocatedMessage(locales.EN.value, 'signup.email.label');
     const passwordId = "password";
-    const signUpButtonLabel = "Sign Up";
+    const signUpButtonLabel = getLocatedMessage(locales.EN.value, 'signup.button.label');
     const submitButtonLabel = "Send";
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/signup`);
-    const email = "XXXXXXX";
+    const email = "abc@mail.com";
     const password = "XXXXXXXX";
     const firstName = "XXXXXX";
     const lastName = "XXXXXX";
@@ -34,7 +34,7 @@ describe("Sign up process", () => {
       screen.getByRole("button", { name: signUpButtonLabel })
     );
 
-    const firstNameField = screen.getByRole("textbox", {
+    const firstNameField = await screen.findByRole("textbox", {
       name: firstNameLabel,
     });
     userEvent.type(firstNameField, firstName);
@@ -49,10 +49,10 @@ describe("Sign up process", () => {
     });
     userEvent.type(emailField, email);
 
-    const passwordTexfield = screen.getByTestId(passwordId).childNodes[1]
+    const passwordField = screen.getByTestId(passwordId).childNodes[1]
       .childNodes[0] as Element;
 
-    userEvent.type(passwordTexfield, password);
+    userEvent.type(passwordField, password);
 
     userEvent.click(
       screen.getByRole("button", { name: submitButtonLabel })
@@ -72,7 +72,7 @@ describe("Sign up process", () => {
       await screen.findByText(mainAreaHeaderTitle)
     ).toBeInTheDocument();
 
-  });
+  }, 6000);
 
   test.todo("Fail on doing sign up with incomplete form");
 });
