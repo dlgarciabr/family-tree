@@ -6,22 +6,26 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 
 import {
-  Props, AuthCredentials, AuthContextType, AuthContextState
+  Props, AuthCredentials, AuthContextType, AuthContextState, User
 } from 'types';
 import {
-  useLoginMutation, useLazyValidateTokenQuery
-} from 'services/familyTreeApi';
+  useSigninMutation, useSignupMutation, useLazyValidateTokenQuery
+} from 'services/volunteerHubApi';
+
+import { Routes } from 'commons/AppRoutes';
 
 export const AuthenticationContext = createContext<AuthContextType>({} as AuthContextType);
 AuthenticationContext.displayName = 'AuthenticationContext';
 
 export const actions = {
   USER_LOGGED_IN: 'USER_LOGGED_IN',
+  USER_LOGGED_UP: 'USER_LOGGED_UP',
   USER_LOGGED_OUT: 'USER_LOGGED_OUT'
 };
 
 const AuthenticationProvider: React.FC<Props> = ({ children }) => {
-  const [fetchToken] = useLoginMutation();
+  const [fetchToken] = useSigninMutation();
+  const [registerUser] = useSignupMutation();
   const [checkTokenValidity] = useLazyValidateTokenQuery();
 
   const navigate = useNavigate();
@@ -40,6 +44,11 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
           user: { id: action.data.id },
           token: action.data.token
         };
+      case actions.USER_LOGGED_UP:
+        return {
+          ...state,
+          user: { id: action.data.id },
+        };
       case actions.USER_LOGGED_OUT:
         return {
           ...state,
@@ -52,8 +61,8 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
   }, initialState);
 
   const operations = {
-    signin: async (credentials: AuthCredentials, callback: VoidFunction) => {
-      fetchToken({ userLoginData: credentials })
+    signIn: async (credentials: AuthCredentials, callback: VoidFunction) => {
+      fetchToken({ userSigninData: credentials })
         .then((payload: any) => {
           if (!payload.error) {
             dispatch({ type: actions.USER_LOGGED_IN, data: payload.data });
@@ -70,12 +79,23 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
           // handled by error middleware
         });
     },
-    signout: (callback?: VoidFunction) => {
+    signOut: (callback?: VoidFunction) => {
       dispatch({ type: actions.USER_LOGGED_OUT });
       sessionStorage.clear();
       if (callback) {
         callback();
       }
+    },
+    signUp: async (userData: User) => {
+      registerUser({ userSignupData: userData })
+        .then((payload: any) => {
+          dispatch({ type: actions.USER_LOGGED_UP, data: payload.data });
+          navigate(Routes.HOME);
+          // sessionStorage.setItem(
+          //   'credentials',
+          //   JSON.stringify({ ...payload.data })
+          // );
+        });
     },
     validateToken: async (storageCredentials: string, nextLocation: string) => {
       if (currentState.user) {
@@ -90,7 +110,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       } else {
         dispatch({ type: actions.USER_LOGGED_OUT });
         sessionStorage.clear();
-        navigate('/login');
+        navigate(Routes.SIGN_IN);
       }
     }
   };

@@ -1,9 +1,7 @@
-import { MessageFormatElement } from 'intl-messageformat-parser';
-
-import English from '../../compiled-lang/en.json';
-import Spanish from '../../compiled-lang/es.json';
-import BrazillianPortuguese from '../../compiled-lang/pt-br.json';
-import Portuguese from '../../compiled-lang/pt.json';
+import English from 'lang/en.json';
+import Spanish from 'lang/es.json';
+import BrazillianPortuguese from 'lang/pt-br.json';
+import Portuguese from 'lang/pt.json';
 
 export const locales: { [key: string]: { value: string, label: string } } = {
   EN: {
@@ -29,7 +27,7 @@ export const getUserLanguage = (): string => {
   return userLang.split('-')[0];
 };
 
-export const loadLocaleMessages = (locale: string): Record<string, MessageFormatElement[]> => {
+export const loadLocaleMessages = (locale: string): Record<string, string> => {
   switch (locale) {
     case locales.PT_BR.value:
       return BrazillianPortuguese;
@@ -44,5 +42,5 @@ export const loadLocaleMessages = (locale: string): Record<string, MessageFormat
 
 export const getLocatedMessage = (locale: string, key: string) => {
   const messages = loadLocaleMessages(locale);
-  return (messages[key][0] as any).value;
+  return messages[key];
 };

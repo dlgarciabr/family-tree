@@ -3,9 +3,7 @@ import { render, screen, waitFor } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
 import { mswServer, waitForRequest } from '../../__mocks__/msw-server';
 import {
-  successLoginHandler,
   deniedLoginHandler,
-  successValidateTokenHandler,
   failValidateTokenHandler
 } from '../../__mocks__/msw-handlers';
 
@@ -15,8 +13,8 @@ const baseUrl = process.env.REACT_APP_API_URL;
 
 describe("Login process", () => {
   const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
-  const loginTitle = getLocatedMessage(locales.EN.value, 'login.title');
-  const logoutLabel = getLocatedMessage(locales.EN.value, 'logout.button.label');
+  const signInTitle = getLocatedMessage(locales.EN.value, 'signin.title');
+  const signOutLabel = getLocatedMessage(locales.EN.value, 'signout.button.label');
   const emailLabel = "Email";
   const passwordId = "password";
   const buttonLabel = "Sign In";
@@ -33,7 +31,7 @@ describe("Login process", () => {
     expect(screen.queryByText(mainAreaHeaderTitle)).not.toBeInTheDocument();
 
     expect(
-      screen.getByRole("heading", { name: loginTitle })
+      screen.getByRole("heading", { name: signInTitle })
     ).toBeInTheDocument();
 
     expect(screen.getByRole("textbox", { name: emailLabel })).toBeInTheDocument();
@@ -46,8 +44,8 @@ describe("Login process", () => {
   test("Fail on doing login with wrong credentials", async () => {
     //arrange
     mswServer.use(deniedLoginHandler);
-    const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'login.wrong-credentials');
-    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
+    const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'signin.wrong.credentials.message');
+    const pendingRequest = waitForRequest('POST', `${baseUrl}/user/signin`);
 
     render(<App />);
 
@@ -79,7 +77,7 @@ describe("Login process", () => {
       ).not.toBeInTheDocument()
     );
 
-    expect(screen.getByRole("heading", { name: loginTitle })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: signInTitle })).toBeInTheDocument();
 
     expect(
       await screen.findByText(wrongCredentialsMessage)
@@ -88,7 +86,6 @@ describe("Login process", () => {
 
   test("Success on doing login with right credentials", async () => {
     // arrange
-    mswServer.use(successLoginHandler);
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
     render(<App />);
@@ -117,7 +114,7 @@ describe("Login process", () => {
 
     await waitFor(() =>
       expect(
-        screen.queryByRole("heading", { name: loginTitle })
+        screen.queryByRole("heading", { name: signInTitle })
       ).not.toBeInTheDocument()
     );
 
@@ -128,7 +125,6 @@ describe("Login process", () => {
 
   test("Success on doing login with credentials from session store", async () => {
     // arrange
-    mswServer.use(successValidateTokenHandler);
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
 
     //act
@@ -137,7 +133,7 @@ describe("Login process", () => {
     //assert
     await waitFor(() =>
       expect(
-        screen.queryByRole("heading", { name: loginTitle })
+        screen.queryByRole("heading", { name: signInTitle })
       ).not.toBeInTheDocument()
     );
 
@@ -155,13 +151,12 @@ describe("Login process", () => {
     render(<App />);
 
     expect(
-      await screen.findByRole("heading", { name: loginTitle })
+      await screen.findByRole("heading", { name: signInTitle })
     ).toBeInTheDocument();
   });
 
   test("Success on opening a secured dummy view after session restored from token", async () => {
     // arrange
-    mswServer.use(successValidateTokenHandler);
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
 
     // act
@@ -169,7 +164,7 @@ describe("Login process", () => {
 
     await waitFor(() =>
       expect(
-        screen.queryByRole("heading", { name: loginTitle })
+        screen.queryByRole("heading", { name: signInTitle })
       ).not.toBeInTheDocument()
     );
 
@@ -192,7 +187,6 @@ describe("Login process", () => {
 
   test("Success on doing login and logout", async () => {
     // arrange
-    mswServer.use(successLoginHandler);
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/login`);
 
     render(<App />);
@@ -221,7 +215,7 @@ describe("Login process", () => {
 
     await waitFor(() =>
       expect(
-        screen.queryByRole("heading", { name: loginTitle })
+        screen.queryByRole("heading", { name: signInTitle })
       ).not.toBeInTheDocument()
     );
 
@@ -229,14 +223,16 @@ describe("Login process", () => {
       await screen.findByText(mainAreaHeaderTitle)
     ).toBeInTheDocument();
 
-    const logout = screen.getByRole("button", { name: logoutLabel });
+    const logout = screen.getByRole("button", { name: signOutLabel });
     userEvent.click(logout);
 
     expect(
-      await screen.findByText(loginTitle)
+      await screen.findByText(signInTitle)
     ).toBeInTheDocument();
   });
 
-  // test.todo('Open login page only if user is not logged in');
+  test.todo('Open login page only if user is not logged in');
+
+  test.todo("Fail on doing sign in with incomplete form");
 });
 

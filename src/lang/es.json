@@ -1,0 +1,13 @@
+{
+  "app-title": "Portal del voluntarios",
+  "message.success": "Operacion OK",
+  "message.error": "Un problema en la operacion!",
+  "signin.title": "Aceder la aplicacion",
+  "signin.email.label": "Email",
+  "signin.password.label": "Contrasenã",
+  "signin.button.label": "Aceder",
+  "signin.wrong.credentials.message": "Wrong credentials",
+  "signout.button.label": "Salir",
+  "signup.button.label": "Cadastro",
+  "signup.name.label": "Nombre"
+}

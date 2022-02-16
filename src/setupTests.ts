@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 
 import { mswServer } from './__mocks__/msw-server';
 import { store } from './utils/reduxStore';
-import { familyTreeApi } from './services/familyTreeApi';
+import { volunteerHubApi } from './services/volunteerHubApi';
 
 beforeEach(() => {
   // console.info(location.href);
@@ -19,7 +19,7 @@ beforeAll(() => mswServer.listen({
 
 afterEach(() => {
   mswServer.resetHandlers();
-  store.dispatch(familyTreeApi.util.resetApiState());
+  store.dispatch(volunteerHubApi.util.resetApiState());
   window.sessionStorage.clear();
 });
 

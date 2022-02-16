@@ -68,6 +68,6 @@
         }
     },
     "ignorePatterns": [
-        "src/services/familyTreeApi.ts"
+        "src/services/volunteerHubApi.ts"
     ]
 }
