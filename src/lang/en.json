@@ -17,9 +17,10 @@
   "signup.last.name.required.message": "Surname is required",
   "signup.email.label": "Email",
   "signup.email.required.message": "Email is required",
+  "signup.email.invalid.message": "Email is invalid",
   "signup.password.label": "Password",
   "signup.password.required.message": "Password is required",
   "signup.confirmPassword.label": "Password confirmation",
   "signup.confirmPassword.required.message": "Password confirmation is required",
-  "signup.submit.button.label": "Send"
+  "signup.confirmPassword.not.match.message": "Passwords don't match"
 }

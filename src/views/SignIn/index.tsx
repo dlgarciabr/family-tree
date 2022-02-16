@@ -1,20 +1,9 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
-
-// import { makeStyles } from "@material-ui/core/styles";
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-// import Checkbox from "@material-ui/core/Checkbox";
-// import Link from "@material-ui/core/Link";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import Paper from "@material-ui/core/Paper";
-
+import { Grid, Typography, Button, TextField } from '@mui/material';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Props, AuthCredentials } from 'types';
-// const useStyles = makeStyles((theme) => ({}));
 import { AuthenticationContext } from 'context/Authentication';
 import { Routes } from 'commons/AppRoutes';
 
@@ -27,7 +16,6 @@ const SignInForm: React.FC<Props> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const classes = useStyles();
   const { formatMessage } = useIntl();
 
   const [userCredentials, setUserCredentials] = useState<AuthCredentials>({
