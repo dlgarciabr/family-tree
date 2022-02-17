@@ -11,7 +11,7 @@ import App from "../App";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-describe("Login process", () => {
+describe("Sign in process", () => {
   const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
   const signInTitle = getLocatedMessage(locales.EN.value, 'signin.title');
   const signOutLabel = getLocatedMessage(locales.EN.value, 'signout.button.label');
@@ -155,7 +155,7 @@ describe("Login process", () => {
     ).toBeInTheDocument();
   });
 
-  test("Success on opening a secured dummy view after session restored from token", async () => {
+  test("Success on opening a secured volunteer profile page after session restored from token", async () => {
     // arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
 
@@ -168,8 +168,8 @@ describe("Login process", () => {
       ).not.toBeInTheDocument()
     );
 
-    const dummyLink = screen.getByRole("link", { name: 'Dummy' });
-    userEvent.click(dummyLink);
+    const link = screen.getByRole("link", { name: 'Volunteer profile' });
+    userEvent.click(link);
 
     //assert
     await waitFor(() =>
@@ -178,7 +178,7 @@ describe("Login process", () => {
       ).not.toBeInTheDocument()
     );
     expect(
-      screen.getByText('dummy comp')
+      screen.getByText('My profile')
     ).toBeInTheDocument();
 
     const mainAreaLink = screen.getByRole("link", { name: 'Main area' });

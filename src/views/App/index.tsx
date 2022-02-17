@@ -4,10 +4,10 @@ import { IntlProvider } from 'react-intl';
 import { AppContext } from 'context/App';
 import useNotification from 'hooks/notificationHandler';
 import { Props } from 'types';
-import AppRoutes from 'commons/AppRoutes';
+
 import notifierEffect from './notifierEffect';
 
-const App: React.FC<Props> = () => {
+const App: React.FC<Props> = (props) => {
   const { showInfoNotification } = useNotification();
 
   const {
@@ -30,7 +30,7 @@ const App: React.FC<Props> = () => {
       messages={messages}
     >
       <div className="App">
-        <AppRoutes />
+        {props.children}
       </div>
     </IntlProvider>
   );

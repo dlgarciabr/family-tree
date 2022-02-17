@@ -8,9 +8,10 @@ import AuthenticationProvider from '../context/Authentication';
 import App from '../views/App';
 import { Props } from '../types';
 import { store } from './reduxStore';
+import AppRoutes from 'commons/AppRoutes';
 
 const Providers = ({ children }: Props) => {
-  const isChildrenAppComponent = ((children as any).type as any).type === (App as any).type;
+  const isAppChildrenComponent = ((children as any).type as any).type === (App as any).type;
   return (
     <BrowserRouter>
       <Provider store={store}>
@@ -18,8 +19,8 @@ const Providers = ({ children }: Props) => {
           <AuthenticationProvider>
             <AppProvider>
               {
-                isChildrenAppComponent ?
-                  children :
+                isAppChildrenComponent ?
+                  <App><AppRoutes /></App> :
                   <App>{children}</App>
               }
             </AppProvider>

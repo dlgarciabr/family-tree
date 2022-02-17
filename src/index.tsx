@@ -10,6 +10,7 @@ import './index.css';
 import App from './views/App';
 import { store } from './utils/reduxStore';
 import reportWebVitals from './reportWebVitals';
+import AppRoutes from 'commons/AppRoutes';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,7 +19,9 @@ ReactDOM.render(
         <Provider store={store}>
           <AuthenticationProvider>
             <AppProvider>
-              <App />
+              <App>
+                <AppRoutes />
+              </App>
             </AppProvider>
           </AuthenticationProvider>
         </Provider>

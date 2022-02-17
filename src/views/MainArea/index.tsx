@@ -9,7 +9,7 @@ const MainArea: React.FC<Props> = () => (
   <div>
     <Box sx={{ flexGrow: 1 }}>
       <TopBar />
-      <Link to="/dummy">Dummy</Link>
+      <Link to="/volunteerProfile">Volunteer profile</Link>
     </Box>
   </div>
 );
