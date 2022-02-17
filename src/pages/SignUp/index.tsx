@@ -6,7 +6,6 @@ import { Field } from 'formik';
 import { TextField } from 'formik-mui';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
 
 import { Props } from 'types';
 import { AuthenticationContext } from 'context/Authentication';

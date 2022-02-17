@@ -7,7 +7,7 @@ import {
   failValidateTokenHandler
 } from '../../__mocks__/msw-handlers';
 
-import App from "../App";
+import App from "../../App";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 

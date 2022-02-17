@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
 import { waitForRequest } from '../../__mocks__/msw-server';
 
-import App from '../App';
+import App from '../../App';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
