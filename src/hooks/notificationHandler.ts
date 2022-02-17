@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { AppContext } from '../context/App';
-import { enqueueNotification, StackedNotification } from '../views/App/notificationSlice';
+import { enqueueNotification, StackedNotification } from '../pages/App/notificationSlice';
 
 const messageType = {
   INFO: 'info' as VariantType,

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import notificationReducer from '../views/App/notificationSlice';
+import notificationReducer from '../pages/App/notificationSlice';
 // import { userApi } from '../services/user';
 import { baseApi } from '../services/base';
 import { rtkQueryErrorLogger } from './errorMiddleware';

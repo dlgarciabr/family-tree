@@ -12,6 +12,7 @@ import { Props } from 'types';
 import { AuthenticationContext } from 'context/Authentication';
 import Form from 'components/Form';
 import { Routes } from 'components/AppRoutes';
+import useValidation from 'hooks/validation';
 
 const SignUpForm: React.FC<Props> = () => {
   const {
@@ -20,29 +21,7 @@ const SignUpForm: React.FC<Props> = () => {
 
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
-
-  const validationSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(3, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required(formatMessage({ id: 'signup.first.name.required.message' })),
-    lastName: Yup.string()
-      .min(3, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required(formatMessage({ id: 'signup.last.name.required.message' })),
-    email: Yup.string()
-      .email(formatMessage({ id: 'signup.email.invalid.message' }))
-      .required(formatMessage({ id: 'signup.email.required.message' })),
-    password: Yup.string()
-      .min(8, 'Too Short!')
-      .max(10, 'Too Long!')
-      .required(formatMessage({ id: 'signup.password.required.message' })),
-    confirmPassword: Yup.string()
-      .min(8, 'Too Short!')
-      .max(10, 'Too Long!')
-      .required(formatMessage({ id: 'signup.confirmPassword.required.message' }))
-      .oneOf([Yup.ref('password'), null], formatMessage({ id: 'signup.confirmPassword.not.match.message' })),
-  });
+  const { signUpSchema } = useValidation();
 
   return (
     <div>
@@ -56,7 +35,7 @@ const SignUpForm: React.FC<Props> = () => {
         }}
         onClickSubmit={signUp}
         onClickBackButton={() => navigate(Routes.SIGN_IN, { replace: true })}
-        validationSchema={validationSchema}
+        validationSchema={signUpSchema}
       >
         <Grid container spacing={0}>
           <Grid item xs={12}>
