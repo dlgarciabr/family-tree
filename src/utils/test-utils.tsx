@@ -4,7 +4,6 @@ import { SnackbarProvider } from 'notistack';
 import { BrowserRouter } from "react-router-dom";
 
 import AppProvider from '../context/App';
-import AuthenticationProvider from '../context/Authentication';
 import App from '../App';
 import { Props } from '../types';
 import { store } from './reduxStore';
@@ -16,15 +15,13 @@ const Providers = ({ children }: Props) => {
     <BrowserRouter>
       <Provider store={store}>
         <SnackbarProvider maxSnack={3}>
-          <AuthenticationProvider>
-            <AppProvider>
-              {
-                isAppChildrenComponent ?
-                  <App><AppRoutes /></App> :
-                  <App>{children}</App>
-              }
-            </AppProvider>
-          </AuthenticationProvider>
+          <AppProvider>
+            {
+              isAppChildrenComponent ?
+                <App><AppRoutes /></App> :
+                <App>{children}</App>
+            }
+          </AppProvider>
         </SnackbarProvider>
       </Provider>
     </BrowserRouter>

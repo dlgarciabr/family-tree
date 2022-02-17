@@ -14,6 +14,8 @@ import {
 
 import { Routes } from 'components/AppRoutes';
 
+import useNotification from 'hooks/notificationHandler';
+
 export const AuthenticationContext = createContext<AuthContextType>({} as AuthContextType);
 AuthenticationContext.displayName = 'AuthenticationContext';
 
@@ -27,6 +29,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
   const [fetchToken] = useSigninMutation();
   const [registerUser] = useSignupMutation();
   const [checkTokenValidity] = useLazyValidateTokenQuery();
+  const { showSuccessNotification } = useNotification();
 
   const navigate = useNavigate();
 
@@ -82,6 +85,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
     signOut: (callback?: VoidFunction) => {
       dispatch({ type: actions.USER_LOGGED_OUT });
       sessionStorage.clear();
+      showSuccessNotification();
       if (callback) {
         callback();
       }
@@ -91,6 +95,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
         .then((payload: any) => {
           dispatch({ type: actions.USER_LOGGED_UP, data: payload.data });
           navigate(Routes.HOME);
+          showSuccessNotification();
           // sessionStorage.setItem(
           //   'credentials',
           //   JSON.stringify({ ...payload.data })

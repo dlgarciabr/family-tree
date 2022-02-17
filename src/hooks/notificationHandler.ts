@@ -1,9 +1,8 @@
 import { VariantType } from 'notistack';
-import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
+import { useIntl } from 'react-intl';
 
-import { AppContext } from '../context/App';
 import { enqueueNotification, StackedNotification } from '../redux/notificationSlice';
 
 const messageType = {
@@ -36,19 +35,19 @@ export const dispatchErrorNotification = (dispatch: Dispatch<any>, message: stri
 
 const useNotification = () => {
   const dispatch = useDispatch();
-  const { appSettings: { messages } } = useContext(AppContext);
+  const { formatMessage } = useIntl();
+  const defaultSuccessMessage = formatMessage({ id: 'message.success' });
+  const defaultErrorMessage = formatMessage({ id: 'message.error' });
 
   return {
-    showInfoNotification: (message: string | undefined = 'info message is empty') => {
+    showInfoNotification: (message: string) => {
       dispatchInfoNotification(dispatch, message);
     },
-    showSuccessNotification: (message: string | undefined = undefined) => {
-      const defaultMessage = messages['message.success'];
-      dispatchSuccessNotification(dispatch, message || defaultMessage);
+    showSuccessNotification: (message?: string) => {
+      dispatchSuccessNotification(dispatch, message || defaultSuccessMessage);
     },
-    showErrorNotification: (message: string | undefined = undefined) => {
-      const defaultMessage = messages['message.error'];
-      dispatchErrorNotification(dispatch, message || defaultMessage);
+    showErrorNotification: (message?: string) => {
+      dispatchErrorNotification(dispatch, message || defaultErrorMessage);
     }
   };
 };

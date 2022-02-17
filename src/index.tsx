@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import AppProvider from 'context/App';
-import AuthenticationProvider from 'context/Authentication';
 import 'index.css';
 import App from 'App';
 import { store } from 'utils/reduxStore';
@@ -15,17 +14,15 @@ import AppRoutes from 'components/AppRoutes';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <SnackbarProvider maxSnack={3}>
-        <Provider store={store}>
-          <AuthenticationProvider>
-            <AppProvider>
-              <App>
-                <AppRoutes />
-              </App>
-            </AppProvider>
-          </AuthenticationProvider>
-        </Provider>
-      </SnackbarProvider>
+      <Provider store={store}>
+        <SnackbarProvider maxSnack={3}>
+          <AppProvider>
+            <App>
+              <AppRoutes />
+            </App>
+          </AppProvider>
+        </SnackbarProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

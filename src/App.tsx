@@ -1,36 +1,31 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AppContext } from 'context/App';
-import useNotification from 'hooks/notificationHandler';
+import AuthenticationProvider from 'context/Authentication';
+
 import { Props } from 'types';
 import notifierEffect from './utils/notifierEffect';
 
 const App: React.FC<Props> = ({ children }) => {
-  const { showInfoNotification } = useNotification();
-
   const {
     appSettings: {
-      messages, locale, loadInitialData
+      messages, locale
     }
   } = React.useContext(AppContext);
 
   notifierEffect();
-
-  useEffect(() => {
-    if (!loadInitialData) {
-      showInfoNotification(`locale changed to ${locale}`);
-    }
-  }, [locale]);
 
   return (
     <IntlProvider
       locale={locale}
       messages={messages}
     >
-      <div className="App">
-        {children}
-      </div>
+      <AuthenticationProvider>
+        <div className="App">
+          {children}
+        </div>
+      </AuthenticationProvider>
     </IntlProvider>
   );
 };

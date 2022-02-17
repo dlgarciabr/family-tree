@@ -1,5 +1,5 @@
 import { getUserLanguage, getLocatedMessage } from './index';
-import { locales } from '../../utils/i18n';
+import { locales } from 'utils/i18n';
 
 test("Recover user language from browser", () => {
   //arrange
