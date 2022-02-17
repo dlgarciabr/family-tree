@@ -10,7 +10,7 @@ import 'index.css';
 import App from 'views/App';
 import { store } from 'utils/reduxStore';
 import reportWebVitals from 'reportWebVitals';
-import AppRoutes from 'commons/AppRoutes';
+import AppRoutes from 'components/AppRoutes';
 
 ReactDOM.render(
   <React.StrictMode>

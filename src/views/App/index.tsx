@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AppContext } from 'context/App';
@@ -35,4 +35,4 @@ const App: React.FC<Props> = ({ children }) => {
   );
 };
 
-export default memo(App);
+export default App;

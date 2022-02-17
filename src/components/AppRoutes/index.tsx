@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
 
-import RequireAuth from 'commons/RequireAuth';
+import RequireAuth from 'components/RequireAuth';
 import MainArea from 'views/MainArea';
 import SignIn from 'views/SignIn';
 import VolunteerProfile from 'views/VolunteerProfile';

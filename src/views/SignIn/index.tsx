@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Props, AuthCredentials } from 'types';
 import { AuthenticationContext } from 'context/Authentication';
-import { Routes } from 'commons/AppRoutes';
+import { Routes } from 'components/AppRoutes';
 
 const SignInForm: React.FC<Props> = () => {
   const {

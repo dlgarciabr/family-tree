@@ -10,8 +10,8 @@ import * as Yup from 'yup';
 
 import { Props } from 'types';
 import { AuthenticationContext } from 'context/Authentication';
-import Form from 'commons/Form';
-import { Routes } from 'commons/AppRoutes';
+import Form from 'components/Form';
+import { Routes } from 'components/AppRoutes';
 
 const SignUpForm: React.FC<Props> = () => {
   const {

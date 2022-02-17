@@ -8,7 +8,7 @@ import AuthenticationProvider from '../context/Authentication';
 import App from '../views/App';
 import { Props } from '../types';
 import { store } from './reduxStore';
-import AppRoutes from 'commons/AppRoutes';
+import AppRoutes from 'components/AppRoutes';
 
 const Providers = ({ children }: Props) => {
   const isAppChildrenComponent = ((children as any).type as any).type === (App as any).type;

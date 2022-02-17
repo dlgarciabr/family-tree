@@ -2,7 +2,7 @@ import React, { memo, useEffect } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 
 import { AuthenticationContext } from 'context/Authentication';
-import { Routes } from 'commons/AppRoutes';
+import { Routes } from 'components/AppRoutes';
 
 // TODO revisar
 interface Props {

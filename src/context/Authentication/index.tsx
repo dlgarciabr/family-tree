@@ -12,7 +12,7 @@ import {
   useSigninMutation, useSignupMutation, useLazyValidateTokenQuery
 } from 'services/volunteerHubApi';
 
-import { Routes } from 'commons/AppRoutes';
+import { Routes } from 'components/AppRoutes';
 
 export const AuthenticationContext = createContext<AuthContextType>({} as AuthContextType);
 AuthenticationContext.displayName = 'AuthenticationContext';
