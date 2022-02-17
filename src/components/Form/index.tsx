@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Formik, Form as FormikForm } from 'formik';
 import { Button, Grid } from '@mui/material';
 import { useIntl } from 'react-intl';
@@ -70,4 +70,4 @@ const Form: React.FC<Props> = ({
   );
 };
 
-export default Form;
+export default memo(Form);
