@@ -4,7 +4,6 @@ import { IntlProvider } from 'react-intl';
 import { AppContext } from 'context/App';
 import useNotification from 'hooks/notificationHandler';
 import { Props } from 'types';
-
 import notifierEffect from './notifierEffect';
 
 const App: React.FC<Props> = (props) => {
