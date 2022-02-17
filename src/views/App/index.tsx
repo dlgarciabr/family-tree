@@ -6,7 +6,7 @@ import useNotification from 'hooks/notificationHandler';
 import { Props } from 'types';
 import notifierEffect from './notifierEffect';
 
-const App: React.FC<Props> = (props) => {
+const App: React.FC<Props> = ({ children }) => {
   const { showInfoNotification } = useNotification();
 
   const {
@@ -29,7 +29,7 @@ const App: React.FC<Props> = (props) => {
       messages={messages}
     >
       <div className="App">
-        {props.children}
+        {children}
       </div>
     </IntlProvider>
   );
