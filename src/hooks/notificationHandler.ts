@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { useIntl } from 'react-intl';
 
-import { enqueueNotification, StackedNotification } from '../redux/notificationSlice';
+import { enqueueNotification, StackedNotification } from '../redux/slices/notificationSlice';
 
 const messageType = {
   INFO: 'info' as VariantType,

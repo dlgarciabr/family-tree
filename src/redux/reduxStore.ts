@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import notificationReducer from './notificationSlice';
+import notificationReducer from './slices/notificationSlice';
 import { baseApi } from '../services/base';
-import { rtkQueryErrorLogger } from '../utils/errorMiddleware';
+import { rtkQueryErrorLogger } from './errorMiddleware';
 
 export const store = configureStore({
   reducer: {
