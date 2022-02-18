@@ -2,6 +2,8 @@
   "app-title": "Portal del voluntarios",
   "message.success": "Operacion OK",
   "message.error": "Un problema en la operacion!",
+  "default.submit.button.label": "Send",
+  "default.back.button.label": "Back",
   "signin.title": "Aceder la aplicacion",
   "signin.email.label": "Email",
   "signin.password.label": "Contrasenã",
@@ -9,5 +11,16 @@
   "signin.wrong.credentials.message": "Wrong credentials",
   "signout.button.label": "Salir",
   "signup.button.label": "Cadastro",
-  "signup.name.label": "Nombre"
+  "signup.first.name.label": "Nombre",
+  "signup.first.name.required.message": "Name is required",
+  "signup.last.name.label": "Surname",
+  "signup.last.name.required.message": "Surname is required",
+  "signup.email.label": "Email",
+  "signup.email.required.message": "Email is required",
+  "signup.email.invalid.message": "Email is invalid",
+  "signup.password.label": "Password",
+  "signup.password.required.message": "Password is required",
+  "signup.confirmPassword.label": "Password confirmation",
+  "signup.confirmPassword.required.message": "Password confirmation is required",
+  "signup.confirmPassword.not.match.message": "Passwords don't match"
 }

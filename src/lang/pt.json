@@ -2,6 +2,8 @@
   "app-title": "Sítio de Voluntários",
   "message.success": "Operação OK",
   "message.error": "Erro na tua operação!",
+  "default.submit.button.label": "Enviar",
+  "default.back.button.label": "Voltar atrás",
   "signin.title": "Aceda ao sítio",
   "signin.email.label": "Email",
   "signin.password.label": "Palavra passe",
@@ -9,5 +11,16 @@
   "signin.wrong.credentials.message": "Wrong credentials",
   "signout.button.label": "Sair",
   "signup.button.label": "Criar conta",
-  "signup.name.label": "Name"
+  "signup.first.name.label": "Nome",
+  "signup.first.name.required.message": "Name is required",
+  "signup.last.name.label": "Surname",
+  "signup.last.name.required.message": "Surname is required",
+  "signup.email.label": "Email",
+  "signup.email.required.message": "Email is required",
+  "signup.email.invalid.message": "Email is invalid",
+  "signup.password.label": "Password",
+  "signup.password.required.message": "Password is required",
+  "signup.confirmPassword.label": "Password confirmation",
+  "signup.confirmPassword.required.message": "Password confirmation is required",
+  "signup.confirmPassword.not.match.message": "Passwords don't match"
 }
