@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import AppProvider from 'context/App';
 import 'index.css';
 import App from 'App';
-import { store } from 'utils/reduxStore';
+import { store } from 'redux/reduxStore';
 import reportWebVitals from 'reportWebVitals';
 import AppRoutes from 'components/AppRoutes';
 

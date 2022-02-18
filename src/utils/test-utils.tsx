@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import AppProvider from '../context/App';
 import App from '../App';
 import { Props } from '../types';
-import { store } from './reduxStore';
+import { store } from '../redux/reduxStore';
 import AppRoutes from 'components/AppRoutes';
 
 const Providers = ({ children }: Props) => {

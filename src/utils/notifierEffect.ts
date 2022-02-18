@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SnackbarKey, useSnackbar } from 'notistack';
-import { RootState } from 'utils/reduxStore';
+import { RootState } from 'redux/reduxStore';
 // import { removeSnackbar } from './redux/actions';
 
 let displayed: SnackbarKey[] = [];

@@ -5,7 +5,7 @@
 import '@testing-library/jest-dom';
 
 import { mswServer } from './__mocks__/msw-server';
-import { store } from './utils/reduxStore';
+import { store } from './redux/reduxStore';
 import { volunteerHubApi } from './services/volunteerHubApi';
 
 beforeEach(() => {

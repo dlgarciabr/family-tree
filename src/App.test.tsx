@@ -1,7 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from './utils/test-utils';
 import { locales, getLocatedMessage } from './utils/i18n';
-import { mswServer } from './__mocks__/msw-server';
 import App from './App';
 
 describe("Change languages", () => {

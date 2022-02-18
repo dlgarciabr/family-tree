@@ -1,15 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import notificationReducer from '../redux/notificationSlice';
-// import { userApi } from '../services/user';
+import notificationReducer from './notificationSlice';
 import { baseApi } from '../services/base';
-import { rtkQueryErrorLogger } from './errorMiddleware';
+import { rtkQueryErrorLogger } from '../utils/errorMiddleware';
 
 export const store = configureStore({
   reducer: {
     notification: notificationReducer,
-    [baseApi.reducerPath]: baseApi.reducer,
-    // [relativeNodeApi.reducerPath]: relativeNodeApi.reducer
+    [baseApi.reducerPath]: baseApi.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(rtkQueryErrorLogger, baseApi.middleware),
