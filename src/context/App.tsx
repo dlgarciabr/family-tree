@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
-import { getUserLanguage, loadLocaleMessages } from '../../utils/i18n';
-import { Props, AppContextType, AppSettings } from '../../types';
+import { getUserLanguage, loadLocaleMessages } from '../utils/i18n';
+import { Props, AppContextType, AppSettings } from '../types';
 
 export const actions = {
   LOCALE_CHANGED: 'LOCALE_CHANGED',
