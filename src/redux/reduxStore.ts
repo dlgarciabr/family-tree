@@ -3,10 +3,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import notificationReducer from './slices/notificationSlice';
 import { baseApi } from '../services/base';
 import { rtkQueryErrorLogger } from './errorMiddleware';
+import myProfileReducer from './slices/myProfileSlice';
 
 export const store = configureStore({
   reducer: {
     notification: notificationReducer,
+    myProfile: myProfileReducer,
     [baseApi.reducerPath]: baseApi.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()

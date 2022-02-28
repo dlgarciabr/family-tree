@@ -53,8 +53,20 @@ const successSignUpHandler = rest.post(`${baseUrl}/user/signup`, (req, res, ctx)
   );
 });
 
+const successGetUserHandler = rest.get(`${baseUrl}/user/:id`, (req, res, ctx) => {
+  // const msg = `[successValidateTokenHandler] MSW mocked GET called with params: ${Array.from(req.url.searchParams.entries()).map(value => (value))}`;
+  // console.info(msg);
+  return res(
+    ctx.json({
+      userId: "76"
+    }),
+    ctx.status(200)
+  );
+});
+
 export const successHandlers = [
   successLoginHandler,
   successValidateTokenHandler,
-  successSignUpHandler
+  successSignUpHandler,
+  successGetUserHandler
 ];

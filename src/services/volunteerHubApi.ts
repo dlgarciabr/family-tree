@@ -54,21 +54,18 @@ const injectedRtkApi = api.injectEndpoints({
         params: { token: queryArg.token },
       }),
     }),
-    getUserByName: build.query<GetUserByNameApiResponse, GetUserByNameApiArg>({
-      query: (queryArg) => ({ url: `/user/${queryArg.username}` }),
+    getUserById: build.query<GetUserByIdApiResponse, GetUserByIdApiArg>({
+      query: (queryArg) => ({ url: `/user/${queryArg.id}` }),
     }),
     updateUser: build.mutation<UpdateUserApiResponse, UpdateUserApiArg>({
       query: (queryArg) => ({
-        url: `/user/${queryArg.username}`,
+        url: `/user/${queryArg.id}`,
         method: "PUT",
         body: queryArg.user,
       }),
     }),
     deleteUser: build.mutation<DeleteUserApiResponse, DeleteUserApiArg>({
-      query: (queryArg) => ({
-        url: `/user/${queryArg.username}`,
-        method: "DELETE",
-      }),
+      query: (queryArg) => ({ url: `/user/${queryArg.id}`, method: "DELETE" }),
     }),
   }),
   overrideExisting: false,
@@ -100,34 +97,34 @@ export type SigninApiArg = {
 export type SignoutUserApiResponse = unknown;
 export type SignoutUserApiArg = void;
 export type SignupApiResponse =
-  /** status 200 successful operation */ InlineResponse200;
+  /** status 200 successful operation */ InlineResponse2001;
 export type SignupApiArg = {
   /** Params to login */
   userSignupData: UserSignupData;
 };
 export type ValidateTokenApiResponse =
-  /** status 200 successful operation */ InlineResponse2001;
+  /** status 200 successful operation */ InlineResponse2002;
 export type ValidateTokenApiArg = {
   /** The token to be validated */
   token: string;
 };
-export type GetUserByNameApiResponse =
+export type GetUserByIdApiResponse =
   /** status 200 successful operation */ User;
-export type GetUserByNameApiArg = {
-  /** The name that needs to be fetched. Use user1 for testing. */
-  username: string;
+export type GetUserByIdApiArg = {
+  /** The user id to proceed the retrieve operation. */
+  id: number;
 };
 export type UpdateUserApiResponse = unknown;
 export type UpdateUserApiArg = {
-  /** name that need to be updated */
-  username: string;
+  /** The user id that need to be updated */
+  id: number;
   /** Updated user object */
   user: User;
 };
 export type DeleteUserApiResponse = unknown;
 export type DeleteUserApiArg = {
-  /** The name that needs to be deleted */
-  username: string;
+  /** The user id that needs to be deleted */
+  id: number;
 };
 export type User = {
   id?: number;
@@ -141,13 +138,16 @@ export type UserSigninData = {
   email?: string;
   password?: string;
 };
+export type InlineResponse2001 = {
+  id?: number;
+};
 export type UserSignupData = {
   firstName?: string;
   lastName?: string;
   email?: string;
   password?: string;
 };
-export type InlineResponse2001 = {
+export type InlineResponse2002 = {
   valid?: boolean;
 };
 export const {
@@ -160,7 +160,8 @@ export const {
   useSignupMutation,
   useValidateTokenQuery,
   useLazyValidateTokenQuery,
-  useGetUserByNameQuery,
+  useGetUserByIdQuery,
+  useLazyGetUserByIdQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
 } = injectedRtkApi;

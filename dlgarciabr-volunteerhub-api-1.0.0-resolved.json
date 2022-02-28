@@ -244,7 +244,7 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/inline_response_200"
+              "$ref": "#/definitions/inline_response_200_1"
             }
           },
           "400": {
@@ -288,7 +288,7 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/inline_response_200_1"
+              "$ref": "#/definitions/inline_response_200_2"
             }
           },
           "400": {
@@ -297,24 +297,24 @@
         }
       }
     },
-    "/user/{username}": {
+    "/user/{id}": {
       "get": {
         "tags": [
           "user"
         ],
         "summary": "Get user by user name",
-        "operationId": "getUserByName",
+        "operationId": "getUserById",
         "produces": [
           "application/json",
           "application/xml"
         ],
         "parameters": [
           {
-            "name": "username",
+            "name": "id",
             "in": "path",
-            "description": "The name that needs to be fetched. Use user1 for testing.",
+            "description": "The user id to proceed the retrieve operation.",
             "required": true,
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
@@ -325,7 +325,7 @@
             }
           },
           "400": {
-            "description": "Invalid username supplied"
+            "description": "Invalid id supplied"
           },
           "404": {
             "description": "User not found"
@@ -345,11 +345,11 @@
         ],
         "parameters": [
           {
-            "name": "username",
+            "name": "id",
             "in": "path",
-            "description": "name that need to be updated",
+            "description": "The user id that need to be updated",
             "required": true,
-            "type": "string"
+            "type": "integer"
           },
           {
             "in": "body",
@@ -383,16 +383,16 @@
         ],
         "parameters": [
           {
-            "name": "username",
+            "name": "id",
             "in": "path",
-            "description": "The name that needs to be deleted",
+            "description": "The user id that needs to be deleted",
             "required": true,
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
           "400": {
-            "description": "Invalid username supplied"
+            "description": "Invalid id supplied"
           },
           "404": {
             "description": "ULogiLoginDataot found"
@@ -461,6 +461,15 @@
       }
     },
     "inline_response_200_1": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 4
+        }
+      }
+    },
+    "inline_response_200_2": {
       "type": "object",
       "properties": {
         "valid": {
