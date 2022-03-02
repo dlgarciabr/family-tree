@@ -54,7 +54,7 @@ const successSignUpHandler = rest.post(`${baseUrl}/user/signup`, (req, res, ctx)
 });
 
 const successGetUserHandler = rest.get(`${baseUrl}/user/:id`, (req, res, ctx) => {
-  // const msg = `[successValidateTokenHandler] MSW mocked GET called with params: ${Array.from(req.url.searchParams.entries()).map(value => (value))}`;
+  // const msg = `[successGetUserHandler] MSW mocked GET called with url: ${req.url}`;
   // console.info(msg);
   return res(
     ctx.json({
