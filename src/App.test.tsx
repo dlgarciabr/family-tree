@@ -2,7 +2,6 @@ import userEvent from "@testing-library/user-event";
 import { render, screen, waitFor } from './utils/test-utils';
 import { locales, getLocatedMessage } from './utils/i18n';
 import App from './App';
-import { act } from "react-dom/test-utils";
 
 //global arrange
 const enHeaderTitle = getLocatedMessage(locales.EN.value, 'app.title');
