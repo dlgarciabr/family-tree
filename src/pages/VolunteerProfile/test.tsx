@@ -4,6 +4,9 @@ import { render, screen, waitFor } from '../../utils/test-utils';
 import { waitForRequest } from '../../__mocks__/msw-server';
 
 import VolunteerProfile from '.';
+import MainArea from 'pages/MainArea';
+import App from 'App';
+// import { act } from 'react-dom/test-utils';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -14,21 +17,36 @@ describe('Volunteer profile management', () => {
     const userId = 76;
     window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
     const url = `${baseUrl}/user`;
-    const pendingRequest = waitForRequest('GET', url);
+    const pendingRequest = waitForRequest('GET', `${url}/${userId}`);
 
     //act
-    render(<VolunteerProfile />);
+    render(<App />);
+
+    const myProfileButton = screen.getByRole("link", { name: 'View My profile' });
+
+    // act(() => {
+    userEvent.click(myProfileButton);
+    // });
+
 
     //assert
+    // await waitFor(() =>
+    //   expect(
+    //     screen.getByText('My profile')
+    //   ).not.toBeInTheDocument()
+    // );
+
+
     expect(
-      screen.getByText('My profile')
+      await screen.findByText('My profile')
     ).toBeInTheDocument();
 
+    console.log("pre-request");
     const request = await pendingRequest;
 
-    // console.log(request.url.search)
+    console.log("pos-request");
 
-    expect(request.url.toString()).toEqual(`${url}/${userId}`);
+    // expect(request.url.toString()).toEqual(`${url}/${userId}`);
 
     //TODO redirect to root url
     const backButton = screen.getByRole("link", { name: 'Main area' });

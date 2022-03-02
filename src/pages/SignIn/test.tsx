@@ -168,7 +168,7 @@ describe("Sign in process", () => {
       ).not.toBeInTheDocument()
     );
 
-    const link = screen.getByRole("link", { name: 'Volunteer profile' });
+    const link = screen.getByRole("link", { name: 'View My profile' });
     userEvent.click(link);
 
     //assert

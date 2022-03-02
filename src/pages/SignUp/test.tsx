@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '../../utils/test-utils';
+import { render, screen } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
 import { waitForRequest } from '../../__mocks__/msw-server';
 
@@ -81,10 +81,6 @@ describe('Sign up process', () => {
 
   test('Fail on doing sign up with incomplete form', async () => {
     //arrange
-    const email = '';
-    const password = '';
-    const firstName = '';
-    const lastName = '';
     const firstNameRequiredMessage = getLocatedMessage(locales.EN.value, 'signup.first.name.required.message');
     const lastNameRequiredMessage = getLocatedMessage(locales.EN.value, 'signup.last.name.required.message');
     const emailRequiredMessage = getLocatedMessage(locales.EN.value, 'signup.email.required.message');
@@ -98,30 +94,7 @@ describe('Sign up process', () => {
       screen.getByRole('button', { name: signUpButtonLabel })
     );
 
-    const firstNameField = await screen.findByRole('textbox', {
-      name: firstNameLabel,
-    });
-    userEvent.type(firstNameField, firstName);
-
-    const lastNameField = screen.getByRole('textbox', {
-      name: lastNameLabel,
-    });
-    userEvent.type(lastNameField, lastName);
-
-    const emailField = screen.getByRole('textbox', {
-      name: emailLabel,
-    });
-    userEvent.type(emailField, email);
-
-    const passwordField = screen.getByTestId(passwordId).childNodes[1]
-      .childNodes[0] as Element;
-
-    userEvent.type(passwordField, password);
-
-    const confirmPasswordField = screen.getByTestId(confirmPasswordId).childNodes[1]
-      .childNodes[0] as Element;
-
-    userEvent.type(confirmPasswordField, password);
+    //TODO: expect sign up screen to be shown
 
     userEvent.click(
       screen.getByRole('button', { name: submitButtonLabel })

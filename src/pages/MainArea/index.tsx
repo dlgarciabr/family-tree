@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +22,7 @@ const MainArea: React.FC<Props> = () => {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <TopBar />
-        <a href="#" onClick={showMyProfile}>Volunteer profile</a>
+        <a href="#" onClick={showMyProfile}>View My profile</a>
       </Box>
     </div>
   )
