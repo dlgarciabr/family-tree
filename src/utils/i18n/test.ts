@@ -18,8 +18,8 @@ test("Recover Language message for Brazilian Portuguese", async () => {
   const ptbrFileMessages = await import('lang/pt-br.json');
 
   //act
-  const message = getLocatedMessage(locale, "app-title");
+  const message = getLocatedMessage(locale, "app.title");
 
   //assert
-  expect(message).toBe(ptbrFileMessages["app-title"]);
+  expect(message).toBe(ptbrFileMessages["app.title"]);
 });

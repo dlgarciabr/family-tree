@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 
 import { Props } from 'types';
 import { RootState } from 'redux/reduxStore';
@@ -26,9 +27,9 @@ const VolunteerProfile: React.FC<Props> = () => {
 
   return (
     <>
-      <p>
-        My profile
-      </p>
+      <h3>
+        <FormattedMessage id="myprofile.title" />
+      </h3>
       <Link to="/">Main area</Link>
     </>
   );

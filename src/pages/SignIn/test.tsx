@@ -12,7 +12,7 @@ import App from "../../App";
 const baseUrl = process.env.REACT_APP_API_URL;
 
 describe("Sign in process", () => {
-  const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
+  const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app.title');
   const signInTitle = getLocatedMessage(locales.EN.value, 'signin.title');
   const signOutLabel = getLocatedMessage(locales.EN.value, 'signout.button.label');
   const emailLabel = "Email";
@@ -158,6 +158,8 @@ describe("Sign in process", () => {
   test("Success on opening a secured volunteer profile page after session restored from token", async () => {
     // arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
+    const myProfileTitle = getLocatedMessage(locales.EN.value, 'myprofile.title');
+    const myProfileButtonLabel = getLocatedMessage(locales.EN.value, 'myprofile.button.label');
 
     // act
     render(<App />);
@@ -168,7 +170,7 @@ describe("Sign in process", () => {
       ).not.toBeInTheDocument()
     );
 
-    const link = screen.getByRole("link", { name: 'View My profile' });
+    const link = screen.getByRole("link", { name: myProfileButtonLabel });
     userEvent.click(link);
 
     //assert
@@ -178,7 +180,7 @@ describe("Sign in process", () => {
       ).not.toBeInTheDocument()
     );
     expect(
-      screen.getByText('My profile')
+      screen.getByText(myProfileTitle)
     ).toBeInTheDocument();
 
     const mainAreaLink = screen.getByRole("link", { name: 'Main area' });

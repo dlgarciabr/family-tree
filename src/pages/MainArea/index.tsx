@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import { Props } from '../../types';
 import TopBar from './TopBar';
@@ -22,7 +23,7 @@ const MainArea: React.FC<Props> = () => {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <TopBar />
-        <a href="#" onClick={showMyProfile}>View My profile</a>
+        <a href="#" onClick={showMyProfile}><FormattedMessage id="myprofile.button.label" /></a>
       </Box>
     </div>
   )

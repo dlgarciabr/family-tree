@@ -8,7 +8,7 @@ import App from '../../App';
 const baseUrl = process.env.REACT_APP_API_URL;
 
 describe('Sign up process', () => {
-  const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
+  const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app.title');
   const firstNameLabel = getLocatedMessage(locales.EN.value, 'signup.first.name.label');
   const lastNameLabel = getLocatedMessage(locales.EN.value, 'signup.last.name.label');
   const emailLabel = getLocatedMessage(locales.EN.value, 'signup.email.label');

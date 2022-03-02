@@ -72,7 +72,7 @@ const TopBar: React.FC<Props> = () => {
         <Grid container spacing={0}>
           <Grid item xs={8} md={9} lg={10}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <FormattedMessage id="app-title" />
+              <FormattedMessage id="app.title" />
             </Typography>
           </Grid>
           <Grid item xs={4} md={3} lg={2}>

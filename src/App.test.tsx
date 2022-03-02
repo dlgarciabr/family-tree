@@ -1,16 +1,17 @@
 import userEvent from "@testing-library/user-event";
-import { render, screen } from './utils/test-utils';
+import { render, screen, waitFor } from './utils/test-utils';
 import { locales, getLocatedMessage } from './utils/i18n';
 import App from './App';
+import { act } from "react-dom/test-utils";
 
-describe("Change languages", () => {
-  //global arrange
-  const enHeaderTitle = getLocatedMessage(locales.EN.value, 'app-title');
+//global arrange
+const enHeaderTitle = getLocatedMessage(locales.EN.value, 'app.title');
 
+describe("Language changing", () => {
   test("Change language to Spanish", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = getLocatedMessage(locales.ES.value, 'app-title');
+    const expectedHeaderTitle = getLocatedMessage(locales.ES.value, 'app.title');
 
     render(<App />);
 
@@ -38,7 +39,7 @@ describe("Change languages", () => {
   test("Change language to Portuguese", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = getLocatedMessage(locales.PT.value, 'app-title');
+    const expectedHeaderTitle = getLocatedMessage(locales.PT.value, 'app.title');
 
     render(<App />);
 
@@ -64,7 +65,7 @@ describe("Change languages", () => {
   test("Change language to Brazilian Portuguese", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
+    const expectedHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app.title');
 
     render(<App />);
 
@@ -90,7 +91,7 @@ describe("Change languages", () => {
   test("Change language to Portuguese and then to English", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const ptbrHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app-title');
+    const ptbrHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app.title');
 
     render(<App />);
 
@@ -123,5 +124,27 @@ describe("Change languages", () => {
     expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
   });
 
+  // TODO:implement
   test.todo('show toast sucess message on language change');
+});
+
+describe("Global behavior", () => {
+  test('Show nav bar when access a secured page', async () => {
+    //arrange
+    const myProfileTitle = getLocatedMessage(locales.EN.value, 'myprofile.title');
+    const myProfileButtonLabel = getLocatedMessage(locales.EN.value, 'myprofile.button.label');
+    window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
+    render(<App />);
+
+    //act
+    const myProfileButton = screen.getByRole('link', { name: myProfileButtonLabel });
+    userEvent.click(myProfileButton);
+
+    expect(
+      await screen.findByRole("heading", { name: myProfileTitle })
+    ).toBeInTheDocument();
+
+    //assert
+    expect(screen.getByText(enHeaderTitle)).toBeInTheDocument();
+  });
 });

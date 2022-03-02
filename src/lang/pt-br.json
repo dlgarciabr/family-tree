@@ -1,5 +1,5 @@
 {
-  "app-title": "Portal de Voluntários",
+  "app.title": "Portal de Voluntários",
   "message.success": "Operação realizada com sucesso",
   "message.error": "Ocorreu um erro ao tentar executar a operação!",
   "default.submit.button.label": "Enviar",
@@ -22,5 +22,7 @@
   "signup.password.required.message": "Password is required",
   "signup.confirmPassword.label": "Password confirmation",
   "signup.confirmPassword.required.message": "Password confirmation is required",
-  "signup.confirmPassword.not.match.message": "Passwords don't match"
+  "signup.confirmPassword.not.match.message": "Passwords don't match",
+  "myprofile.button.label": "View My profile",
+  "myprofile.title": "My profile"
 }
