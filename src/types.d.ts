@@ -2,7 +2,6 @@ export interface Props {
   children?: JSX.Element | string;
 };
 
-
 export interface IndexedType {
   [key: string]: string;
 }

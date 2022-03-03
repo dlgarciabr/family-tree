@@ -72,7 +72,7 @@ describe('Sign up process', () => {
     expect(
       await screen.findByText(mainAreaHeaderTitle)
     ).toBeInTheDocument();
-  });
+  }, 7000);
 
   test('Fail on doing sign up with incomplete form', async () => {
     //arrange
