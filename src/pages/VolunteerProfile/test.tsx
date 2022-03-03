@@ -9,7 +9,7 @@ const baseUrl = process.env.REACT_APP_API_URL;
 
 describe('Volunteer profile management', () => {
 
-  test('Show the volunteer profile page', async () => {
+  test('Show My profile page', async () => {
     //arrange
     const myProfileTitle = getLocatedMessage(locales.EN.value, 'myprofile.title');
     const myProfileButtonLabel = getLocatedMessage(locales.EN.value, 'myprofile.button.label');
@@ -24,6 +24,7 @@ describe('Volunteer profile management', () => {
     const myProfileButton = screen.getByRole("link", { name: myProfileButtonLabel });
     userEvent.click(myProfileButton);
 
+    //assert
     expect(
       await screen.findByRole("heading", { name: myProfileTitle })
     ).toBeInTheDocument();

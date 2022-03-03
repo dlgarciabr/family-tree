@@ -1,9 +1,6 @@
 import { baseApi as api } from "./base";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getUser: build.query<GetUserApiResponse, GetUserApiArg>({
-      query: () => ({ url: `/user` }),
-    }),
     createUser: build.mutation<CreateUserApiResponse, CreateUserApiArg>({
       query: (queryArg) => ({
         url: `/user`,
@@ -71,8 +68,6 @@ const injectedRtkApi = api.injectEndpoints({
   overrideExisting: false,
 });
 export { injectedRtkApi as volunteerHubApi };
-export type GetUserApiResponse = /** status 200 successful operation */ User;
-export type GetUserApiArg = void;
 export type CreateUserApiResponse = unknown;
 export type CreateUserApiArg = {
   /** Created user object */
@@ -88,22 +83,26 @@ export type CreateUsersWithListInputApiArg = {
   /** List of user object */
   body: User[];
 };
-export type SigninApiResponse =
-  /** status 200 successful operation */ InlineResponse200;
+export type SigninApiResponse = /** status 200 successful operation */ {
+  id: number;
+  token: string;
+};
 export type SigninApiArg = {
   /** Params to login */
   userSigninData: UserSigninData;
 };
 export type SignoutUserApiResponse = unknown;
 export type SignoutUserApiArg = void;
-export type SignupApiResponse =
-  /** status 200 successful operation */ InlineResponse2001;
+export type SignupApiResponse = /** status 200 successful operation */ {
+  id?: number;
+};
 export type SignupApiArg = {
   /** Params to login */
   userSignupData: UserSignupData;
 };
-export type ValidateTokenApiResponse =
-  /** status 200 successful operation */ InlineResponse2002;
+export type ValidateTokenApiResponse = /** status 200 successful operation */ {
+  valid?: boolean;
+};
 export type ValidateTokenApiArg = {
   /** The token to be validated */
   token: string;
@@ -127,19 +126,15 @@ export type DeleteUserApiArg = {
   id: number;
 };
 export type User = {
-  id?: number;
-  username?: string;
-};
-export type InlineResponse200 = {
-  id?: number;
-  token?: string;
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
 };
 export type UserSigninData = {
   email?: string;
   password?: string;
-};
-export type InlineResponse2001 = {
-  id?: number;
 };
 export type UserSignupData = {
   firstName?: string;
@@ -147,11 +142,7 @@ export type UserSignupData = {
   email?: string;
   password?: string;
 };
-export type InlineResponse2002 = {
-  valid?: boolean;
-};
 export const {
-  useGetUserQuery,
   useCreateUserMutation,
   useCreateUsersWithArrayInputMutation,
   useCreateUsersWithListInputMutation,

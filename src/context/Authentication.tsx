@@ -9,11 +9,13 @@ import {
   Props, AuthCredentials, AuthContextType, AuthContextState, User
 } from 'types';
 import {
-  useSigninMutation, useSignupMutation, useLazyValidateTokenQuery
+  useSigninMutation,
+  useSignupMutation,
+  useLazyValidateTokenQuery,
+  useLazyGetUserByIdQuery,
+  SigninApiResponse
 } from 'services/volunteerHubApi';
-
 import { Routes } from 'components/AppRoutes';
-
 import useNotification from 'hooks/notificationHandler';
 
 export const AuthenticationContext = createContext<AuthContextType>({} as AuthContextType);
@@ -32,6 +34,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
   const { showSuccessNotification } = useNotification();
 
   const navigate = useNavigate();
+  const [getUserById, state] = useLazyGetUserByIdQuery();
 
   const initialState = {
     user: null, token: null
@@ -44,7 +47,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       case actions.USER_LOGGED_IN:
         return {
           ...state,
-          user: { id: action.data.id },
+          user: { ...action.data },
           token: action.data.token
         };
       case actions.USER_SIGNED_UP:
@@ -66,9 +69,11 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
   const operations = {
     signIn: async (credentials: AuthCredentials, callback: VoidFunction) => {
       fetchToken({ userSigninData: credentials })
-        .then((payload: any) => {
+        .then(async (payload: any) => {
           if (!payload.error) {
-            dispatch({ type: actions.USER_LOGGED_IN, data: payload.data });
+            const fetchTokenResponse: SigninApiResponse = payload.data;
+            const user = await getUserById({ id: fetchTokenResponse.id }).unwrap();
+            dispatch({ type: actions.USER_LOGGED_IN, data: user });
             sessionStorage.setItem(
               'credentials',
               JSON.stringify({ ...payload.data })
