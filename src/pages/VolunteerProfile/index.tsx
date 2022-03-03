@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
@@ -12,7 +11,7 @@ import {
 const VolunteerProfile: React.FC<Props> = () => {
   const { id } = useSelector((state: RootState) => state.myProfile);
 
-  const [getUserById] = useLazyGetUserByIdQuery();
+  const [getUserById, state] = useLazyGetUserByIdQuery();
 
   useEffect(() => {
     (
@@ -30,7 +29,7 @@ const VolunteerProfile: React.FC<Props> = () => {
       <h3>
         <FormattedMessage id="myprofile.title" />
       </h3>
-      <Link to="/">Main area</Link>
+      <p>loading: {state.isFetching.toString()}</p>
     </>
   );
 };

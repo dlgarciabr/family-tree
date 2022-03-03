@@ -23,6 +23,7 @@
   "signup.confirmPassword.label": "Password confirmation",
   "signup.confirmPassword.required.message": "Password confirmation is required",
   "signup.confirmPassword.not.match.message": "Passwords don't match",
+  "main.area.title": "Main area",
   "myprofile.button.label": "View My profile",
-  "myprofile.title": "My profile"
+  "myprofile.title": "My info"
 }

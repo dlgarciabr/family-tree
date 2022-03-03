@@ -1,13 +1,13 @@
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '../../utils/test-utils';
-import { locales, getLocatedMessage } from '../../utils/i18n';
-import { mswServer, waitForRequest } from '../../__mocks__/msw-server';
+import { render, screen, waitFor, navigateToHome } from 'utils/test-utils';
+import { locales, getLocatedMessage } from 'utils/i18n';
+import { mswServer, waitForRequest } from '__mocks__/msw-server';
 import {
   deniedLoginHandler,
   failValidateTokenHandler
-} from '../../__mocks__/msw-handlers';
+} from '__mocks__/msw-handlers';
 
-import App from "../../App";
+import App from "App";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -138,7 +138,7 @@ describe("Sign in process", () => {
     );
 
     expect(
-      screen.getByText(mainAreaHeaderTitle)
+      await screen.findByText(mainAreaHeaderTitle)
     ).toBeInTheDocument();
   });
 
@@ -174,17 +174,12 @@ describe("Sign in process", () => {
     userEvent.click(link);
 
     //assert
-    await waitFor(() =>
-      expect(
-        screen.queryByText(mainAreaHeaderTitle)
-      ).not.toBeInTheDocument()
-    );
     expect(
-      screen.getByText(myProfileTitle)
+      await screen.findByRole("heading", { name: myProfileTitle })
     ).toBeInTheDocument();
 
-    const mainAreaLink = screen.getByRole("link", { name: 'Main area' });
-    userEvent.click(mainAreaLink);
+    //reset navigation
+    await navigateToHome();
   });
 
   test("Success on doing login and logout", async () => {

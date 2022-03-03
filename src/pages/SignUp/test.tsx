@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { render, screen } from '../../utils/test-utils';
+import { render, screen, waitFor } from '../../utils/test-utils';
 import { locales, getLocatedMessage } from '../../utils/i18n';
 import { waitForRequest } from '../../__mocks__/msw-server';
 
@@ -36,48 +36,43 @@ describe('Sign up process', () => {
     const firstNameField = await screen.findByRole('textbox', {
       name: firstNameLabel,
     });
-    userEvent.type(firstNameField, firstName);
-
     const lastNameField = screen.getByRole('textbox', {
       name: lastNameLabel,
     });
-    userEvent.type(lastNameField, lastName);
-
     const emailField = screen.getByRole('textbox', {
       name: emailLabel,
     });
-    userEvent.type(emailField, email);
-
     const passwordField = screen.getByTestId(passwordId).childNodes[1]
       .childNodes[0] as Element;
-
-    userEvent.type(passwordField, password);
-
     const confirmPasswordField = screen.getByTestId(confirmPasswordId).childNodes[1]
       .childNodes[0] as Element;
 
+    userEvent.type(firstNameField, firstName);
+    userEvent.type(lastNameField, lastName);
+    userEvent.type(emailField, email);
+    userEvent.type(passwordField, password);
     userEvent.type(confirmPasswordField, password);
 
-    userEvent.click(
-      screen.getByRole('button', { name: submitButtonLabel })
-    );
+    await waitFor(async () => {
+      userEvent.click(
+        screen.getByRole('button', { name: submitButtonLabel })
+      );
+      const request = await pendingRequest;
+
+      expect(request.body).toEqual({
+        email,
+        password,
+        firstName,
+        lastName,
+        confirmPassword: password
+      });
+    });
 
     //assert
-    const request = await pendingRequest;
-
-    expect(request.body).toEqual({
-      email,
-      password,
-      firstName,
-      lastName,
-      confirmPassword: password
-    })
-
     expect(
       await screen.findByText(mainAreaHeaderTitle)
     ).toBeInTheDocument();
-
-  }, 7000);
+  });
 
   test('Fail on doing sign up with incomplete form', async () => {
     //arrange
@@ -155,7 +150,7 @@ describe('Sign up process', () => {
     userEvent.click(backButton);
   });
 
-  test('Fail on doing sign up with wrong confirm password field', async () => {
+  test('Fail on doing sign up with wrong confir password field', async () => {
     //arrange
     const password = 'xxxxxxxx';
     const passwordNotMatchMessage = getLocatedMessage(locales.EN.value, 'signup.confirmPassword.not.match.message');

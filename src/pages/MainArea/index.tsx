@@ -21,8 +21,10 @@ const MainArea: React.FC<Props> = () => {
 
   return (
     <div>
+      <h3>
+        <FormattedMessage id="main.area.title" />
+      </h3>
       <Box sx={{ flexGrow: 1 }}>
-        <TopBar />
         <a href="#" onClick={showMyProfile}><FormattedMessage id="myprofile.button.label" /></a>
       </Box>
     </div>

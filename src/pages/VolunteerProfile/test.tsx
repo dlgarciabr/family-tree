@@ -1,10 +1,8 @@
 import userEvent from '@testing-library/user-event';
-import { render, screen } from '../../utils/test-utils';
-import { locales, getLocatedMessage } from '../../utils/i18n';
-import { waitForRequest } from '../../__mocks__/msw-server';
 
-import VolunteerProfile from '.';
-import MainArea from 'pages/MainArea';
+import { render, screen, navigateToHome } from 'utils/test-utils';
+import { locales, getLocatedMessage } from 'utils/i18n';
+import { waitForRequest } from '__mocks__/msw-server';
 import App from 'App';
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -34,9 +32,8 @@ describe('Volunteer profile management', () => {
 
     expect(request.url.toString()).toEqual(url);
 
-    //TODO redirect to root url
-    const backButton = screen.getByRole("link", { name: 'Main area' });
-    userEvent.click(backButton);
+    //reset navigation
+    await navigateToHome();
   });
 });
 

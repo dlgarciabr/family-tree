@@ -21,7 +21,7 @@ AuthenticationContext.displayName = 'AuthenticationContext';
 
 export const actions = {
   USER_LOGGED_IN: 'USER_LOGGED_IN',
-  USER_LOGGED_UP: 'USER_LOGGED_UP',
+  USER_SIGNED_UP: 'USER_SIGNED_UP',
   USER_LOGGED_OUT: 'USER_LOGGED_OUT'
 };
 
@@ -47,7 +47,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
           user: { id: action.data.id },
           token: action.data.token
         };
-      case actions.USER_LOGGED_UP:
+      case actions.USER_SIGNED_UP:
         return {
           ...state,
           user: { id: action.data.id },
@@ -93,7 +93,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
     signUp: async (userData: User) => {
       registerUser({ userSignupData: userData })
         .then((payload: any) => {
-          dispatch({ type: actions.USER_LOGGED_UP, data: payload.data });
+          dispatch({ type: actions.USER_SIGNED_UP, data: payload.data });
           navigate(Routes.HOME);
           showSuccessNotification();
           // sessionStorage.setItem(
@@ -107,10 +107,12 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
         return;
       }
       const credentials = JSON.parse(storageCredentials);
-      const payload = await checkTokenValidity({ token: credentials.token });
+      const token = credentials.token;
+      const id = credentials.id;
+      const payload = await checkTokenValidity({ token });
 
       if (payload.data && payload.data.valid) {
-        dispatch({ type: actions.USER_LOGGED_IN, data: payload.data });
+        dispatch({ type: actions.USER_LOGGED_IN, data: { id, token } });
         navigate(nextLocation);
       } else {
         dispatch({ type: actions.USER_LOGGED_OUT });

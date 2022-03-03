@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { render, screen, waitFor } from './utils/test-utils';
+import { render, screen, navigateToHome } from './utils/test-utils';
 import { locales, getLocatedMessage } from './utils/i18n';
 import App from './App';
 
@@ -130,20 +130,31 @@ describe("Language changing", () => {
 describe("Global behavior", () => {
   test('Show nav bar when access a secured page', async () => {
     //arrange
+    const mainAreaTitle = getLocatedMessage(locales.EN.value, 'main.area.title');
     const myProfileTitle = getLocatedMessage(locales.EN.value, 'myprofile.title');
     const myProfileButtonLabel = getLocatedMessage(locales.EN.value, 'myprofile.button.label');
     window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
     render(<App />);
 
+    expect(
+      await screen.findByText(enHeaderTitle)
+    ).toBeInTheDocument();
+
     //act
     const myProfileButton = screen.getByRole('link', { name: myProfileButtonLabel });
     userEvent.click(myProfileButton);
 
+    //assert
+
     expect(
-      await screen.findByRole("heading", { name: myProfileTitle })
+      await screen.findByRole('heading', { name: myProfileTitle })
     ).toBeInTheDocument();
 
-    //assert
-    expect(screen.getByText(enHeaderTitle)).toBeInTheDocument();
+    expect(
+      await screen.findByText(enHeaderTitle)
+    ).toBeInTheDocument();
+
+    //reset navigation
+    await navigateToHome();
   });
 });

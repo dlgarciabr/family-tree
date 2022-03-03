@@ -6,6 +6,7 @@ import AuthenticationProvider from 'context/Authentication';
 
 import { Props } from 'types';
 import notifierEffect from './utils/notifierEffect';
+import TopBar from 'pages/MainArea/TopBar';
 
 const App: React.FC<Props> = ({ children }) => {
   const {
@@ -23,6 +24,7 @@ const App: React.FC<Props> = ({ children }) => {
     >
       <AuthenticationProvider>
         <div className="App">
+          <TopBar />
           {children}
         </div>
       </AuthenticationProvider>
