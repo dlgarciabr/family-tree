@@ -34,7 +34,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
   const { showSuccessNotification } = useNotification();
 
   const navigate = useNavigate();
-  const [getUserById, state] = useLazyGetUserByIdQuery();
+  const [getUserById] = useLazyGetUserByIdQuery();
 
   const initialState = {
     user: null, token: null

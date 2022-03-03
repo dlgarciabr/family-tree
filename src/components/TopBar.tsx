@@ -142,7 +142,8 @@ const TopBar: React.FC<Props> = () => {
             </Grid>
           </Grid>
         </Toolbar>
-      </AppBar> :
+      </AppBar>
+      :
       null
   );
 };

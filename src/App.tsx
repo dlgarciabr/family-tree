@@ -6,7 +6,7 @@ import AuthenticationProvider from 'context/Authentication';
 
 import { Props } from 'types';
 import notifierEffect from './utils/notifierEffect';
-import TopBar from 'pages/MainArea/TopBar';
+import TopBar from 'components/TopBar';
 
 const App: React.FC<Props> = ({ children }) => {
   const {
