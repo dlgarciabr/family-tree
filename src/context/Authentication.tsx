@@ -22,7 +22,7 @@ export const AuthenticationContext = createContext<AuthContextType>({} as AuthCo
 AuthenticationContext.displayName = 'AuthenticationContext';
 
 export const actions = {
-  USER_LOGGED_IN: 'USER_LOGGED_IN',
+  USER_SIGNED_IN: 'USER_SIGNED_IN',
   USER_SIGNED_UP: 'USER_SIGNED_UP',
   USER_LOGGED_OUT: 'USER_LOGGED_OUT'
 };
@@ -44,7 +44,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
     switch (action.type) {
       case 'RESET_STATE':
         return { ...state };
-      case actions.USER_LOGGED_IN:
+      case actions.USER_SIGNED_IN:
         return {
           ...state,
           user: { ...action.data },
@@ -73,7 +73,7 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
           if (!payload.error) {
             const fetchTokenResponse: SigninApiResponse = payload.data;
             const user = await getUserById({ id: fetchTokenResponse.id }).unwrap();
-            dispatch({ type: actions.USER_LOGGED_IN, data: user });
+            dispatch({ type: actions.USER_SIGNED_IN, data: user });
             sessionStorage.setItem(
               'credentials',
               JSON.stringify({ ...payload.data })
@@ -111,13 +111,11 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       if (currentState.user) {
         return;
       }
-      const credentials = JSON.parse(storageCredentials);
-      const token = credentials.token;
-      const id = credentials.id;
-      const payload = await checkTokenValidity({ token });
+      const { token, id } = JSON.parse(storageCredentials);
+      const payload = await checkTokenValidity({ token }).unwrap();
 
-      if (payload.data && payload.data.valid) {
-        dispatch({ type: actions.USER_LOGGED_IN, data: { id, token } });
+      if (payload && payload.valid) {
+        dispatch({ type: actions.USER_SIGNED_IN, data: { id, token } });
         navigate(nextLocation);
       } else {
         dispatch({ type: actions.USER_LOGGED_OUT });
