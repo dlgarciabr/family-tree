@@ -64,9 +64,20 @@ const successGetUserHandler = rest.get(`${baseUrl}/user/:id`, (req, res, ctx) =>
   );
 });
 
-export const createSuccessGetUserHandlerWithParams = (responseObject: any) => {
+export const createSuccessGetUserHandler = (responseObject: any) => {
   return rest.get(`${baseUrl}/user/:id`, (req, res, ctx) => {
     // const msg = `[successGetUserHandlerWithParams] MSW mocked GET called with url: ${req.url}`;
+    // console.info(msg);
+    return res(
+      ctx.json(responseObject),
+      ctx.status(200)
+    );
+  });
+};
+
+export const createSuccessGetVolunteerHandler = (responseObject: any) => {
+  return rest.get(`${baseUrl}/volunteer/:id`, (req, res, ctx) => {
+    // const msg = `[createSuccessGetVolunteerHandler] MSW mocked GET called with url: ${req.url}`;
     // console.info(msg);
     return res(
       ctx.json(responseObject),

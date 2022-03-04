@@ -1,23 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Volunteer } from 'types';
 
 export interface State {
-  id?: number
+  myData?: Volunteer
 }
 
 const initialState: State = {
-  id: undefined,
+  myData: undefined,
 };
 
 export const myProfileSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    myProfileCalled: (state: State, action: PayloadAction<number>) => {
-      state.id = action.payload;
+    myProfileFetched: (state: State, action: PayloadAction<Volunteer>) => {
+      state.myData = action.payload;
     }
   },
 });
 
-export const { myProfileCalled } = myProfileSlice.actions;
+export const { myProfileFetched } = myProfileSlice.actions;
 
 export default myProfileSlice.reducer;

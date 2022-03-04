@@ -29,15 +29,16 @@ const waitForRequest = (method: string, url: string): Promise<MockedRequest> => 
   })
 }
 
-const replaceHandler = (newHandler: RestHandler) => {
+const addOrReplaceHandlers = (...newHandlers: any) => {
+  const handlers: RestHandler[] = newHandlers;
   mswServer.use(
-    ...successHandlers.filter(handler => handler.info.path != newHandler.info.path),
-    newHandler
+    ...successHandlers.filter(h1 => !handlers.some(h2 => h2.info.path === h1.info.path)),
+    ...handlers
   );
 }
 
 export {
   mswServer,
   waitForRequest,
-  replaceHandler
+  addOrReplaceHandlers
 }

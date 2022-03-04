@@ -1,13 +1,11 @@
-import { CSSObject } from '@emotion/react';
-
-const containerFluid: CSSObject = {
+const containerFluid = {
   paddingRight: '15px',
   paddingLeft: '15px',
   marginRight: 'auto',
   marginLeft: 'auto',
   width: '100%',
 };
-const container: CSSObject = {
+const container = {
   ...containerFluid,
   '@media (min-width: 576px)': {
     maxWidth: '540px',
@@ -22,7 +20,7 @@ const container: CSSObject = {
     maxWidth: '1140px',
   },
 };
-const title: CSSObject = {
+const title = {
   color: '#3C4858',
   margin: '1.75rem 0 0.875rem',
   textDecoration: 'none',
@@ -30,7 +28,13 @@ const title: CSSObject = {
   fontFamily: '"Roboto Slab", "Times New Roman", serif'
 };
 
+const gridSkeletonMultipleLines = {
+  display: 'flex',
+  flexDirection: 'column'
+};
+
 export {
   container,
-  title
+  title,
+  gridSkeletonMultipleLines
 };

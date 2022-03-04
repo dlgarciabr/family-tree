@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import { Props } from 'types';
-import { myProfileCalled } from 'redux/slices/myProfileSlice';
+// import { myProfileCalled } from 'redux/slices/myProfileSlice';
 import { Routes } from 'components/AppRoutes';
 
 const MainArea: React.FC<Props> = () => {

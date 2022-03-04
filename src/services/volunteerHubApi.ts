@@ -64,6 +64,12 @@ const injectedRtkApi = api.injectEndpoints({
     deleteUser: build.mutation<DeleteUserApiResponse, DeleteUserApiArg>({
       query: (queryArg) => ({ url: `/user/${queryArg.id}`, method: "DELETE" }),
     }),
+    getVolunteerById: build.query<
+      GetVolunteerByIdApiResponse,
+      GetVolunteerByIdApiArg
+    >({
+      query: (queryArg) => ({ url: `/volunteer/${queryArg.id}` }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -110,7 +116,7 @@ export type ValidateTokenApiArg = {
 export type GetUserByIdApiResponse =
   /** status 200 successful operation */ User;
 export type GetUserByIdApiArg = {
-  /** The user id to proceed the retrieve operation. */
+  /** The user id to proceed the retrieving operation. */
   id: number;
 };
 export type UpdateUserApiResponse = unknown;
@@ -123,6 +129,12 @@ export type UpdateUserApiArg = {
 export type DeleteUserApiResponse = unknown;
 export type DeleteUserApiArg = {
   /** The user id that needs to be deleted */
+  id: number;
+};
+export type GetVolunteerByIdApiResponse =
+  /** status 200 successful operation */ Volunteer;
+export type GetVolunteerByIdApiArg = {
+  /** The volunteer id to proceed the retrieving operation. */
   id: number;
 };
 export type User = {
@@ -142,6 +154,14 @@ export type UserSignupData = {
   email?: string;
   password?: string;
 };
+export type Volunteer = {
+  preferedSupportLanguages: string;
+  preferedSupportType: "PRESENTIAL" | "REMOTE" | "BOTH";
+  title?: string;
+  coverLetter?: string;
+  photo?: string;
+  phone?: string;
+};
 export const {
   useCreateUserMutation,
   useCreateUsersWithArrayInputMutation,
@@ -150,9 +170,11 @@ export const {
   useSignoutUserQuery,
   useSignupMutation,
   useValidateTokenQuery,
-  useLazyValidateTokenQuery,
   useGetUserByIdQuery,
-  useLazyGetUserByIdQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetVolunteerByIdQuery,
+  useLazyValidateTokenQuery,
+  useLazyGetUserByIdQuery,
+  useLazyGetVolunteerByIdQuery
 } = injectedRtkApi;

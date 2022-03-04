@@ -1,58 +1,64 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { styled } from '@mui/material/styles';
 
 import { Props } from 'types';
-import { RootState } from 'redux/reduxStore';
-// import {
-//   useLazyGetUserByIdQuery
-// } from 'services/volunteerHubApi';
+
+import {
+  useLazyGetVolunteerByIdQuery
+} from 'services/volunteerHubApi';
 
 import { GridContainer, GridItem } from 'components/Grid';
 
 import profile from 'assets/images/kendall.jpg';
 import profileBg from 'assets/images/profile-bg.jpg';
-import { container } from 'assets/jss';
+import { container, gridSkeletonMultipleLines } from 'assets/jss';
 import {
   faceImg,
   profileDiv,
   imageDiv,
   main,
-  mainRaised
+  mainRaised,
+  description
 } from 'assets/jss/pages/volunteerProfile';
 import Parallax from 'components/Parallax';
 import { AuthenticationContext } from 'context/Authentication';
-import { Typography } from '@mui/material';
+import { Typography, Skeleton, Grid } from '@mui/material';
+import { myProfileFetched } from 'redux/slices/myProfileSlice';
+import { RootState } from 'redux/reduxStore';
+import { CSSObject } from '@emotion/react';
 
 const VolunteerProfile: React.FC<Props> = () => {
-  const { id } = useSelector((state: RootState) => state.myProfile);
-
   const {
     state: { user }
   } = React.useContext(AuthenticationContext);
 
-  // const [getUserById, state] = useLazyGetUserByIdQuery();
+  const [getVolunteerInfo, { isFetching }] = useLazyGetVolunteerByIdQuery();
+  const dispatch = useDispatch();
+  const { myData } = useSelector(
+    (state: RootState) => state.myProfile
+  );
 
-  const ImgFace = styled('img')(() => (faceImg));
-  const DivImage = styled('div')(() => (imageDiv));
-  const DivProfile = styled('div')(() => (profileDiv));
-  const DivContainer = styled('div')(() => (container));
+  const ImgFace = styled('img')(() => (faceImg as CSSObject));
+  const DivImage = styled('div')(() => (imageDiv as CSSObject));
+  const DivProfile = styled('div')(() => (profileDiv as CSSObject));
+  const DivContainer = styled('div')(() => (container as CSSObject));
   const DivMain = styled('div')(() => ({
-    ...main,
-    ...mainRaised
+    ...main as CSSObject,
+    ...mainRaised as CSSObject
   }));
 
   useEffect(() => {
-    // (
-    // async () => {
-    //   if (id) {
-    // await getUserById({ id });
-    // TODO: send to redux store
-    //   }
-    // }
-    // )();
-  }, []);
+    (
+      async () => {
+        if (user?.id) {
+          const data = await getVolunteerInfo({ id: user.id }).unwrap();
+          dispatch(myProfileFetched(data));
+        }
+      }
+    )();
+  }, [user]);
 
   return (
     <>
@@ -67,14 +73,45 @@ const VolunteerProfile: React.FC<Props> = () => {
               <GridItem>
                 <DivProfile>
                   <DivImage>
-                    <ImgFace src={profile} alt="..." />
+                    {
+                      isFetching ?
+                        <Skeleton variant="circular" width={160} height={160} /> :
+                        <ImgFace src={profile} alt="..." />
+                    }
                   </DivImage>
-                  <div>
-                    <Typography variant="h4">
-                      {user?.firstName} {user?.lastName}
-                    </Typography>
-                    <h6>DESIGNER</h6>
-                    {/* <Button justIcon link >
+                  <Grid container justifyContent="center">
+                    <Grid item xs={12}>
+                      <Typography variant="h4">
+                        {`${user?.firstName} ${user?.lastName}`}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="h6">
+                        {isFetching ? <Skeleton variant="text" width={100} height={35} /> : myData?.title}
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      style={
+                        {
+                          ...gridSkeletonMultipleLines as React.CSSProperties,
+                          ...description as React.CSSProperties
+                        }
+                      }
+                    >
+                      {
+                        isFetching ? (
+                          <>
+                            <Skeleton variant="text" width="100%" height="35" />
+                            <Skeleton variant="text" width="80%" height="35" />
+                          </>
+                        ) :
+                          <Typography variant="body1">{myData?.coverLetter}</Typography>
+                      }
+                    </Grid>
+                  </Grid>
+                  {/* <Button justIcon link >
                 <i className={"fab fa-twitter"} />
               </Button>
               <Button justIcon link>
@@ -83,32 +120,15 @@ const VolunteerProfile: React.FC<Props> = () => {
               <Button justIcon link >
                 <i className={"fab fa-facebook"} />
               </Button> */}
-                  </div>
+                  {/* </div> */}
                   <div>
-                    <p>
+
+                    {/* <p>
                       An artist of considerable range, Chet Faker — the name taken by
                       Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
                       and records all of his own music, giving it a warm, intimate
                       feel with a solid groove structure.
-                    </p>
-                    <p>
-                      An artist of considerable range, Chet Faker — the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                      and records all of his own music, giving it a warm, intimate
-                      feel with a solid groove structure.
-                    </p>
-                    <p>
-                      An artist of considerable range, Chet Faker — the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                      and records all of his own music, giving it a warm, intimate
-                      feel with a solid groove structure.
-                    </p>
-                    <p>
-                      An artist of considerable range, Chet Faker — the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                      and records all of his own music, giving it a warm, intimate
-                      feel with a solid groove structure.
-                    </p>
+                    </p> */}
                   </div>
                 </DivProfile>
               </GridItem>

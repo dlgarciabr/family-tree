@@ -43,6 +43,14 @@ export interface User extends IndexedType {
   lastName?: string;
   email?: string;
   password?: string;
-  phone?: string;
   userStatus?: number;
+}
+
+export interface Volunteer extends User {
+  preferedSupportLanguages: string;
+  preferedSupportType: string;
+  title?: string;
+  coverLetter?: string;
+  photo?: string;
+  phone?: string;
 }
