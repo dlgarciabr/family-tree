@@ -1,65 +1,76 @@
-import React from "react";
+import React from 'react';
 import { styled } from '@mui/material/styles';
 
 import { Props as GlobalProps } from 'types';
 import { parallax, filter as filterClass, small as smallClass } from 'assets/jss/components/parallax';
 
 interface Props extends GlobalProps {
-  filter: boolean,
-  style?: string,
   image: string,
-  small: boolean
+  filter?: boolean,
+  style?: string,
+  small?: boolean
+}
+
+const defaultProps = {
+  filter: true,
+  style: '',
+  small: true
 };
 
 const Parallax: React.FC<Props> = (props) => {
+  const {
+    filter,
+    children,
+    image,
+    small,
+    style
+  } = props;
+
+  const defaultScrollTop = window.pageYOffset / 3;
   let windowScrollTop;
   if (window.innerWidth >= 768) {
-    windowScrollTop = window.pageYOffset / 3;
+    windowScrollTop = defaultScrollTop;
   } else {
     windowScrollTop = 0;
   }
+
   const [transform, setTransform] = React.useState(
-    "translate3d(0," + windowScrollTop + "px,0)"
+    `translate3d(0,${windowScrollTop}px,0)`
   );
+
+  const resetTransform = () => {
+    setTransform(`translate3d(0,${defaultScrollTop}px,0)`);
+  };
+
   React.useEffect(() => {
     if (window.innerWidth >= 768) {
-      window.addEventListener("scroll", resetTransform);
+      window.addEventListener('scroll', resetTransform);
     }
     return function cleanup() {
       if (window.innerWidth >= 768) {
-        window.removeEventListener("scroll", resetTransform);
+        window.removeEventListener('scroll', resetTransform);
       }
     };
   });
-  const resetTransform = () => {
-    var windowScrollTop = window.pageYOffset / 3;
-    setTransform("translate3d(0," + windowScrollTop + "px,0)");
-  };
-  const { filter, children, style, image, small } = props;
-
-  // const parallaxClasses = classNames({
-  //   [classes.parallax]: true,
-  //   [classes.filter]: filter,
-  //   [classes.small]: small,
-  //   [className]: className !== undefined,
-  // });
 
   const DivParallax = styled('div')(() => ({
     ...parallax,
-    ...filterClass,
-    ...smallClass
+    ...(filter === true && filterClass),
+    ...(small === true && smallClass)
   }));
 
   return (
     <DivParallax
       style={{
-        backgroundImage: "url(" + image + ")",
-        transform: transform,
+        backgroundImage: `url(${image})`,
+        transform,
       }}
     >
       {children}
     </DivParallax>
   );
-}
+};
+
+Parallax.defaultProps = defaultProps;
 
 export default Parallax;

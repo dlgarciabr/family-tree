@@ -13,7 +13,8 @@ import {
   useSignupMutation,
   useLazyValidateTokenQuery,
   useLazyGetUserByIdQuery,
-  SigninApiResponse
+  SigninApiResponse,
+  ValidateTokenApiResponse
 } from 'services/volunteerHubApi';
 import { Routes } from 'components/AppRoutes';
 import useNotification from 'hooks/notificationHandler';
@@ -47,8 +48,8 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       case actions.USER_SIGNED_IN:
         return {
           ...state,
-          user: { ...action.data },
-          token: action.data.token
+          user: { ...action.payload.user },
+          token: action.payload.token
         };
       case actions.USER_SIGNED_UP:
         return {
@@ -71,9 +72,15 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
       fetchToken({ userSigninData: credentials })
         .then(async (payload: any) => {
           if (!payload.error) {
-            const fetchTokenResponse: SigninApiResponse = payload.data;
-            const user = await getUserById({ id: fetchTokenResponse.id }).unwrap();
-            dispatch({ type: actions.USER_SIGNED_IN, data: user });
+            const { id, token }: SigninApiResponse = payload.data;
+            const user = await getUserById({ id }).unwrap();
+            dispatch({
+              type: actions.USER_SIGNED_IN,
+              payload: {
+                user,
+                token
+              }
+            });
             sessionStorage.setItem(
               'credentials',
               JSON.stringify({ ...payload.data })
@@ -112,10 +119,17 @@ const AuthenticationProvider: React.FC<Props> = ({ children }) => {
         return;
       }
       const { token, id } = JSON.parse(storageCredentials);
-      const payload = await checkTokenValidity({ token }).unwrap();
+      const payload: ValidateTokenApiResponse = await checkTokenValidity({ token }).unwrap();
 
       if (payload && payload.valid) {
-        dispatch({ type: actions.USER_SIGNED_IN, data: { id, token } });
+        const user = await getUserById({ id }).unwrap();
+        dispatch({
+          type: actions.USER_SIGNED_IN,
+          payload: {
+            user,
+            token
+          }
+        });
         navigate(nextLocation);
       } else {
         dispatch({ type: actions.USER_LOGGED_OUT });

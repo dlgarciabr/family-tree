@@ -3,22 +3,25 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
-import { screen } from './utils/test-utils';
-import userEvent from '@testing-library/user-event';
 
-import { locales, getLocatedMessage } from 'utils/i18n';
+import { cleanup } from 'utils/test-utils';
 import { mswServer } from './__mocks__/msw-server';
 import { store } from './redux/reduxStore';
 import { volunteerHubApi } from './services/volunteerHubApi';
 
 beforeEach(() => {
   // console.info(location.href);
+  // window.history.pushState({}, "", "http://localhost:3000/");
+  // console.info(location.href);
+  // cleanup();
 });
 
-beforeAll(() => mswServer.listen({
-  onUnhandledRequest: 'error',
-  // onUnhandledRequest: 'bypass',
-}));
+beforeAll(() => {
+  mswServer.listen({
+    onUnhandledRequest: 'error',
+    // onUnhandledRequest: 'bypass',
+  })
+});
 
 afterEach(() => {
   mswServer.resetHandlers();

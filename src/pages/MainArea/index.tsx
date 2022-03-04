@@ -13,8 +13,8 @@ const MainArea: React.FC<Props> = () => {
   const navigate = useNavigate();
 
   const showMyProfile = () => {
-    const myId = 76;// TODO retrieve from app context
-    dispatch(myProfileCalled(myId));
+    // const myId = 76;// TODO retrieve from app context
+    // dispatch(myProfileCalled(myId));
     navigate(Routes.VOLUNTEER_PROFILE);
   };
 

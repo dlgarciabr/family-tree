@@ -7,7 +7,7 @@ const successLoginHandler = rest.post(`${baseUrl}/user/signin`, (req, res, ctx) 
   // console.info(msg);
   return res(
     ctx.json({
-      id: 4,
+      id: 76,
       token: '1567854363452345'
     }),
     ctx.status(200)
@@ -63,6 +63,17 @@ const successGetUserHandler = rest.get(`${baseUrl}/user/:id`, (req, res, ctx) =>
     ctx.status(200)
   );
 });
+
+export const createSuccessGetUserHandlerWithParams = (responseObject: any) => {
+  return rest.get(`${baseUrl}/user/:id`, (req, res, ctx) => {
+    // const msg = `[successGetUserHandlerWithParams] MSW mocked GET called with url: ${req.url}`;
+    // console.info(msg);
+    return res(
+      ctx.json(responseObject),
+      ctx.status(200)
+    );
+  });
+};
 
 export const successHandlers = [
   successLoginHandler,

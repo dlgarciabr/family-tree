@@ -1,10 +1,10 @@
 import userEvent from "@testing-library/user-event";
-import { render, screen, navigateToHome } from './utils/test-utils';
+import { render, screen/*, navigateToHome*/ } from './utils/test-utils';
 import { locales, getLocatedMessage } from './utils/i18n';
 import App from './App';
 
 //global arrange
-const enHeaderTitle = getLocatedMessage(locales.EN.value, 'app.title');
+const enAppTitle = getLocatedMessage(locales.EN.value, 'app.title');
 
 describe("Language changing", () => {
   test("Change language to Spanish", async () => {
@@ -14,7 +14,7 @@ describe("Language changing", () => {
 
     render(<App />);
 
-    expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
+    expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
 
     //act
     const languageButton = screen.getByRole("button", {
@@ -42,7 +42,7 @@ describe("Language changing", () => {
 
     render(<App />);
 
-    expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
+    expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
 
     //act
     const languageButton = screen.getByRole("button", {
@@ -68,7 +68,7 @@ describe("Language changing", () => {
 
     render(<App />);
 
-    expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
+    expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
 
     //act
     const languageButton = screen.getByRole("button", {
@@ -94,7 +94,7 @@ describe("Language changing", () => {
 
     render(<App />);
 
-    expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
+    expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
 
     const languageButton = screen.getByRole("button", {
       name: 'language-button'
@@ -120,7 +120,7 @@ describe("Language changing", () => {
     userEvent.click(enLanguageButton);
 
     //assert
-    expect(await screen.findByText(enHeaderTitle)).toBeInTheDocument();
+    expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
   });
 
   // TODO:implement
@@ -130,14 +130,13 @@ describe("Language changing", () => {
 describe("Global behavior", () => {
   test('Show nav bar when access a secured page', async () => {
     //arrange
-    const mainAreaTitle = getLocatedMessage(locales.EN.value, 'main.area.title');
     const myProfileTitle = getLocatedMessage(locales.EN.value, 'myprofile.title');
     const myProfileButtonLabel = getLocatedMessage(locales.EN.value, 'myprofile.button.label');
     window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
     render(<App />);
 
     expect(
-      await screen.findByText(enHeaderTitle)
+      await screen.findByText(enAppTitle)
     ).toBeInTheDocument();
 
     //act
@@ -151,10 +150,10 @@ describe("Global behavior", () => {
     ).toBeInTheDocument();
 
     expect(
-      await screen.findByText(enHeaderTitle)
+      await screen.findByText(enAppTitle)
     ).toBeInTheDocument();
 
     //reset navigation
-    await navigateToHome();
+    // await navigateToHome();
   });
 });

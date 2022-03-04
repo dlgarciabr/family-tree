@@ -1,35 +1,43 @@
 import { setupServer } from 'msw/node';
-import { matchRequestUrl, MockedRequest } from 'msw';
+import { matchRequestUrl, MockedRequest, RestHandler } from 'msw';
 import { successHandlers } from './msw-handlers';
 
 const mswServer = setupServer(...successHandlers);
 
 const waitForRequest = (method: string, url: string): Promise<MockedRequest> => {
-    let requestId = '';
-    return new Promise((resolve, reject) => {
-        mswServer.events.on('request:start', (req: MockedRequest) => {
-            const matchesMethod = req.method.toLowerCase() === method.toLowerCase()
-            const matchesUrl = matchRequestUrl(req.url, url)
-            if (matchesMethod && matchesUrl) {
-                requestId = req.id
-            }
-        })
-        mswServer.events.on('request:match', (req: MockedRequest) => {
-            if (req.id === requestId) {
-                resolve(req)
-            }
-        })
-        mswServer.events.on('request:unhandled', (req: MockedRequest) => {
-            if (req.id === requestId) {
-                reject(
-                    new Error(`The ${req.method} ${req.url.href} request was unhandled.`),
-                )
-            }
-        })
+  let requestId = '';
+  return new Promise((resolve, reject) => {
+    mswServer.events.on('request:start', (req: MockedRequest) => {
+      const matchesMethod = req.method.toLowerCase() === method.toLowerCase()
+      const matchesUrl = matchRequestUrl(req.url, url)
+      if (matchesMethod && matchesUrl) {
+        requestId = req.id
+      }
     })
+    mswServer.events.on('request:match', (req: MockedRequest) => {
+      if (req.id === requestId) {
+        resolve(req)
+      }
+    })
+    mswServer.events.on('request:unhandled', (req: MockedRequest) => {
+      if (req.id === requestId) {
+        reject(
+          new Error(`The ${req.method} ${req.url.href} request was unhandled.`),
+        )
+      }
+    })
+  })
+}
+
+const replaceHandler = (newHandler: RestHandler) => {
+  mswServer.use(
+    ...successHandlers.filter(handler => handler.info.path != newHandler.info.path),
+    newHandler
+  );
 }
 
 export {
-    mswServer,
-    waitForRequest
+  mswServer,
+  waitForRequest,
+  replaceHandler
 }
