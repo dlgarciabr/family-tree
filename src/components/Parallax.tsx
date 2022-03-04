@@ -7,13 +7,11 @@ import { parallax, filter as filterClass, small as smallClass } from 'assets/jss
 interface Props extends GlobalProps {
   image: string,
   filter?: boolean,
-  style?: string,
   small?: boolean
 }
 
 const defaultProps = {
   filter: true,
-  style: '',
   small: true
 };
 
@@ -22,8 +20,7 @@ const Parallax: React.FC<Props> = (props) => {
     filter,
     children,
     image,
-    small,
-    style
+    small
   } = props;
 
   const defaultScrollTop = window.pageYOffset / 3;

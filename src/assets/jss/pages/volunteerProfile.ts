@@ -1,5 +1,4 @@
 import { CSSObject } from '@emotion/react';
-import { title as globalTitle } from 'assets/jss';
 
 const main: CSSObject = {
   background: '#FFFFFF',
@@ -19,6 +18,14 @@ const faceImg: CSSObject = {
   // maxWidth: '100%',
   height: 'auto'
 };
+const imageDiv: CSSObject = {
+  textAlign: 'left',
+  marginBottom: '-140px',
+  '@media (max-width: 768px)': {
+    textAlign: 'center',
+    marginBottom: '-80px',
+  }
+};
 const profileDiv: CSSObject = {
   textAlign: 'center',
   '& img': {
@@ -28,19 +35,11 @@ const profileDiv: CSSObject = {
     transform: 'translate3d(0, -50%, 0)',
   }
 };
-const title: CSSObject = {
-  ...globalTitle,
-  display: 'inline-block',
-  position: 'relative',
-  marginTop: '30px',
-  minHeight: '32px',
-  textDecoration: 'none',
-};
 
 export {
   main,
   mainRaised,
+  imageDiv,
   faceImg,
-  profileDiv,
-  title
+  profileDiv
 };

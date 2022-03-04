@@ -17,12 +17,13 @@ import { container } from 'assets/jss';
 import {
   faceImg,
   profileDiv,
-  title,
+  imageDiv,
   main,
   mainRaised
 } from 'assets/jss/pages/volunteerProfile';
 import Parallax from 'components/Parallax';
 import { AuthenticationContext } from 'context/Authentication';
+import { Typography } from '@mui/material';
 
 const VolunteerProfile: React.FC<Props> = () => {
   const { id } = useSelector((state: RootState) => state.myProfile);
@@ -34,8 +35,8 @@ const VolunteerProfile: React.FC<Props> = () => {
   // const [getUserById, state] = useLazyGetUserByIdQuery();
 
   const ImgFace = styled('img')(() => (faceImg));
+  const DivImage = styled('div')(() => (imageDiv));
   const DivProfile = styled('div')(() => (profileDiv));
-  const H3Title = styled('h3')(() => (title));
   const DivContainer = styled('div')(() => (container));
   const DivMain = styled('div')(() => ({
     ...main,
@@ -43,14 +44,14 @@ const VolunteerProfile: React.FC<Props> = () => {
   }));
 
   useEffect(() => {
-    (
-      async () => {
-        if (id) {
-          // await getUserById({ id });
-          // TODO: send to redux store
-        }
-      }
-    )();
+    // (
+    // async () => {
+    //   if (id) {
+    // await getUserById({ id });
+    // TODO: send to redux store
+    //   }
+    // }
+    // )();
   }, []);
 
   return (
@@ -63,13 +64,15 @@ const VolunteerProfile: React.FC<Props> = () => {
         <div>
           <DivContainer>
             <GridContainer justifyContent="center">
-              <GridItem sm={12} md={6}>
+              <GridItem>
                 <DivProfile>
-                  <div>
+                  <DivImage>
                     <ImgFace src={profile} alt="..." />
-                  </div>
+                  </DivImage>
                   <div>
-                    <H3Title>{user?.firstName} {user?.lastName}</H3Title>
+                    <Typography variant="h4">
+                      {user?.firstName} {user?.lastName}
+                    </Typography>
                     <h6>DESIGNER</h6>
                     {/* <Button justIcon link >
                 <i className={"fab fa-twitter"} />
@@ -81,35 +84,35 @@ const VolunteerProfile: React.FC<Props> = () => {
                 <i className={"fab fa-facebook"} />
               </Button> */}
                   </div>
+                  <div>
+                    <p>
+                      An artist of considerable range, Chet Faker — the name taken by
+                      Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
+                      and records all of his own music, giving it a warm, intimate
+                      feel with a solid groove structure.
+                    </p>
+                    <p>
+                      An artist of considerable range, Chet Faker — the name taken by
+                      Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
+                      and records all of his own music, giving it a warm, intimate
+                      feel with a solid groove structure.
+                    </p>
+                    <p>
+                      An artist of considerable range, Chet Faker — the name taken by
+                      Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
+                      and records all of his own music, giving it a warm, intimate
+                      feel with a solid groove structure.
+                    </p>
+                    <p>
+                      An artist of considerable range, Chet Faker — the name taken by
+                      Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
+                      and records all of his own music, giving it a warm, intimate
+                      feel with a solid groove structure.
+                    </p>
+                  </div>
                 </DivProfile>
               </GridItem>
             </GridContainer>
-            <div>
-              <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.
-              </p>
-              <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.
-              </p>
-              <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.
-              </p>
-              <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.
-              </p>
-            </div>
           </DivContainer>
         </div>
       </DivMain>

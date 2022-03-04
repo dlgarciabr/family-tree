@@ -32,8 +32,6 @@ const small: CSSObject = {
   height: '380px',
 };
 
-
-
 export {
   parallax,
   filter,
