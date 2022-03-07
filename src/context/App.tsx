@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 
-import { getUserLanguage, loadLocaleMessages } from '../utils/i18n';
+import { getUserLanguage, locales } from '../utils/i18n';
 import { Props, AppContextType, AppSettings } from '../types';
 
 export const actions = {
@@ -11,11 +11,11 @@ export const actions = {
 };
 
 const userLanguage = getUserLanguage();
+const userLocale = Object.values(locales).find((locale) => locale.value === userLanguage);
 
 const initialAppSettings: AppSettings = {
   loadInitialData: true,
-  locale: userLanguage,
-  messages: loadLocaleMessages(userLanguage)
+  locale: userLocale || locales.EN
 };
 
 export const AppContext = createContext<AppContextType>({} as AppContextType);
@@ -29,7 +29,6 @@ const AppProvider: React.FC<Props> = ({ children }) => {
       case actions.LOCALE_CHANGED:
         return {
           ...state,
-          messages: action.messages,
           locale: action.locale
         };
       default:

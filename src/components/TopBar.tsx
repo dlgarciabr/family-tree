@@ -19,10 +19,10 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { Props } from 'types';
+import { Locale, Props } from 'types';
 import { AppContext, actions } from 'context/App';
 import { AuthenticationContext } from 'context/Authentication';
-import { loadLocaleMessages, locales } from 'utils/i18n';
+import { locales } from 'utils/i18n';
 import { Routes } from 'components/AppRoutes';
 
 const TopBar: React.FC<Props> = () => {
@@ -38,13 +38,11 @@ const TopBar: React.FC<Props> = () => {
     state: { user }
   } = React.useContext(AuthenticationContext);
 
-  const options = Object.values(locales);
+  const localeList = Object.values(locales);
 
-  const changeLanguage = (newLocale: string) => {
-    const newMessages = loadLocaleMessages(newLocale);
+  const changeLanguage = (newLocale: Locale) => {
     contextDispatch({
       type: actions.LOCALE_CHANGED,
-      messages: newMessages,
       locale: newLocale
     });
   };
@@ -55,7 +53,7 @@ const TopBar: React.FC<Props> = () => {
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    locale: string,
+    locale: Locale,
   ) => {
     changeLanguage(locale);
     setOpenLanguageOptions(false);
@@ -73,7 +71,7 @@ const TopBar: React.FC<Props> = () => {
   };
 
   return (
-    user ?
+    user ? (
       <AppBar position="static">
         <Toolbar>
           <Grid container spacing={0}>
@@ -87,7 +85,7 @@ const TopBar: React.FC<Props> = () => {
             <Grid item xs={4} md={3} lg={2}>
               <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button" fullWidth>
                 <Button style={{ minWidth: 150 }}>
-                  {options.find((option) => option.value === selectedLocale)?.label}
+                  {localeList.find((locale) => locale === selectedLocale)?.name}
                 </Button>
                 <Button
                   type="button"
@@ -119,14 +117,14 @@ const TopBar: React.FC<Props> = () => {
                       <Paper>
                         <ClickAwayListener onClickAway={handleClose}>
                           <MenuList id="split-button-menu">
-                            {options.map((option) => (
+                            {localeList.map((locale) => (
                               <MenuItem
-                                key={option.value}
-                                disabled={option.value === selectedLocale}
-                                selected={option.value === selectedLocale}
-                                onClick={(event) => handleMenuItemClick(event, option.value)}
+                                key={locale.value}
+                                disabled={locale === selectedLocale}
+                                selected={locale === selectedLocale}
+                                onClick={(event) => handleMenuItemClick(event, locale)}
                               >
-                                {option.label}
+                                {locale.name}
                               </MenuItem>
                             ))}
                           </MenuList>
@@ -143,8 +141,7 @@ const TopBar: React.FC<Props> = () => {
           </Grid>
         </Toolbar>
       </AppBar>
-      :
-      null
+    ) : null
   );
 };
 export default React.memo(TopBar);

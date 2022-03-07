@@ -2,45 +2,36 @@ import English from 'lang/en.json';
 import Spanish from 'lang/es.json';
 import BrazillianPortuguese from 'lang/pt-br.json';
 import Portuguese from 'lang/pt.json';
+import { Locale } from 'types';
 
-export const locales: { [key: string]: { value: string, label: string } } = {
+export const locales: Record<string, Locale> = {
   EN: {
     value: 'en',
-    label: 'English'
+    name: 'English',
+    messages: English,
+    getMessage(key: string) { return this.messages[key]; }
   },
   ES: {
     value: 'es',
-    label: 'Español'
+    name: 'Español',
+    messages: Spanish,
+    getMessage(key: string) { return this.messages[key]; }
   },
   PT: {
     value: 'pt',
-    label: 'Português'
+    name: 'Português',
+    messages: Portuguese,
+    getMessage(key: string) { return this.messages[key]; }
   },
   PT_BR: {
     value: 'pt-br',
-    label: 'Português Br'
+    name: 'Português Br',
+    messages: BrazillianPortuguese,
+    getMessage(key: string) { return this.messages[key]; }
   },
 };
 
 export const getUserLanguage = (): string => {
   const userLang: string = window.navigator.language;
   return userLang.split('-')[0];
-};
-
-export const loadLocaleMessages = (locale: string): Record<string, string> => {
-  switch (locale) {
-    case locales.PT_BR.value:
-      return BrazillianPortuguese;
-    case locales.ES.value:
-      return Spanish;
-    case locales.PT.value:
-      return Portuguese;
-    default:
-      return English;
-  }
-};
-
-export const getLocatedMessage = (locale: string, key: string) => {
-  const messages = loadLocaleMessages(locale);
-  return messages[key];
 };

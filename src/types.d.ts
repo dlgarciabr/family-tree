@@ -6,10 +6,16 @@ export interface IndexedType {
   [key: string]: string;
 }
 
+export interface Locale {
+  value: string;
+  name: string;
+  messages: Record<string, string>;
+  getMessage: (key: string) => string;
+}
+
 export interface AppSettings {
   loadInitialData: boolean;
-  locale: string;
-  messages: Record<string, string>;
+  locale: Locale;
 }
 
 export interface AppContextType {

@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '../../utils/test-utils';
-import { locales, getLocatedMessage } from '../../utils/i18n';
+import { locales } from '../../utils/i18n';
 import { waitForRequest } from '../../__mocks__/msw-server';
 
 import App from '../../App';
@@ -8,15 +8,15 @@ import App from '../../App';
 const baseUrl = process.env.REACT_APP_API_URL;
 
 describe('Sign up process', () => {
-  const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app.title');
-  const firstNameLabel = getLocatedMessage(locales.EN.value, 'signup.first.name.label');
-  const lastNameLabel = getLocatedMessage(locales.EN.value, 'signup.last.name.label');
-  const emailLabel = getLocatedMessage(locales.EN.value, 'signup.email.label');
+  const mainAreaHeaderTitle = locales.EN.getMessage('app.title');
+  const firstNameLabel = locales.EN.getMessage('signup.first.name.label');
+  const lastNameLabel = locales.EN.getMessage('signup.last.name.label');
+  const emailLabel = locales.EN.getMessage('signup.email.label');
   const passwordId = 'password';
   const confirmPasswordId = 'confirmPassword';
-  const signUpButtonLabel = getLocatedMessage(locales.EN.value, 'signup.button.label');
-  const submitButtonLabel = getLocatedMessage(locales.EN.value, 'default.submit.button.label');
-  const backButtonLabel = getLocatedMessage(locales.EN.value, 'default.back.button.label');
+  const signUpButtonLabel = locales.EN.getMessage('signup.button.label');
+  const submitButtonLabel = locales.EN.getMessage('default.submit.button.label');
+  const backButtonLabel = locales.EN.getMessage('default.back.button.label');
 
   test('User complete the sign up and access main page', async () => {
     //arrange
@@ -76,11 +76,11 @@ describe('Sign up process', () => {
 
   test('Fail on doing sign up with incomplete form', async () => {
     //arrange
-    const firstNameRequiredMessage = getLocatedMessage(locales.EN.value, 'signup.first.name.required.message');
-    const lastNameRequiredMessage = getLocatedMessage(locales.EN.value, 'signup.last.name.required.message');
-    const emailRequiredMessage = getLocatedMessage(locales.EN.value, 'signup.email.required.message');
-    const passwordRequiredMessage = getLocatedMessage(locales.EN.value, 'signup.password.required.message');
-    const confirmPasswordRequiredMessage = getLocatedMessage(locales.EN.value, 'signup.confirmPassword.required.message');
+    const firstNameRequiredMessage = locales.EN.getMessage('signup.first.name.required.message');
+    const lastNameRequiredMessage = locales.EN.getMessage('signup.last.name.required.message');
+    const emailRequiredMessage = locales.EN.getMessage('signup.email.required.message');
+    const passwordRequiredMessage = locales.EN.getMessage('signup.password.required.message');
+    const confirmPasswordRequiredMessage = locales.EN.getMessage('signup.confirmPassword.required.message');
 
     render(<App />);
 
@@ -123,7 +123,7 @@ describe('Sign up process', () => {
   test('Fail on doing sign up with wrong email field', async () => {
     //arrange
     const email = 'XXXXXXXXX';
-    const emailInvalidMessage = getLocatedMessage(locales.EN.value, 'signup.email.invalid.message');
+    const emailInvalidMessage = locales.EN.getMessage('signup.email.invalid.message');
 
     render(<App />);
 
@@ -153,7 +153,7 @@ describe('Sign up process', () => {
   test('Fail on doing sign up with wrong confir password field', async () => {
     //arrange
     const password = 'xxxxxxxx';
-    const passwordNotMatchMessage = getLocatedMessage(locales.EN.value, 'signup.confirmPassword.not.match.message');
+    const passwordNotMatchMessage = locales.EN.getMessage('signup.confirmPassword.not.match.message');
 
     render(<App />);
 

@@ -3,15 +3,14 @@ import { IntlProvider } from 'react-intl';
 
 import { AppContext } from 'context/App';
 import AuthenticationProvider from 'context/Authentication';
-
 import { Props } from 'types';
-import notifierEffect from './utils/notifierEffect';
+import notifierEffect from 'utils/notifierEffect';
 import TopBar from 'components/TopBar';
 
 const App: React.FC<Props> = ({ children }) => {
   const {
     appSettings: {
-      messages, locale
+      locale
     }
   } = React.useContext(AppContext);
 
@@ -19,8 +18,8 @@ const App: React.FC<Props> = ({ children }) => {
 
   return (
     <IntlProvider
-      locale={locale}
-      messages={messages}
+      locale={locale.value}
+      messages={locale.messages}
     >
       <AuthenticationProvider>
         <div className="App">

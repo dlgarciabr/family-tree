@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor/*, navigateToHome*/ } from 'utils/test-utils';
-import { locales, getLocatedMessage } from 'utils/i18n';
+import { locales } from 'utils/i18n';
 import { mswServer, waitForRequest } from '__mocks__/msw-server';
 import {
   deniedLoginHandler,
@@ -12,9 +12,9 @@ import App from "App";
 const baseUrl = process.env.REACT_APP_API_URL;
 
 describe("Sign in process", () => {
-  const mainAreaHeaderTitle = getLocatedMessage(locales.EN.value, 'app.title');
-  const signInTitle = getLocatedMessage(locales.EN.value, 'signin.title');
-  const signOutLabel = getLocatedMessage(locales.EN.value, 'signout.button.label');
+  const mainAreaHeaderTitle = locales.EN.getMessage('app.title');
+  const signInTitle = locales.EN.getMessage('signin.title');
+  const signOutLabel = locales.EN.getMessage('signout.button.label');
   const emailLabel = "Email";
   const passwordId = "password";
   const buttonLabel = "Sign In";
@@ -44,7 +44,7 @@ describe("Sign in process", () => {
   test("Fail on doing login with wrong credentials", async () => {
     //arrange
     mswServer.use(deniedLoginHandler);
-    const wrongCredentialsMessage = getLocatedMessage(locales.EN.value, 'signin.wrong.credentials.message');
+    const wrongCredentialsMessage = locales.EN.getMessage('signin.wrong.credentials.message');
     const pendingRequest = waitForRequest('POST', `${baseUrl}/user/signin`);
 
     render(<App />);
@@ -158,8 +158,8 @@ describe("Sign in process", () => {
   test("Success on opening a secured volunteer profile page after session restored from token", async () => {
     // arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const myProfileTitle = getLocatedMessage(locales.EN.value, 'myprofile.title');
-    const myProfileButtonLabel = getLocatedMessage(locales.EN.value, 'myprofile.button.label');
+    const myProfileTitle = locales.EN.getMessage('myprofile.title');
+    const myProfileButtonLabel = locales.EN.getMessage('myprofile.button.label');
 
     // act
     render(<App />);

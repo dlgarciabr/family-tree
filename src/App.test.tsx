@@ -1,16 +1,16 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen/*, navigateToHome*/ } from './utils/test-utils';
-import { locales, getLocatedMessage } from './utils/i18n';
+import { locales } from './utils/i18n';
 import App from './App';
 
 //global arrange
-const enAppTitle = getLocatedMessage(locales.EN.value, 'app.title');
+const enAppTitle = locales.EN.messages['app.title'];
 
 describe("Language changing", () => {
   test("Change language to Spanish", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = getLocatedMessage(locales.ES.value, 'app.title');
+    const expectedHeaderTitle = locales.ES.messages['app.title'];
 
     render(<App />);
 
@@ -38,7 +38,7 @@ describe("Language changing", () => {
   test("Change language to Portuguese", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = getLocatedMessage(locales.PT.value, 'app.title');
+    const expectedHeaderTitle = locales.PT.messages['app.title'];
 
     render(<App />);
 
@@ -64,7 +64,7 @@ describe("Language changing", () => {
   test("Change language to Brazilian Portuguese", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app.title');
+    const expectedHeaderTitle = locales.PT_BR.messages['app.title'];
 
     render(<App />);
 
@@ -90,7 +90,7 @@ describe("Language changing", () => {
   test("Change language to Portuguese and then to English", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const ptbrHeaderTitle = getLocatedMessage(locales.PT_BR.value, 'app.title');
+    const ptbrHeaderTitle = locales.PT_BR.messages['app.title'];
 
     render(<App />);
 
@@ -130,8 +130,8 @@ describe("Language changing", () => {
 describe("Global behavior", () => {
   test('Show nav bar when access a secured page', async () => {
     //arrange
-    const myProfileTitle = getLocatedMessage(locales.EN.value, 'myprofile.title');
-    const myProfileButtonLabel = getLocatedMessage(locales.EN.value, 'myprofile.button.label');
+    const myProfileTitle = locales.EN.messages['myprofile.title'];
+    const myProfileButtonLabel = locales.EN.messages['myprofile.button.label'];
     window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
     render(<App />);
 
