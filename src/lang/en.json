@@ -1,5 +1,5 @@
 {
-  "app-title": "Volunteer Portal",
+  "app.title": "Volunteer Portal",
   "message.success": "Operation sucessfull",
   "message.error": "An error has occurred!",
   "default.submit.button.label": "Send",
@@ -22,5 +22,13 @@
   "signup.password.required.message": "Password is required",
   "signup.confirmPassword.label": "Password confirmation",
   "signup.confirmPassword.required.message": "Password confirmation is required",
-  "signup.confirmPassword.not.match.message": "Passwords don't match"
+  "signup.confirmPassword.not.match.message": "Passwords don't match",
+  "main.area.title": "Main area",
+  "myprofile.button.label": "View My profile",
+  "myprofile.title": "My profile",
+  "myprofile.preferedSupport.label": "Prefer to help",
+  "myprofile.preferedLanguages.label": "Prefered languages",
+  "prefered.support.type.presential": "presential",
+  "prefered.support.type.remote": "remote",
+  "prefered.support.type.both": "both"
 }

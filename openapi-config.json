@@ -1,5 +1,5 @@
 {
-  "schemaFile": "./dlgarciabr-volunteerhub-api-1.0.0-resolved.json",
+  "schemaFile": "https://api.swaggerhub.com/apis/dlgarciabr/volunteerhub-api/1.0.0",
   "apiFile": "./src/services/base.ts",
   "apiImport": "baseApi",
   "outputFile": "./src/services/volunteerHubApi.ts",

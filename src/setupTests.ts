@@ -4,18 +4,24 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
+import { cleanup } from 'utils/test-utils';
 import { mswServer } from './__mocks__/msw-server';
-import { store } from './utils/reduxStore';
+import { store } from './redux/reduxStore';
 import { volunteerHubApi } from './services/volunteerHubApi';
 
 beforeEach(() => {
   // console.info(location.href);
+  // window.history.pushState({}, "", "http://localhost:3000/");
+  // console.info(location.href);
+  // cleanup();
 });
 
-beforeAll(() => mswServer.listen({
-  onUnhandledRequest: 'error',
-  // onUnhandledRequest: 'bypass',
-}));
+beforeAll(() => {
+  mswServer.listen({
+    onUnhandledRequest: 'error',
+    // onUnhandledRequest: 'bypass',
+  })
+});
 
 afterEach(() => {
   mswServer.resetHandlers();

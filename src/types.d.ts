@@ -2,15 +2,20 @@ export interface Props {
   children?: JSX.Element | string;
 };
 
-
 export interface IndexedType {
   [key: string]: string;
 }
 
+export interface Locale {
+  value: string;
+  name: string;
+  messages: Record<string, string>;
+  getMessage: (key: string) => string;
+}
+
 export interface AppSettings {
   loadInitialData: boolean;
-  locale: string;
-  messages: Record<string, string>;
+  locale: Locale;
 }
 
 export interface AppContextType {
@@ -19,8 +24,8 @@ export interface AppContextType {
 }
 
 export interface AuthContextState {
-  user: User | null;
-  token: string | null;
+  user?: User;
+  token?: string;
 }
 
 export interface AuthContextType {
@@ -38,12 +43,23 @@ export interface AuthCredentials extends IndexedType {
   password: string;
 }
 
+//TODO review to change fields to required
 export interface User extends IndexedType {
   id?: number;
   firstName?: string;
   lastName?: string;
   email?: string;
   password?: string;
-  phone?: string;
   userStatus?: number;
 }
+
+export interface Volunteer extends User {
+  preferedSupportLanguages: string;
+  preferedSupportType: PreferedSupportType;
+  title?: string;
+  coverLetter?: string;
+  photo?: string;
+  phone?: string;
+}
+
+export type PreferedSupportType = 'PRESENTIAL' | 'REMOTE' | 'BOTH';

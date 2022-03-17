@@ -1,29 +1,29 @@
-import { render as originalRender } from '@testing-library/react';
+import { render as originalRender, screen, waitFor } from '@testing-library/react';
+import userEvent from "@testing-library/user-event";
 import { Provider } from 'react-redux'
 import { SnackbarProvider } from 'notistack';
 import { BrowserRouter } from "react-router-dom";
 
+// import { locales, getLocatedMessage } from 'utils/i18n';
 import AppProvider from '../context/App';
-import AuthenticationProvider from '../context/Authentication';
-import App from '../views/App';
+import App from '../App';
 import { Props } from '../types';
-import { store } from './reduxStore';
+import { store } from '../redux/reduxStore';
+import AppRoutes from 'components/AppRoutes';
 
 const Providers = ({ children }: Props) => {
-  const isChildrenAppComponent = ((children as any).type as any).type === (App as any).type;
+  const isAppChildrenComponent = ((children as any).type as any).type === (App as any).type;
   return (
     <BrowserRouter>
       <Provider store={store}>
         <SnackbarProvider maxSnack={3}>
-          <AuthenticationProvider>
-            <AppProvider>
-              {
-                isChildrenAppComponent ?
-                  children :
-                  <App>{children}</App>
-              }
-            </AppProvider>
-          </AuthenticationProvider>
+          <AppProvider>
+            {
+              isAppChildrenComponent ?
+                <App><AppRoutes /></App> :
+                <App>{children}</App>
+            }
+          </AppProvider>
         </SnackbarProvider>
       </Provider>
     </BrowserRouter>
@@ -33,6 +33,17 @@ const Providers = ({ children }: Props) => {
 const customRender = (ui: any, options?: any) =>
   originalRender(ui, { wrapper: Providers, ...options });
 
+// const navigateToHome = async () => {
+//   const appTitle = getLocatedMessage(locales.EN.value, 'app.title');
+//   await waitFor(() =>
+//     expect(
+//       screen.queryByRole('link', { name: appTitle })
+//     ).toBeInTheDocument()
+//   );
+//   const homeButton = screen.getByRole('link', { name: appTitle });
+//   userEvent.click(homeButton);
+// }
+
 export * from "@testing-library/react";
 
-export { customRender as render };
+export { customRender as render/*, navigateToHome*/ };

@@ -71,9 +71,11 @@
   },
   "jest": {
     "testMatch": [
+      "<rootDir>/src/*.test.{ts,tsx}",
       "<rootDir>/src/**/**/test.{ts,tsx}"
     ],
     "collectCoverageFrom": [
+      "<rootDir>/src/*.{ts,tsx}",
       "<rootDir>/src/**/*.{ts,tsx}",
       "<rootDir>/src/**/**/*.{ts,tsx}",
       "!src/index.tsx",
