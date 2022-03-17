@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { styled } from '@mui/material/styles';
 
-import { PreferedSupportType, Props } from 'types';
+import { Props } from 'types';
 
 import {
   useLazyGetVolunteerByIdQuery
@@ -113,7 +113,16 @@ const VolunteerProfile: React.FC<Props> = () => {
                       {
                         isFetching || !myData ?
                           <Skeleton variant="text" width="100px" height="35" /> :
-                          <FormattedMessage id={`prefered.support.type.${myData?.preferedSupportType.toLocaleLowerCase()}`} />
+                          (
+                            <FormattedMessage
+                              id={
+                                `prefered.support.type.${myData?.preferedSupportType ?
+                                  myData?.preferedSupportType.toLocaleLowerCase() :
+                                  ''
+                                }`
+                              }
+                            />
+                          )
                       }
                       <br />
                       <FormattedMessage id="myprofile.preferedLanguages.label" />:

@@ -25,16 +25,24 @@ describe('Volunteer profile management', () => {
     const lastName = 'Stone';
     const title = 'Singer';
     const coverLetter = 'Like to sing';
+    const preferedSupportType = locales.EN.getMessage('prefered.support.type.remote');
+    const preferedSupportLanguages = 'ru, jp';
+    const email = 'abc@gmailtech.pt';
+    const phone = '910933252';
 
     const successGetUserHandler = createSuccessGetUserHandler({
       id,
       firstName,
-      lastName
+      lastName,
+      email
     });
 
     const successGetVolunteerHandler = createSuccessGetVolunteerHandler({
       title,
-      coverLetter
+      coverLetter,
+      preferedSupportType: 'REMOTE',
+      preferedSupportLanguages,
+      phone
     });
 
     addOrReplaceHandlers(
@@ -60,9 +68,10 @@ describe('Volunteer profile management', () => {
     expect(screen.getByText(`${firstName} ${lastName}`)).toBeInTheDocument();
     expect(await screen.findByText(title)).toBeInTheDocument();
     expect(await screen.findByText(coverLetter)).toBeInTheDocument();
-
-    //reset navigation
-    //await navigateToHome();
+    expect(await screen.findByText(preferedSupportType, { exact: false })).toBeInTheDocument();
+    expect(await screen.findByText(preferedSupportLanguages, { exact: false })).toBeInTheDocument();
+    expect(await screen.findByText(email, { exact: false })).toBeInTheDocument();
+    expect(await screen.findByText(phone, { exact: false })).toBeInTheDocument();
   });
 });
 
