@@ -73,5 +73,16 @@ describe('Volunteer profile management', () => {
     expect(await screen.findByText(email, { exact: false })).toBeInTheDocument();
     expect(await screen.findByText(phone, { exact: false })).toBeInTheDocument();
   });
+
+  test('Show a random volunteer profile page', async () => {
+    //arrange 
+    window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
+
+    //act 
+
+    //assert
+
+    expect(true).toBeFalsy();
+  });
 });
 
