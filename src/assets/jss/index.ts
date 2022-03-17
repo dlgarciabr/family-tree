@@ -33,8 +33,13 @@ const gridSkeletonMultipleLines = {
   flexDirection: 'column'
 };
 
+const width100 = {
+  width: '100%'
+}
+
 export {
   container,
   title,
-  gridSkeletonMultipleLines
+  gridSkeletonMultipleLines,
+  width100
 };

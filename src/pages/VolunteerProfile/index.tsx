@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { styled } from '@mui/material/styles';
 
-import { Props } from 'types';
+import { PreferedSupportType, Props } from 'types';
 
 import {
   useLazyGetVolunteerByIdQuery
@@ -74,7 +74,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                 <DivProfile>
                   <DivImage>
                     {
-                      isFetching ?
+                      isFetching || !myData ?
                         <Skeleton variant="circular" width={160} height={160} /> :
                         <ImgFace src={profile} alt="..." />
                     }
@@ -101,7 +101,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                       }
                     >
                       {
-                        isFetching ? (
+                        isFetching || !myData ? (
                           <>
                             <Skeleton variant="text" width="100%" height="35" />
                             <Skeleton variant="text" width="80%" height="35" />
@@ -109,27 +109,36 @@ const VolunteerProfile: React.FC<Props> = () => {
                         ) :
                           <Typography variant="body1">{myData?.coverLetter}</Typography>
                       }
+                      <FormattedMessage id="myprofile.preferedSupport.label" />:
+                      {
+                        isFetching || !myData ?
+                          <Skeleton variant="text" width="100px" height="35" /> :
+                          <FormattedMessage id={`prefered.support.type.${myData?.preferedSupportType.toLocaleLowerCase()}`} />
+                      }
+                      <br />
+                      <FormattedMessage id="myprofile.preferedLanguages.label" />:
+                      {
+                        isFetching || !myData ?
+                          <Skeleton variant="text" width="100px" height="35" /> :
+                          myData?.preferedSupportLanguages
+                      }
+                      <br />
+                      Email:
+                      {user?.email}
+                      Telefone:
+                      {myData?.phone}
                     </Grid>
                   </Grid>
                   {/* <Button justIcon link >
-                <i className={"fab fa-twitter"} />
-              </Button>
-              <Button justIcon link>
-                <i className={"fab fa-instagram"} />
-              </Button>
-              <Button justIcon link >
-                <i className={"fab fa-facebook"} />
-              </Button> */}
+                    <i className={"fab fa-twitter"} />
+                  </Button>
+                  <Button justIcon link>
+                    <i className={"fab fa-instagram"} />
+                  </Button>
+                  <Button justIcon link >
+                    <i className={"fab fa-facebook"} />
+                  </Button> */}
                   {/* </div> */}
-                  <div>
-
-                    {/* <p>
-                      An artist of considerable range, Chet Faker — the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                      and records all of his own music, giving it a warm, intimate
-                      feel with a solid groove structure.
-                    </p> */}
-                  </div>
                 </DivProfile>
               </GridItem>
             </GridContainer>

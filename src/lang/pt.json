@@ -25,5 +25,10 @@
   "signup.confirmPassword.not.match.message": "Passwords don't match",
   "main.area.title": "Main area",
   "myprofile.button.label": "View My profile",
-  "myprofile.title": "My profile"
+  "myprofile.title": "My profile",
+  "myprofile.preferedSupport.label": "Prefiro ajudar",
+  "myprofile.preferedLanguages.label": "Idiomas",
+  "prefered.support.type.presential": "presencial",
+  "prefered.support.type.remote": "remoto",
+  "prefered.support.type.both": "ambos"
 }

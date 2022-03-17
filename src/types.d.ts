@@ -24,8 +24,8 @@ export interface AppContextType {
 }
 
 export interface AuthContextState {
-  user: User | null;
-  token: string | null;
+  user?: User;
+  token?: string;
 }
 
 export interface AuthContextType {
@@ -43,6 +43,7 @@ export interface AuthCredentials extends IndexedType {
   password: string;
 }
 
+//TODO review to change fields to required
 export interface User extends IndexedType {
   id?: number;
   firstName?: string;
@@ -54,9 +55,11 @@ export interface User extends IndexedType {
 
 export interface Volunteer extends User {
   preferedSupportLanguages: string;
-  preferedSupportType: string;
+  preferedSupportType: PreferedSupportType;
   title?: string;
   coverLetter?: string;
   photo?: string;
   phone?: string;
 }
+
+export type PreferedSupportType = 'PRESENTIAL' | 'REMOTE' | 'BOTH';
