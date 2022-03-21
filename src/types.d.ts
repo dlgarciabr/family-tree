@@ -44,7 +44,7 @@ export interface AuthCredentials extends IndexedType {
 }
 
 //TODO review to change fields to required
-export interface User extends IndexedType {
+export interface User {
   id?: number;
   firstName?: string;
   lastName?: string;

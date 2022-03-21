@@ -12,7 +12,7 @@ export const Routes = {
   HOME: '/',
   SIGN_IN: '/signin',
   SIGN_UP: '/signup',
-  VOLUNTEER_PROFILE: '/volunteerProfile'
+  VOLUNTEER_PROFILE: '/volunteerProfile/'
 };
 
 const AppRoutes: React.FC<Props> = () => (
@@ -20,7 +20,7 @@ const AppRoutes: React.FC<Props> = () => (
     <Route path={Routes.SIGN_IN} key="SIGN_IN" element={<SignIn />} />
     <Route path={Routes.SIGN_UP} key="SIGN_UP" element={<SignUp />} />
     <Route path={Routes.HOME} key="HOME" element={<RequireAuth><MainArea /></RequireAuth>} />
-    <Route path={Routes.VOLUNTEER_PROFILE} key="VOLUNTEER_PROFILE" element={<RequireAuth><VolunteerProfile /></RequireAuth>} />
+    <Route path={`${Routes.VOLUNTEER_PROFILE}:id`} key="VOLUNTEER_PROFILE" element={<RequireAuth><VolunteerProfile /></RequireAuth>} />
   </ReactRoutes>
 );
 

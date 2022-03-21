@@ -6,7 +6,8 @@ import { styled } from '@mui/material/styles';
 import { Props } from 'types';
 
 import {
-  useLazyGetVolunteerByIdQuery
+  useLazyGetVolunteerByIdQuery,
+  useLazyGetUserByIdQuery
 } from 'services/volunteerHubApi';
 
 import { GridContainer, GridItem } from 'components/Grid';
@@ -28,13 +29,15 @@ import { Typography, Skeleton, Grid } from '@mui/material';
 import { myProfileFetched } from 'redux/slices/myProfileSlice';
 import { RootState } from 'redux/reduxStore';
 import { CSSObject } from '@emotion/react';
+import { useParams } from 'react-router-dom';
 
 const VolunteerProfile: React.FC<Props> = () => {
+  const id = useParams().id;
   const {
-    state: { user }
+    state: { user: signedUser }
   } = React.useContext(AuthenticationContext);
-
-  const [getVolunteerInfo, { isFetching }] = useLazyGetVolunteerByIdQuery();
+  const [getUserInfo, { isFetching: isFetchingUser }] = useLazyGetUserByIdQuery();
+  const [getVolunteerInfo, { isFetching: isFetchingVolunteer }] = useLazyGetVolunteerByIdQuery();
   const dispatch = useDispatch();
   const { myData } = useSelector(
     (state: RootState) => state.myProfile
@@ -48,17 +51,19 @@ const VolunteerProfile: React.FC<Props> = () => {
     ...main as CSSObject,
     ...mainRaised as CSSObject
   }));
+  const isFetching = isFetchingUser || isFetchingVolunteer;
 
   useEffect(() => {
     (
       async () => {
-        if (user?.id) {
-          const data = await getVolunteerInfo({ id: user.id }).unwrap();
-          dispatch(myProfileFetched(data));
+        if (id && signedUser) {
+          const user = signedUser.id === +id ? signedUser : (await getUserInfo({ id: +id }).unwrap());
+          const volunteer = await getVolunteerInfo({ id: +id }).unwrap();
+          dispatch(myProfileFetched({ ...volunteer, ...user }));
         }
       }
     )();
-  }, [user]);
+  }, []);
 
   return (
     <>
@@ -82,7 +87,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                   <Grid container justifyContent="center">
                     <Grid item xs={12}>
                       <Typography variant="h4">
-                        {`${user?.firstName} ${user?.lastName}`}
+                        {`${myData?.firstName} ${myData?.lastName}`}
                       </Typography>
                     </Grid>
                     <Grid item>
@@ -133,7 +138,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                       }
                       <br />
                       Email:
-                      {user?.email}
+                      {myData?.email}
                       Telefone:
                       {myData?.phone}
                     </Grid>
