@@ -48,8 +48,13 @@ const assureHomePath = async () => {
   );
   const homeButton = screen.getByRole('link', { name: appTitle });
   userEvent.click(homeButton);
+};
+
+const roles = {
+  HEADING: 'heading',
+  LINK: 'link'
 }
 
 export * from "@testing-library/react";
 
-export { customRender as render, assureHomePath };
+export { customRender as render, assureHomePath, roles };

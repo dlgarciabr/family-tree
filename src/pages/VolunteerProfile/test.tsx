@@ -1,8 +1,8 @@
 import userEvent from '@testing-library/user-event';
 
-import { render, screen, assureHomePath } from 'utils/test-utils';
+import { render, screen, assureHomePath, roles } from 'utils/test-utils';
 import { locales } from 'utils/i18n';
-import { addOrReplaceHandlers, mswServer } from '__mocks__/msw-server';
+import { addOrReplaceHandlers } from '__mocks__/msw-server';
 import App from 'App';
 import {
   createSuccessGetUserHandler,
@@ -57,12 +57,12 @@ describe('Volunteer profile management', () => {
       await screen.findByText(enAppTitle)
     ).toBeInTheDocument();
 
-    const myProfileButton = screen.getByRole("link", { name: myProfileButtonLabel });
+    const myProfileButton = screen.getByRole(roles.LINK, { name: myProfileButtonLabel });
     userEvent.click(myProfileButton);
 
     //assert
     expect(
-      await screen.findByRole("heading", { name: myProfileTitle })
+      await screen.findByRole(roles.HEADING, { name: myProfileTitle })
     ).toBeInTheDocument();
 
     expect(await screen.findByText(`${firstName} ${lastName}`)).toBeInTheDocument();
@@ -118,12 +118,12 @@ describe('Volunteer profile management', () => {
       await screen.findByText(enAppTitle)
     ).toBeInTheDocument();
 
-    const myProfileButton = screen.getByRole("link", { name: myProfileButtonLabel });
+    const myProfileButton = screen.getByRole(roles.LINK, { name: myProfileButtonLabel });
     userEvent.click(myProfileButton);
 
     //assert
     expect(
-      await screen.findByRole("heading", { name: profileTitle })
+      await screen.findByRole(roles.HEADING, { name: profileTitle })
     ).toBeInTheDocument();
 
     expect(await screen.findByText(`${firstName} ${lastName}`)).toBeInTheDocument();
