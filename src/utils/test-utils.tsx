@@ -30,10 +30,18 @@ const Providers = ({ children }: Props) => {
   )
 }
 
-const customRender = (ui: any, options?: any) =>
-  originalRender(ui, { wrapper: Providers, ...options });
+// const customRender = (ui: any, options?: any) => {
+//   console.log('>>>> before:', location.pathname)
+//   const renderResult = originalRender(ui, { wrapper: Providers, ...options });
+//   console.log('>>>> after:', location.pathname)
+//   return renderResult;
+// }
 
-const navigateToHome = async () => {
+const customRender = (ui: any, options?: any) => originalRender(ui, { wrapper: Providers, ...options });
+
+const assureHomePath = async () => {
+  window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
+  originalRender(<App />);
   const appTitle = locales.EN.getMessage('app.title');
   await waitFor(() =>
     expect(
@@ -42,8 +50,9 @@ const navigateToHome = async () => {
   );
   const homeButton = screen.getByRole('link', { name: appTitle });
   userEvent.click(homeButton);
+  window.sessionStorage.clear();
 }
 
 export * from "@testing-library/react";
 
-export { customRender as render, navigateToHome };
+export { customRender as render, assureHomePath };

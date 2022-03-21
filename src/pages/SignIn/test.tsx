@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor, navigateToHome } from 'utils/test-utils';
+import { render, screen, waitFor } from 'utils/test-utils';
 import { locales } from 'utils/i18n';
 import { mswServer, waitForRequest } from '__mocks__/msw-server';
 import {
