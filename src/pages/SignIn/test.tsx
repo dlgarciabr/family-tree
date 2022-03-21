@@ -158,7 +158,7 @@ describe("Sign in process", () => {
   // test("Success on opening a secured volunteer profile page after session restored from token", async () => {
   //   // arrange
   //   window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-  //   const myProfileTitle = locales.EN.getMessage('myprofile.title');
+  //   const myProfileTitle = locales.EN.getMessage('volunteerProfile.myProfle.header.label');
   //   const myProfileButtonLabel = locales.EN.getMessage('myprofile.button.label');
 
   //   // act

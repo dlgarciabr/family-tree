@@ -53,42 +53,33 @@ const successSignUpHandler = rest.post(`${baseUrl}/user/signup`, (req, res, ctx)
   );
 });
 
-const successGetUserHandler = rest.get(`${baseUrl}/user/:id`, (req, res, ctx) => {
-  // const msg = `[successGetUserHandler] MSW mocked GET called with url: ${req.url}`;
-  // console.info(msg);
-  return res(
-    ctx.json({
-      userId: "76"
-    }),
-    ctx.status(200)
-  );
-});
-
-export const createSuccessGetUserHandler = (responseObject: any) => {
-  return rest.get(`${baseUrl}/user/:id`, (req, res, ctx) => {
+export const createSuccessGetUserHandler = (responseObject: any) => (
+  rest.get(`${baseUrl}/user/:id`, (req, res, ctx) => {
     // const msg = `[successGetUserHandlerWithParams] MSW mocked GET called with url: ${req.url}`;
     // console.info(msg);
     return res(
       ctx.json(responseObject),
       ctx.status(200)
     );
-  });
-};
+  })
+);
 
-export const createSuccessGetVolunteerHandler = (responseObject: any) => {
-  return rest.get(`${baseUrl}/volunteer/:id`, (req, res, ctx) => {
+export const createSuccessGetVolunteerHandler = (responseObject: any) => (
+  rest.get(`${baseUrl}/volunteer/:id`, (req, res, ctx) => {
     // const msg = `[createSuccessGetVolunteerHandler] MSW mocked GET called with url: ${req.url}`;
     // console.info(msg);
     return res(
       ctx.json(responseObject),
       ctx.status(200)
     );
-  });
-};
+  })
+);
+
+const defaultSuccessGetUserHandler = createSuccessGetUserHandler({ userId: '76' });
 
 export const successHandlers = [
   successLoginHandler,
   successValidateTokenHandler,
   successSignUpHandler,
-  successGetUserHandler
+  defaultSuccessGetUserHandler
 ];

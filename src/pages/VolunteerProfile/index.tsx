@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { styled } from '@mui/material/styles';
@@ -33,6 +33,8 @@ import { useParams } from 'react-router-dom';
 
 const VolunteerProfile: React.FC<Props> = () => {
   const id = useParams().id;
+  const [isMyProfile, setMyProfile] = useState(false);
+
   const {
     state: { user: signedUser }
   } = React.useContext(AuthenticationContext);
@@ -57,7 +59,8 @@ const VolunteerProfile: React.FC<Props> = () => {
     (
       async () => {
         if (id && signedUser) {
-          const user = signedUser.id === +id ? signedUser : (await getUserInfo({ id: +id }).unwrap());
+          setMyProfile(signedUser.id === +id);
+          const user = isMyProfile ? signedUser : (await getUserInfo({ id: +id }).unwrap());
           const volunteer = await getVolunteerInfo({ id: +id }).unwrap();
           dispatch(myProfileFetched({ ...volunteer, ...user }));
         }
@@ -67,8 +70,11 @@ const VolunteerProfile: React.FC<Props> = () => {
 
   return (
     <>
-      <h3>
-        <FormattedMessage id="myprofile.title" />
+      <h3>{
+        isMyProfile ?
+          <FormattedMessage id="volunteerProfile.myProfle.header.label" /> :
+          <FormattedMessage id="volunteerProfile.header.label" />
+      }
       </h3>
       <Parallax image={profileBg} />
       <DivMain>
@@ -114,7 +120,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                         ) :
                           <Typography variant="body1">{myData?.coverLetter}</Typography>
                       }
-                      <FormattedMessage id="myprofile.preferedSupport.label" />:
+                      <FormattedMessage id="volunteerProfile.preferedSupport.label" />:
                       {
                         isFetching || !myData ?
                           <Skeleton variant="text" width="100px" height="35" /> :
@@ -130,7 +136,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                           )
                       }
                       <br />
-                      <FormattedMessage id="myprofile.preferedLanguages.label" />:
+                      <FormattedMessage id="volunteerProfile.preferedLanguages.label" />:
                       {
                         isFetching || !myData ?
                           <Skeleton variant="text" width="100px" height="35" /> :

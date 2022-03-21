@@ -40,8 +40,6 @@ const Providers = ({ children }: Props) => {
 const customRender = (ui: any, options?: any) => originalRender(ui, { wrapper: Providers, ...options });
 
 const assureHomePath = async () => {
-  window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
-  originalRender(<App />);
   const appTitle = locales.EN.getMessage('app.title');
   await waitFor(() =>
     expect(
@@ -50,7 +48,6 @@ const assureHomePath = async () => {
   );
   const homeButton = screen.getByRole('link', { name: appTitle });
   userEvent.click(homeButton);
-  window.sessionStorage.clear();
 }
 
 export * from "@testing-library/react";
