@@ -130,8 +130,6 @@ describe("Language changing", () => {
 describe("Global behavior", () => {
   test('Show nav bar when access a secured page', async () => {
     //arrange
-    const myProfileTitle = locales.EN.messages['myprofile.title'];
-    const myProfileButtonLabel = locales.EN.messages['myprofile.button.label'];
     window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
     render(<App />);
 
@@ -140,20 +138,17 @@ describe("Global behavior", () => {
     ).toBeInTheDocument();
 
     //act
-    const myProfileButton = screen.getByRole('link', { name: myProfileButtonLabel });
-    userEvent.click(myProfileButton);
+    const dummyLink = screen.getByRole('link', { name: 'Show protected dummy' });
+    userEvent.click(dummyLink);
 
     //assert
 
     expect(
-      await screen.findByRole('heading', { name: myProfileTitle })
+      await screen.findByText('dummy component')
     ).toBeInTheDocument();
 
     expect(
       await screen.findByText(enAppTitle)
     ).toBeInTheDocument();
-
-    //reset navigation
-    // await navigateToHome();
   });
 });

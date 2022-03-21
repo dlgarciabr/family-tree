@@ -18,13 +18,18 @@ const MainArea: React.FC<Props> = () => {
     navigate(`${Routes.VOLUNTEER_PROFILE}${user?.id}`);
   };
 
+  const showProtectedDummy = () => {
+    navigate(Routes.PROTECTED_DUMMY);
+  };
+
   return (
     <div>
       <h3>
         <FormattedMessage id="main.area.title" />
       </h3>
       <Box sx={{ flexGrow: 1 }}>
-        <a href="#" onClick={showMyProfile}><FormattedMessage id="myprofile.button.label" /></a>
+        <a href="#" onClick={showMyProfile}><FormattedMessage id="myprofile.button.label" /></a><br />
+        <a href="#" onClick={showProtectedDummy}>Show protected dummy</a>
       </Box>
     </div>
   );
