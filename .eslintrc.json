@@ -1,73 +1,73 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "only-warn"
+  ],
+  "rules": {
+    "no-use-before-define": "off",
+    "import/extensions": "off",
+    "eol-last": "off",
+    "react/function-component-definition": "off",
+    "comma-dangle": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "error"
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "only-warn"
-    ],
-    "rules": {
-        "no-use-before-define": "off",
-        "import/extensions": "off",
-        "eol-last": "off",
-        "react/function-component-definition": "off",
-        "comma-dangle": "off",
-        "@typescript-eslint/no-use-before-define": [
-            "error"
-        ],
-        "react/jsx-props-no-spreading": "off",
-        "react/jsx-filename-extension": [
-            "warn",
-            {
-                "extensions": [
-                    ".tsx"
-                ]
-            }
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [
+          ".tsx"
         ]
-    },
-    "overrides": [
-        {
-            "files": [
-                "src/**/*.{ts,tsx, js, jsx}",
-                "src/**/**/*.{ts,tsx, js, jsx}"
-            ],
-            "rules": {
-                "operator-linebreak": [
-                    "error",
-                    "after"
-                ],
-                "no-undef": "off"
-            }
-        }
-    ],
-    "settings": {
-        "import/resolver": {
-            "typescript": {},
-            "node": {
-                "extensions": [
-                    ".js",
-                    ".jsx",
-                    ".ts",
-                    ".tsx"
-                ]
-            }
-        }
-    },
-    "ignorePatterns": [
-        "src/services/familyTreeApi.ts"
+      }
     ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.{ts,tsx, js, jsx}",
+        "src/**/**/*.{ts,tsx, js, jsx}"
+      ],
+      "rules": {
+        "operator-linebreak": [
+          "error",
+          "after"
+        ],
+        "no-undef": "off"
+      }
+    }
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {},
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    }
+  },
+  "ignorePatterns": [
+    "src/services/volunteerHubApi.ts"
+  ]
 }

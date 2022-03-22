@@ -1,8 +1,12 @@
 {
-  "schemaFile": "./dlgarciabr-family-tree-api-1.0.0-resolved.json",
+  "schemaFile": "https://api.swaggerhub.com/apis/dlgarciabr/volunteerhub-api/1.0.0",
   "apiFile": "./src/services/base.ts",
   "apiImport": "baseApi",
-  "outputFile": "./src/services/familyTreeApi.ts",
-  "exportName": "familyTreeApi",
-  "hooks": true
+  "outputFile": "./src/services/volunteerHubApi.ts",
+  "exportName": "volunteerHubApi",
+  "hooks": {
+    "queries": true,
+    "lazyQueries": true,
+    "mutations": true
+  }
 }
