@@ -8,6 +8,7 @@ import VolunteerProfile from 'pages/VolunteerProfile';
 import SignUp from 'pages/SignUp';
 import { Props } from 'types';
 import Dummy from 'pages/Dummy';
+import NotFound from 'pages/NotFound';
 
 export const Routes = {
   HOME: '/',
@@ -24,6 +25,7 @@ const AppRoutes: React.FC<Props> = () => (
     <Route path={Routes.HOME} key="HOME" element={<RequireAuth><MainArea /></RequireAuth>} />
     <Route path={Routes.PROTECTED_DUMMY} key="PROTECTED_DUMMY" element={<RequireAuth><Dummy /></RequireAuth>} />
     <Route path={`${Routes.VOLUNTEER_PROFILE}:id`} key="VOLUNTEER_PROFILE" element={<RequireAuth><VolunteerProfile /></RequireAuth>} />
+    <Route path="*" element={<NotFound />} />
   </ReactRoutes>
 );
 
