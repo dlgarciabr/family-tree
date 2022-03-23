@@ -9,7 +9,7 @@ import AppProvider from '../context/App';
 import App from '../App';
 import { Props } from '../types';
 import { store } from '../redux/reduxStore';
-import AppRoutes from 'components/AppRoutes';
+import AppRoutes, { Routes } from 'components/AppRoutes';
 
 const Providers = ({ children }: Props) => {
   const isAppChildrenComponent = ((children as any).type as any).type === (App as any).type;
@@ -39,15 +39,33 @@ const Providers = ({ children }: Props) => {
 
 const customRender = (ui: any, options?: any) => originalRender(ui, { wrapper: Providers, ...options });
 
-const assureHomePath = async () => {
-  const appTitle = locales.EN.getMessage('app.title');
+const navigateTo = async (path: string) => {
+  const hiddenInput = screen.getByTestId('PATH_HIDDEN_INPUT');
+  userEvent.type(hiddenInput, path);
+  const hiddenPath = screen.getByTestId('PATH_HIDDEN_BUTTON');
+  userEvent.click(hiddenPath);
   await waitFor(() =>
     expect(
-      screen.queryByRole('link', { name: appTitle })
-    ).toBeInTheDocument()
+      location.pathname
+    ).toBe(path)
   );
-  const homeButton = screen.getByRole('link', { name: appTitle });
-  userEvent.click(homeButton);
+}
+
+const navigateToHome = async () => {
+  const mainAreaTitle = locales.EN.getMessage('main.area.title');
+  const currentPath = location.pathname;
+  if (currentPath != Routes.HOME) {
+    await navigateTo(Routes.HOME);
+  }
+
+  // const appTitle = locales.EN.getMessage('app.title');
+  // await waitFor(() =>
+  //   expect(
+  //     screen.queryByRole('link', { name: appTitle })
+  //   ).toBeInTheDocument()
+  // );
+  // const homeButton = screen.getByRole('link', { name: appTitle });
+  // userEvent.click(homeButton);
 };
 
 const roles = {
@@ -57,4 +75,4 @@ const roles = {
 
 export * from "@testing-library/react";
 
-export { customRender as render, assureHomePath, roles };
+export { customRender as render, navigateTo, navigateToHome, roles };

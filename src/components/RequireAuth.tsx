@@ -24,11 +24,16 @@ const RequireAuth: React.FC<Props> = ({ children }) => {
       })();
     }
   }, []);
-  if (!user && !sessionStorageCredentials) {
-    return <Navigate to={Routes.SIGN_IN} state={{ from: location }} replace />;
-  }
 
-  return children;
+  if (user) {
+    return children;
+  } else {
+    if (!user && !sessionStorageCredentials) {
+      return <Navigate to={Routes.SIGN_IN} state={{ from: location }} replace />;
+    } else {
+      return <div>loading</div>;
+    }
+  }
 };
 
 export default memo(RequireAuth);

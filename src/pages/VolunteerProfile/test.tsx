@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 
-import { render, screen, assureHomePath, roles } from 'utils/test-utils';
+import { render, screen, navigateToHome, navigateTo, roles } from 'utils/test-utils';
 import { locales } from 'utils/i18n';
 import { addOrReplaceHandlers } from '__mocks__/msw-server';
 import App from 'App';
@@ -8,8 +8,7 @@ import {
   createSuccessGetUserHandler,
   createSuccessGetVolunteerHandler
 } from '__mocks__/msw-handlers';
-
-const baseUrl = process.env.REACT_APP_API_URL;
+import { Routes } from 'components/AppRoutes';
 
 describe('Volunteer profile management', () => {
 
@@ -51,6 +50,7 @@ describe('Volunteer profile management', () => {
     );
 
     render(<App />);
+    await navigateToHome();
 
     //act
     expect(
@@ -72,15 +72,12 @@ describe('Volunteer profile management', () => {
     expect(await screen.findByText(preferedSupportLanguages, { exact: false })).toBeInTheDocument();
     expect(await screen.findByText(email, { exact: false })).toBeInTheDocument();
     expect(await screen.findByText(phone, { exact: false })).toBeInTheDocument();
-
-    await assureHomePath();
   });
 
   test('Show a random volunteer profile page', async () => {
     //arrange
     window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
     const profileTitle = locales.EN.getMessage('volunteerProfile.header.label');
-    const myProfileButtonLabel = locales.EN.getMessage('myprofile.button.label');
     const id = 76;
     const firstName = 'Alba';
     const lastName = 'Valery';
@@ -113,13 +110,10 @@ describe('Volunteer profile management', () => {
 
     render(<App />);
 
-    //act
-    expect(
-      await screen.findByText(enAppTitle)
-    ).toBeInTheDocument();
+    await navigateToHome();
 
-    const myProfileButton = screen.getByRole(roles.LINK, { name: myProfileButtonLabel });
-    userEvent.click(myProfileButton);
+    //act
+    await navigateTo(`${Routes.VOLUNTEER_PROFILE}8`);
 
     //assert
     expect(
@@ -133,8 +127,6 @@ describe('Volunteer profile management', () => {
     expect(await screen.findByText(preferedSupportLanguages, { exact: false })).toBeInTheDocument();
     expect(await screen.findByText(email, { exact: false })).toBeInTheDocument();
     expect(await screen.findByText(phone, { exact: false })).toBeInTheDocument();
-
-    await assureHomePath();
   });
 });
 

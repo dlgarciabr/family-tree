@@ -37,9 +37,14 @@ const width100 = {
   width: '100%'
 }
 
+const hide = {
+  display: 'none'
+}
+
 export {
   container,
   title,
   gridSkeletonMultipleLines,
-  width100
+  width100,
+  hide
 };

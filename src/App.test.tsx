@@ -1,10 +1,11 @@
 import userEvent from "@testing-library/user-event";
-import { render, screen/*, navigateToHome*/ } from './utils/test-utils';
+import { render, screen, navigateTo, navigateToHome } from './utils/test-utils';
 import { locales } from './utils/i18n';
 import App from './App';
+// import jsdom from 'jsdom';
 
 //global arrange
-const enAppTitle = locales.EN.messages['app.title'];
+const enAppTitle = locales.EN.getMessage('app.title');
 
 describe("Language changing", () => {
   test("Change language to Spanish", async () => {
@@ -128,7 +129,7 @@ describe("Language changing", () => {
 });
 
 describe("Global behavior", () => {
-  test('Show nav bar when access a secured page', async () => {
+  test('Global behavior:Show nav bar when access a secured page', async () => {
     //arrange
     window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
     render(<App />);
@@ -149,6 +150,43 @@ describe("Global behavior", () => {
 
     expect(
       await screen.findByText(enAppTitle)
+    ).toBeInTheDocument();
+  });
+
+  test('Show Not found page when there is no resource to URL without any active session', async () => {
+    //arrange
+    // window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
+    render(<App />);
+
+    expect(
+      await screen.findByText(locales.EN.getMessage('signin.title'))
+    ).toBeInTheDocument();
+
+    //act
+    navigateTo('aaaaa');
+
+    //assert
+    expect(
+      await screen.findByText('page not found')
+    ).toBeInTheDocument();
+  });
+
+  test('Show Not found page when there is no resource to URL with user logged in', async () => {
+    //arrange
+    window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
+    render(<App />);
+    await navigateToHome();
+
+    expect(
+      await screen.findByText(enAppTitle)
+    ).toBeInTheDocument();
+
+    //act
+    navigateTo('aaaaa');
+
+    //assert
+    expect(
+      await screen.findByText('page not found')
     ).toBeInTheDocument();
   });
 });
