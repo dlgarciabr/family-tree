@@ -10,6 +10,7 @@
   "signin.button.label": "Sign In",
   "signin.wrong.credentials.message": "Wrong credentials",
   "signout.button.label": "Sign Out",
+  "signup.title": "Sign Up",
   "signup.button.label": "Sign Up",
   "signup.first.name.label": "Name",
   "signup.first.name.required.message": "Name is required",

@@ -52,7 +52,7 @@ const navigateTo = async (path: string) => {
 }
 
 const navigateToHome = async () => {
-  const mainAreaTitle = locales.EN.getMessage('main.area.title');
+  // const mainAreaTitle = locales.EN.getMessage('main.area.title');
   const currentPath = location.pathname;
   if (currentPath != Routes.HOME) {
     await navigateTo(Routes.HOME);
@@ -69,8 +69,10 @@ const navigateToHome = async () => {
 };
 
 const roles = {
+  BUTTON: 'button',
   HEADING: 'heading',
-  LINK: 'link'
+  LINK: 'link',
+  TEXTBOX: 'textbox'
 }
 
 export * from "@testing-library/react";
