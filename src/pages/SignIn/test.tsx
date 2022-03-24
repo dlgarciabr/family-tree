@@ -13,12 +13,13 @@ import { Routes } from 'components/AppRoutes';
 const baseUrl = process.env.REACT_APP_API_URL;
 
 describe("Sign in process", () => {
+  //global arrange
   const mainAreaHeaderTitle = locales.EN.getMessage('app.title');
   const signInTitle = locales.EN.getMessage('signin.title');
   const signOutLabel = locales.EN.getMessage('signout.button.label');
-  const emailLabel = "Email";
+  const emailLabel = locales.EN.getMessage('signin.email.label');
+  const buttonLabel = locales.EN.getMessage('signin.button.label');
   const passwordId = "password";
-  const buttonLabel = "Sign In";
   const email = "admin@mail.com";
   const password = "123456";
 
