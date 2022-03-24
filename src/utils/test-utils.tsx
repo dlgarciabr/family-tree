@@ -72,6 +72,7 @@ const roles = {
   BUTTON: 'button',
   HEADING: 'heading',
   LINK: 'link',
+  MENUITEM: 'menuitem',
   TEXTBOX: 'textbox'
 }
 
