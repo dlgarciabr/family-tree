@@ -10,6 +10,7 @@
   "signin.button.label": "Aceder",
   "signin.wrong.credentials.message": "Wrong credentials",
   "signout.button.label": "Salir",
+  "signup.title": "Sign Up",
   "signup.button.label": "Cadastro",
   "signup.first.name.label": "Nombre",
   "signup.first.name.required.message": "Name is required",

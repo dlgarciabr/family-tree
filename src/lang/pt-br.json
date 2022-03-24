@@ -10,6 +10,7 @@
   "signin.button.label": "Enviar",
   "signin.wrong.credentials.message": "Wrong credentials",
   "signout.button.label": "Sair",
+  "signup.title": "Sign Up",
   "signup.button.label": "Criar conta",
   "signup.first.name.label": "Nome",
   "signup.first.name.required.message": "Name is required",

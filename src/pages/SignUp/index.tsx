@@ -39,7 +39,7 @@ const SignUpForm: React.FC<Props> = () => {
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <Typography variant="h5">
-              <FormattedMessage id="signin.title" />
+              <FormattedMessage id="signup.title" />
             </Typography>
           </Grid>
           <Grid item xs={6}>
