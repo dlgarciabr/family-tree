@@ -150,7 +150,7 @@ describe('Sign up process', () => {
     userEvent.click(backButton);
   });
 
-  test('Fail on doing sign up with wrong confir password field', async () => {
+  test('Fail on doing sign up with wrong password confirmation field', async () => {
     //arrange
     const password = 'xxxxxxxx';
     const passwordNotMatchMessage = locales.EN.getMessage('signup.confirmPassword.not.match.message');

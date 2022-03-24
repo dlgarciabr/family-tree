@@ -25,9 +25,10 @@
   "signup.confirmPassword.not.match.message": "Passwords don't match",
   "main.area.title": "Main area",
   "myprofile.button.label": "View My profile",
-  "myprofile.title": "My profile",
-  "myprofile.preferedSupport.label": "Prefer to help",
-  "myprofile.preferedLanguages.label": "Prefered languages",
+  "volunteerProfile.myProfle.header.label": "My profile",
+  "volunteerProfile.header.label": "Volunteer Profile",
+  "volunteerProfile.preferedSupport.label": "Prefer to help",
+  "volunteerProfile.preferedLanguages.label": "Prefered languages",
   "prefered.support.type.presential": "presential",
   "prefered.support.type.remote": "remote",
   "prefered.support.type.both": "both"
