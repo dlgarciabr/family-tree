@@ -1,5 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
 
 import { AppContext } from 'context/App';
 import AuthenticationProvider from 'context/Authentication';
@@ -13,8 +14,14 @@ const App: React.FC<Props> = ({ children }) => {
       locale
     }
   } = React.useContext(AppContext);
+  const navigate = useNavigate();
 
   notifierEffect();
+
+  const navigateToHiddenPath = () => {
+    const hiddenInput = document.querySelector('[data-testid=\'PATH_HIDDEN_INPUT\']') as HTMLInputElement;
+    navigate(hiddenInput.value.replace('//', '/'));
+  };
 
   return (
     <IntlProvider
@@ -23,6 +30,8 @@ const App: React.FC<Props> = ({ children }) => {
     >
       <AuthenticationProvider>
         <div className="App">
+          <input type="text" data-testid="PATH_HIDDEN_INPUT" style={{ 'display': 'none' }} />
+          <a href="#" data-testid="PATH_HIDDEN_BUTTON" style={{ 'display': 'none' }} onClick={navigateToHiddenPath}></a>
           <TopBar />
           {children}
         </div>

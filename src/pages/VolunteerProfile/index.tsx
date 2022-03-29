@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { styled } from '@mui/material/styles';
@@ -6,7 +6,8 @@ import { styled } from '@mui/material/styles';
 import { Props } from 'types';
 
 import {
-  useLazyGetVolunteerByIdQuery
+  useLazyGetVolunteerByIdQuery,
+  useLazyGetUserByIdQuery
 } from 'services/volunteerHubApi';
 
 import { GridContainer, GridItem } from 'components/Grid';
@@ -28,13 +29,17 @@ import { Typography, Skeleton, Grid } from '@mui/material';
 import { myProfileFetched } from 'redux/slices/myProfileSlice';
 import { RootState } from 'redux/reduxStore';
 import { CSSObject } from '@emotion/react';
+import { useParams } from 'react-router-dom';
 
 const VolunteerProfile: React.FC<Props> = () => {
-  const {
-    state: { user }
-  } = React.useContext(AuthenticationContext);
+  const id = useParams().id;
+  const [isMyProfile, setMyProfile] = useState(false);
 
-  const [getVolunteerInfo, { isFetching }] = useLazyGetVolunteerByIdQuery();
+  const {
+    state: { user: signedUser }
+  } = React.useContext(AuthenticationContext);
+  const [getUserInfo, { isFetching: isFetchingUser }] = useLazyGetUserByIdQuery();
+  const [getVolunteerInfo, { isFetching: isFetchingVolunteer }] = useLazyGetVolunteerByIdQuery();
   const dispatch = useDispatch();
   const { myData } = useSelector(
     (state: RootState) => state.myProfile
@@ -48,22 +53,28 @@ const VolunteerProfile: React.FC<Props> = () => {
     ...main as CSSObject,
     ...mainRaised as CSSObject
   }));
+  const isFetching = isFetchingUser || isFetchingVolunteer;
 
   useEffect(() => {
     (
       async () => {
-        if (user?.id) {
-          const data = await getVolunteerInfo({ id: user.id }).unwrap();
-          dispatch(myProfileFetched(data));
+        if (id && signedUser) {
+          setMyProfile(signedUser.id === +id);
+          const user = isMyProfile ? signedUser : (await getUserInfo({ id: +id }).unwrap());
+          const volunteer = await getVolunteerInfo({ id: +id }).unwrap();
+          dispatch(myProfileFetched({ ...volunteer, ...user }));
         }
       }
     )();
-  }, [user]);
+  }, []);
 
   return (
     <>
-      <h3>
-        <FormattedMessage id="myprofile.title" />
+      <h3>{
+        isMyProfile ?
+          <FormattedMessage id="volunteerProfile.myProfle.header.label" /> :
+          <FormattedMessage id="volunteerProfile.header.label" />
+      }
       </h3>
       <Parallax image={profileBg} />
       <DivMain>
@@ -82,7 +93,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                   <Grid container justifyContent="center">
                     <Grid item xs={12}>
                       <Typography variant="h4">
-                        {`${user?.firstName} ${user?.lastName}`}
+                        {`${myData?.firstName} ${myData?.lastName}`}
                       </Typography>
                     </Grid>
                     <Grid item>
@@ -109,7 +120,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                         ) :
                           <Typography variant="body1">{myData?.coverLetter}</Typography>
                       }
-                      <FormattedMessage id="myprofile.preferedSupport.label" />:
+                      <FormattedMessage id="volunteerProfile.preferedSupport.label" />:
                       {
                         isFetching || !myData ?
                           <Skeleton variant="text" width="100px" height="35" /> :
@@ -125,7 +136,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                           )
                       }
                       <br />
-                      <FormattedMessage id="myprofile.preferedLanguages.label" />:
+                      <FormattedMessage id="volunteerProfile.preferedLanguages.label" />:
                       {
                         isFetching || !myData ?
                           <Skeleton variant="text" width="100px" height="35" /> :
@@ -133,7 +144,7 @@ const VolunteerProfile: React.FC<Props> = () => {
                       }
                       <br />
                       Email:
-                      {user?.email}
+                      {myData?.email}
                       Telefone:
                       {myData?.phone}
                     </Grid>

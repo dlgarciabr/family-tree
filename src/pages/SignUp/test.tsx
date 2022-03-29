@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '../../utils/test-utils';
+import { render, screen, waitFor, navigateToHome, roles } from '../../utils/test-utils';
 import { locales } from '../../utils/i18n';
 import { waitForRequest } from '../../__mocks__/msw-server';
 
@@ -30,16 +30,16 @@ describe('Sign up process', () => {
 
     //act
     userEvent.click(
-      screen.getByRole('button', { name: signUpButtonLabel })
+      screen.getByRole(roles.BUTTON, { name: signUpButtonLabel })
     );
 
-    const firstNameField = await screen.findByRole('textbox', {
+    const firstNameField = await screen.findByRole(roles.TEXTBOX, {
       name: firstNameLabel,
     });
-    const lastNameField = screen.getByRole('textbox', {
+    const lastNameField = screen.getByRole(roles.TEXTBOX, {
       name: lastNameLabel,
     });
-    const emailField = screen.getByRole('textbox', {
+    const emailField = screen.getByRole(roles.TEXTBOX, {
       name: emailLabel,
     });
     const passwordField = screen.getByTestId(passwordId).childNodes[1]
@@ -55,7 +55,7 @@ describe('Sign up process', () => {
 
     await waitFor(async () => {
       userEvent.click(
-        screen.getByRole('button', { name: submitButtonLabel })
+        screen.getByRole(roles.BUTTON, { name: submitButtonLabel })
       );
       const request = await pendingRequest;
 
@@ -76,6 +76,7 @@ describe('Sign up process', () => {
 
   test('Fail on doing sign up with incomplete form', async () => {
     //arrange
+    const signUpTitle = locales.EN.getMessage('signup.title');
     const firstNameRequiredMessage = locales.EN.getMessage('signup.first.name.required.message');
     const lastNameRequiredMessage = locales.EN.getMessage('signup.last.name.required.message');
     const emailRequiredMessage = locales.EN.getMessage('signup.email.required.message');
@@ -84,15 +85,19 @@ describe('Sign up process', () => {
 
     render(<App />);
 
+    await navigateToHome();
+
     //act
     userEvent.click(
-      screen.getByRole('button', { name: signUpButtonLabel })
+      screen.getByRole(roles.BUTTON, { name: signUpButtonLabel })
     );
 
-    //TODO: expect sign up screen to be shown
+    expect(
+      await screen.findByRole(roles.HEADING, { name: signUpTitle })
+    ).toBeInTheDocument();
 
     userEvent.click(
-      screen.getByRole('button', { name: submitButtonLabel })
+      screen.getByRole(roles.BUTTON, { name: submitButtonLabel })
     );
 
     //assert
@@ -116,7 +121,7 @@ describe('Sign up process', () => {
       screen.getByText(confirmPasswordRequiredMessage)
     ).toBeInTheDocument();
 
-    const backButton = screen.getByRole("button", { name: backButtonLabel });
+    const backButton = screen.getByRole(roles.BUTTON, { name: backButtonLabel });
     userEvent.click(backButton);
   });
 
@@ -127,18 +132,20 @@ describe('Sign up process', () => {
 
     render(<App />);
 
+    await navigateToHome();
+
     //act
     userEvent.click(
-      screen.getByRole('button', { name: signUpButtonLabel })
+      screen.getByRole(roles.BUTTON, { name: signUpButtonLabel })
     );
 
-    const emailField = await screen.findByRole('textbox', {
+    const emailField = await screen.findByRole(roles.TEXTBOX, {
       name: emailLabel,
     });
     userEvent.type(emailField, email);
 
     userEvent.click(
-      screen.getByRole('button', { name: submitButtonLabel })
+      screen.getByRole(roles.BUTTON, { name: submitButtonLabel })
     );
 
     //assert
@@ -146,20 +153,22 @@ describe('Sign up process', () => {
       await screen.findByText(emailInvalidMessage)
     ).toBeInTheDocument();
 
-    const backButton = screen.getByRole("button", { name: backButtonLabel });
+    const backButton = screen.getByRole(roles.BUTTON, { name: backButtonLabel });
     userEvent.click(backButton);
   });
 
-  test('Fail on doing sign up with wrong confir password field', async () => {
+  test('Fail on doing sign up with wrong password confirmation field', async () => {
     //arrange
     const password = 'xxxxxxxx';
     const passwordNotMatchMessage = locales.EN.getMessage('signup.confirmPassword.not.match.message');
 
     render(<App />);
 
+    await navigateToHome();
+
     //act
     userEvent.click(
-      screen.getByRole('button', { name: signUpButtonLabel })
+      screen.getByRole(roles.BUTTON, { name: signUpButtonLabel })
     );
 
     const passwordField = screen.getByTestId(passwordId).childNodes[1]
@@ -173,7 +182,7 @@ describe('Sign up process', () => {
     userEvent.type(confirmPasswordField, 'aaaaaaaa');
 
     userEvent.click(
-      screen.getByRole('button', { name: submitButtonLabel })
+      screen.getByRole(roles.BUTTON, { name: submitButtonLabel })
     );
 
     //assert
@@ -181,7 +190,7 @@ describe('Sign up process', () => {
       await screen.findByText(passwordNotMatchMessage)
     ).toBeInTheDocument();
 
-    const backButton = screen.getByRole("button", { name: backButtonLabel });
+    const backButton = screen.getByRole(roles.BUTTON, { name: backButtonLabel });
     userEvent.click(backButton);
   });
 });

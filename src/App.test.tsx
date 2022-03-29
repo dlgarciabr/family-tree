@@ -1,35 +1,33 @@
 import userEvent from "@testing-library/user-event";
-import { render, screen/*, navigateToHome*/ } from './utils/test-utils';
+import { render, screen, navigateTo, navigateToHome, roles } from './utils/test-utils';
 import { locales } from './utils/i18n';
 import App from './App';
 
 //global arrange
-const enAppTitle = locales.EN.messages['app.title'];
+const enAppTitle = locales.EN.getMessage('app.title');
 
 describe("Language changing", () => {
   test("Change language to Spanish", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = locales.ES.messages['app.title'];
+    const expectedHeaderTitle = locales.ES.getMessage('app.title');
 
     render(<App />);
 
     expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
 
     //act
-    const languageButton = screen.getByRole("button", {
+    const languageButton = screen.getByRole(roles.BUTTON, {
       name: 'language-button'
     });
 
     userEvent.click(languageButton);
 
-    const spanishLanguageButton = screen.getByRole("menuitem", {
+    const spanishLanguageButton = screen.getByRole(roles.MENUITEM, {
       name: 'Español',
     });
 
     userEvent.click(spanishLanguageButton)
-
-    // await new Promise((r) => setTimeout(r, 1000));
 
     //assert
     expect(await screen.findByText(expectedHeaderTitle)).toBeInTheDocument();
@@ -38,20 +36,20 @@ describe("Language changing", () => {
   test("Change language to Portuguese", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = locales.PT.messages['app.title'];
+    const expectedHeaderTitle = locales.PT.getMessage('app.title');
 
     render(<App />);
 
     expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
 
     //act
-    const languageButton = screen.getByRole("button", {
+    const languageButton = screen.getByRole(roles.BUTTON, {
       name: 'language-button'
     });
 
     userEvent.click(languageButton);
 
-    const ptLanguageButton = screen.getByRole("menuitem", {
+    const ptLanguageButton = screen.getByRole(roles.MENUITEM, {
       name: 'Português',
     });
 
@@ -64,20 +62,20 @@ describe("Language changing", () => {
   test("Change language to Brazilian Portuguese", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const expectedHeaderTitle = locales.PT_BR.messages['app.title'];
+    const expectedHeaderTitle = locales.PT_BR.getMessage('app.title');
 
     render(<App />);
 
     expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
 
     //act
-    const languageButton = screen.getByRole("button", {
+    const languageButton = screen.getByRole(roles.BUTTON, {
       name: 'language-button'
     });
 
     userEvent.click(languageButton);
 
-    const ptLanguageButton = screen.getByRole("menuitem", {
+    const ptLanguageButton = screen.getByRole(roles.MENUITEM, {
       name: 'Português Br',
     });
 
@@ -90,19 +88,19 @@ describe("Language changing", () => {
   test("Change language to Portuguese and then to English", async () => {
     //arrange
     window.sessionStorage.setItem("credentials", '{ "id": 4, "token": "1567854363452345" }');
-    const ptbrHeaderTitle = locales.PT_BR.messages['app.title'];
+    const ptbrHeaderTitle = locales.PT_BR.getMessage('app.title');
 
     render(<App />);
 
     expect(await screen.findByText(enAppTitle)).toBeInTheDocument();
 
-    const languageButton = screen.getByRole("button", {
+    const languageButton = screen.getByRole(roles.BUTTON, {
       name: 'language-button'
     });
 
     userEvent.click(languageButton);
 
-    const ptLanguageButton = screen.getByRole("menuitem", {
+    const ptLanguageButton = screen.getByRole(roles.MENUITEM, {
       name: 'Português Br',
     });
 
@@ -113,7 +111,7 @@ describe("Language changing", () => {
     //act
     userEvent.click(languageButton);
 
-    const enLanguageButton = screen.getByRole("menuitem", {
+    const enLanguageButton = screen.getByRole(roles.MENUITEM, {
       name: 'English',
     });
 
@@ -128,10 +126,8 @@ describe("Language changing", () => {
 });
 
 describe("Global behavior", () => {
-  test('Show nav bar when access a secured page', async () => {
+  test('Global behavior:Show nav bar when access a secured page', async () => {
     //arrange
-    const myProfileTitle = locales.EN.messages['myprofile.title'];
-    const myProfileButtonLabel = locales.EN.messages['myprofile.button.label'];
     window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
     render(<App />);
 
@@ -140,20 +136,53 @@ describe("Global behavior", () => {
     ).toBeInTheDocument();
 
     //act
-    const myProfileButton = screen.getByRole('link', { name: myProfileButtonLabel });
-    userEvent.click(myProfileButton);
+    const dummyLink = screen.getByRole(roles.LINK, { name: 'Show protected dummy' });
+    userEvent.click(dummyLink);
 
     //assert
 
     expect(
-      await screen.findByRole('heading', { name: myProfileTitle })
+      await screen.findByText('dummy component')
     ).toBeInTheDocument();
 
     expect(
       await screen.findByText(enAppTitle)
     ).toBeInTheDocument();
+  });
 
-    //reset navigation
-    // await navigateToHome();
+  test('Show Not found page when there is no resource to URL without any active session', async () => {
+    //arrange
+    render(<App />);
+
+    expect(
+      await screen.findByText(locales.EN.getMessage('signin.title'))
+    ).toBeInTheDocument();
+
+    //act
+    navigateTo('aaaaa');
+
+    //assert
+    expect(
+      await screen.findByText('page not found')
+    ).toBeInTheDocument();
+  });
+
+  test('Show Not found page when there is no resource to URL with user logged in', async () => {
+    //arrange
+    window.sessionStorage.setItem('credentials', '{ "id": 4, "token": "1567854363452345" }');
+    render(<App />);
+    await navigateToHome();
+
+    expect(
+      await screen.findByText(enAppTitle)
+    ).toBeInTheDocument();
+
+    //act
+    navigateTo('aaaaa');
+
+    //assert
+    expect(
+      await screen.findByText('page not found')
+    ).toBeInTheDocument();
   });
 });
