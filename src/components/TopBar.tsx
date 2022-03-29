@@ -104,7 +104,6 @@ const TopBar: React.FC<Props> = () => {
                   anchorEl={anchorRef.current}
                   role={undefined}
                   transition
-                  disablePortal
                 >
                   {({ TransitionProps, placement }) => (
                     <Grow
